@@ -5,6 +5,7 @@ export interface ResponseUser {
   image: string;
   password: string;
   token: string;
+  username: string;
 }
 
 export interface User {
@@ -12,6 +13,7 @@ export interface User {
   email: string;
   bio: string;
   image: string;
+  username: string;
 }
 
 export interface UserState {

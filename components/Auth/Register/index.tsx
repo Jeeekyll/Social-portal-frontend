@@ -4,11 +4,10 @@ import { Button, TextField, Typography } from "@mui/material";
 import styles from "./Register.module.scss";
 import Link from "next/link";
 import { CreateUserDto } from "store/types/user.type";
-import AuthService from "services/AuthService";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterFormSchema } from "utils/validation";
 import { useTypedDispatch } from "store/hooks";
-import { setUserData } from "store/slices/user";
+import { register as registerThunk } from "store/slices/user";
 
 const Register: FC = () => {
   const dispatch = useTypedDispatch();
@@ -24,13 +23,7 @@ const Register: FC = () => {
   const onSubmit: SubmitHandler<CreateUserDto> = async (
     createUserDto: CreateUserDto
   ) => {
-    try {
-      const data = await AuthService.register(createUserDto);
-      dispatch(setUserData(data));
-      localStorage.setItem("token", data.token);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(registerThunk(createUserDto));
   };
 
   return (

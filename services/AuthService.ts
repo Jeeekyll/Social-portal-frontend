@@ -4,6 +4,7 @@ import {
   LoginUserDto,
   ResponseUser,
 } from "../store/types/user.type";
+import $api from "./index";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -12,6 +13,10 @@ interface RegisterUserResponse {
 }
 
 interface LoginUserResponse {
+  user: ResponseUser;
+}
+
+interface CheckAuthUserResponse {
   user: ResponseUser;
 }
 
@@ -27,6 +32,11 @@ export default class AuthService {
     const { data } = await axios.post<LoginUserResponse>(`${api}/users/login`, {
       user: loginUserDto,
     });
+    return data.user;
+  }
+
+  static async checkAuth(): Promise<ResponseUser> {
+    const { data } = await $api.get<CheckAuthUserResponse>(`${api}/user`);
     return data.user;
   }
 }
