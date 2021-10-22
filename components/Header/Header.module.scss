@@ -60,3 +60,13 @@
     margin-bottom: 30px;
   }
 }
+
+.header__item {
+  transition: color 0.2s ease-in;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &:hover {
+    color: #ea2845;
+  }
+}

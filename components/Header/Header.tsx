@@ -30,6 +30,9 @@ import { useDispatch } from "react-redux";
 import styles from "./Header.module.scss";
 import { Box } from "@mui/system";
 import Login from "../Auth/Login";
+import cn from "classnames";
+import { Fade as FadeEffect } from "react-awesome-reveal";
+import Register from "../Auth/Register";
 
 const Header: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -60,55 +63,69 @@ const Header: FC = (): ReactElement => {
 
   return (
     <div>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleMenuOpen}
-            edge="start"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Link href="/">
-            <a className={styles.header__title}>
-              <Typography variant="h6" noWrap component="div">
-                Social portal
-              </Typography>
-            </a>
-          </Link>
-          <div className={styles.header__user}>
-            {isAuth ? (
-              <>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  color="inherit"
+      <AppBar position="sticky" color="transparent">
+        <FadeEffect delay={400}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleMenuOpen}
+              edge="start"
+              className={styles.header__item}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Link href="/">
+              <a className={cn(styles.header__title)}>
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  className={styles.header__item}
                 >
-                  <AccountCircleIcon />
-                </IconButton>
-                <div className={styles.header__user__username}>
-                  {user.username}
-                </div>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={handleLogoutOpen}
-                  size="large"
-                >
-                  <LogoutIcon />
-                </IconButton>
-              </>
-            ) : (
-              <div className={styles.header__user__auth}>
-                <Login />
-                <Button variant="contained" size="small">
-                  Sign up
-                </Button>
-              </div>
-            )}
-          </div>
-        </Toolbar>
+                  Social portal
+                </Typography>
+              </a>
+            </Link>
+            <div className={styles.header__user}>
+              {isAuth ? (
+                <FadeEffect delay={200}>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    color="inherit"
+                  >
+                    <AccountCircleIcon />
+                  </IconButton>
+                  <div
+                    className={cn(
+                      styles.header__user__username,
+                      styles.header__item
+                    )}
+                  >
+                    {user.username}
+                  </div>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleLogoutOpen}
+                    size="large"
+                    className={styles.header__item}
+                  >
+                    <LogoutIcon />
+                  </IconButton>
+                </FadeEffect>
+              ) : (
+                <FadeEffect delay={200}>
+                  <div className={styles.header__user__auth}>
+                    <Login />
+                    <Register />
+                  </div>
+                </FadeEffect>
+              )}
+            </div>
+          </Toolbar>
+        </FadeEffect>
       </AppBar>
       <Drawer variant="persistent" anchor="left" open={isMenuOpen}>
         <div className={styles.header__menu_arrow}>
@@ -174,10 +191,10 @@ const Header: FC = (): ReactElement => {
               ARE YOU SURE?
             </Typography>
             <div className={styles.logout__modal__actions}>
+              <Button onClick={handleLogoutClose}>Cancel</Button>
               <Button variant="contained" onClick={onLogoutClick}>
                 Confirm
               </Button>
-              <Button onClick={handleLogoutClose}>Cancel</Button>
             </div>
           </Box>
         </Fade>

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import styles from "./Login.module.scss";
 import {
   Backdrop,
@@ -15,6 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { login } from "store/slices/user";
 import { useDispatch } from "react-redux";
 import { Box } from "@mui/system";
+import { Fade as FadeEffect } from "react-awesome-reveal";
 
 const Login: FC = () => {
   const dispatch = useDispatch();
@@ -26,10 +27,10 @@ const Login: FC = () => {
   const [loginStepper, setLoginStepper] = useState<number>(1);
 
   const {
-    register,
     handleSubmit,
     watch,
     reset,
+    control,
     formState: { errors },
   } = useForm<LoginUserDto>({
     resolver: yupResolver(LoginFormSchema),
@@ -74,57 +75,78 @@ const Login: FC = () => {
           <Box className={styles.login__modal}>
             <div className={styles.login}>
               <div className={styles.login__body}>
-                <Typography variant="h3" className={styles.login__title}>
-                  Login
-                </Typography>
+                <FadeEffect delay={300}>
+                  <Typography variant="h3" className={styles.login__title}>
+                    Login
+                  </Typography>
+                </FadeEffect>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                   {loginStepper === 1 && (
                     <>
-                      <TextField
-                        error={errors.email && true}
-                        label="Email"
-                        {...register("email")}
-                        className={styles.login__input}
-                      />
-                      <div className={styles.login__actions}>
-                        <Button onClick={handleModalClose}>Close</Button>
+                      <FadeEffect direction="right" duration={200} delay={300}>
+                        <Controller
+                          control={control}
+                          name="email"
+                          render={({ field: { onChange } }) => (
+                            <TextField
+                              error={errors.email && true}
+                              label="Email"
+                              className={styles.login__input}
+                              onChange={onChange}
+                            />
+                          )}
+                        />
+                      </FadeEffect>
 
-                        <Button
-                          variant="contained"
-                          onClick={() => setLoginStepper(2)}
-                          disabled={
-                            (errors.email && true) || !watchAllFields?.email
-                          }
-                          type="button"
-                        >
-                          Next
-                        </Button>
-                      </div>
+                      <FadeEffect delay={300}>
+                        <div className={styles.login__actions}>
+                          <Button onClick={handleModalClose}>Close</Button>
+                          <Button
+                            variant="contained"
+                            onClick={() => setLoginStepper(2)}
+                            disabled={
+                              (errors.email && true) || !watchAllFields?.email
+                            }
+                            type="button"
+                          >
+                            Next
+                          </Button>
+                        </div>
+                      </FadeEffect>
                     </>
                   )}
 
                   {loginStepper === 2 && (
                     <>
-                      <TextField
-                        label="Password"
-                        type="password"
-                        error={errors.password && true}
-                        {...register("password")}
-                        className={styles.login__input}
-                      />
-                      <div className={styles.login__actions}>
-                        <Button onClick={() => setLoginStepper(1)}>
-                          Prev step
-                        </Button>
-                        <Button
-                          variant="contained"
-                          type="submit"
-                          disabled={errors.password && true}
-                        >
-                          Login
-                        </Button>
-                      </div>
+                      <FadeEffect delay={300}>
+                        <Controller
+                          control={control}
+                          name="password"
+                          render={({ field: { onChange } }) => (
+                            <TextField
+                              label="Password"
+                              type="password"
+                              error={errors.password && true}
+                              onChange={onChange}
+                              className={styles.login__input}
+                            />
+                          )}
+                        />
+
+                        <div className={styles.login__actions}>
+                          <Button onClick={() => setLoginStepper(1)}>
+                            Prev step
+                          </Button>
+                          <Button
+                            variant="contained"
+                            type="submit"
+                            disabled={errors.password && true}
+                          >
+                            Login
+                          </Button>
+                        </div>
+                      </FadeEffect>
                     </>
                   )}
                 </form>

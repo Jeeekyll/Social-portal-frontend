@@ -1,0 +1,24 @@
+@import "mixins/mixins.scss";
+@import "ui/ui.scss";
+@import "base/base.scss";
+@import "blocks/blocks.scss";
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html, body {
+  font-family: 'Roboto';
+  font-size: inherit;
+  color: inherit;
+}
+
+.container {
+  max-width: 1130px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+

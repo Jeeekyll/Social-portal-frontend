@@ -1,0 +1,29 @@
+/* Landscape tablets and medium desktops */
+$md0: 1199px;
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+$md1: 991px;
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+$md2: 767px;
+@media (max-width: 767px) {
+
+}
+
+/* Portrait phones and smaller */
+$md3: 480px;
+@media (max-width: 480px) {
+
+}
+
+/* Iphone 5 */
+$md4: 320px;
+@media (max-width: 320px) {}
+
+
