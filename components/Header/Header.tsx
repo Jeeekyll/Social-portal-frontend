@@ -1,7 +1,9 @@
+import React, { FC, ReactElement, useEffect, useState } from "react";
 import {
   AppBar,
   Backdrop,
   Button,
+  Divider,
   Drawer,
   Fade,
   IconButton,
@@ -9,19 +11,21 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
   Modal,
   Toolbar,
   Typography,
 } from "@mui/material";
-import React, { FC, ReactElement, useEffect, useState } from "react";
 import {
   MenuIcon,
-  ChevronLeftIcon,
   AccountCircleIcon,
-  LogoutIcon,
   HomeIcon,
   ChatIcon,
   RssIcon,
+  LogoutVariantIcon,
+  SettingsIcon,
+  CloseIcon,
 } from "@icons/material";
 import Link from "next/link";
 import { useTypedSelector } from "store/hooks";
@@ -39,22 +43,29 @@ const Header: FC = (): ReactElement => {
   const { user, isAuth } = useTypedSelector((state) => state.user);
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const toggleMenuOpen = (): void => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false);
   const handleLogoutOpen = (): void => setIsLogoutOpen(true);
   const handleLogoutClose = (): void => setIsLogoutOpen(false);
 
-  const onLogoutClick = () => {
+  const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(
+    null
+  );
+  const handleUserMenuClick = (event: React.MouseEvent<HTMLElement>): void => {
+    setUserMenuAnchor(event.currentTarget);
+  };
+  const handleUserMenuClose = (): void => {
+    setUserMenuAnchor(null);
+  };
+
+  const isUserMenuOpen = Boolean(userMenuAnchor);
+
+  const onLogoutClick = (): void => {
     dispatch(logout());
     handleLogoutClose();
-  };
-
-  const handleMenuOpen = (): void => {
-    setIsMenuOpen(true);
-  };
-
-  const handleMenuClose = (): void => {
-    setIsMenuOpen(false);
   };
 
   useEffect(() => {
@@ -63,17 +74,17 @@ const Header: FC = (): ReactElement => {
 
   return (
     <div>
-      <AppBar position="sticky" color="transparent">
+      <AppBar position="fixed" className={styles.header}>
         <FadeEffect delay={400}>
-          <Toolbar>
+          <Toolbar className={styles.header__container}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleMenuOpen}
+              onClick={toggleMenuOpen}
               edge="start"
               className={styles.header__item}
             >
-              <MenuIcon />
+              {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
             <Link href="/">
               <a className={cn(styles.header__title)}>
@@ -98,6 +109,7 @@ const Header: FC = (): ReactElement => {
                     <AccountCircleIcon />
                   </IconButton>
                   <div
+                    onClick={handleUserMenuClick}
                     className={cn(
                       styles.header__user__username,
                       styles.header__item
@@ -105,15 +117,62 @@ const Header: FC = (): ReactElement => {
                   >
                     {user.username}
                   </div>
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleLogoutOpen}
-                    size="large"
-                    className={styles.header__item}
+                  <Menu
+                    open={isUserMenuOpen}
+                    anchorEl={userMenuAnchor}
+                    onClose={handleUserMenuClose}
+                    onClick={handleUserMenuClose}
+                    className={styles.avatar__menu}
+                    PaperProps={{
+                      elevation: 0,
+                      sx: {
+                        overflow: "visible",
+                        minWidth: 150,
+                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                        mt: 2,
+                        "&:before": {
+                          content: '""',
+                          display: "block",
+                          position: "absolute",
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: "background.paper",
+                          transform: "translateY(-50%) rotate(45deg)",
+                          zIndex: 0,
+                        },
+                      },
+                    }}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
-                    <LogoutIcon />
-                  </IconButton>
+                    <MenuItem>
+                      <Link href="/account/profile">
+                        <a className={styles.account__menu__link}>
+                          <AccountCircleIcon />
+                          <div className={styles.account__menu__link__text}>
+                            Profile
+                          </div>
+                        </a>
+                      </Link>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem>
+                      <Link href="/account/settings">
+                        <a className={styles.account__menu__link}>
+                          <SettingsIcon />
+                          <div className={styles.account__menu__link__text}>
+                            Settings
+                          </div>
+                        </a>
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleLogoutOpen}>
+                      <LogoutVariantIcon />
+                      <div style={{ marginLeft: 8 }}>Logout</div>
+                    </MenuItem>
+                  </Menu>
                 </FadeEffect>
               ) : (
                 <FadeEffect delay={200}>
@@ -127,13 +186,20 @@ const Header: FC = (): ReactElement => {
           </Toolbar>
         </FadeEffect>
       </AppBar>
-      <Drawer variant="persistent" anchor="left" open={isMenuOpen}>
-        <div className={styles.header__menu_arrow}>
-          <IconButton color="inherit" onClick={handleMenuClose} size="large">
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-
+      <Drawer
+        variant="persistent"
+        anchor="left"
+        open={isMenuOpen}
+        sx={{
+          "& .MuiDrawer-paper": {
+            zIndex: 400,
+            border: "none",
+            minWidth: 180,
+            paddingTop: "70px",
+            background: "#F0F0F0",
+          },
+        }}
+      >
         <List>
           <Link href="/">
             <a className={styles.header__menu__item}>

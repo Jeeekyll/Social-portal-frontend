@@ -12,11 +12,11 @@ interface RegisterUserResponse {
   user: ResponseUser;
 }
 
-interface LoginUserResponse extends RegisterUserResponse {
+interface LoginUserResponse {
   user: ResponseUser;
 }
 
-interface CheckAuthUserResponse extends RegisterUserResponse {
+interface CheckAuthUserResponse {
   user: ResponseUser;
 }
 

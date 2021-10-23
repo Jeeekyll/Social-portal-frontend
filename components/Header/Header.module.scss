@@ -1,4 +1,13 @@
 .header {
+  background: #fff4e2;
+  color: black;
+
+
+  &__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
   &__menu {
     &__item {
       text-decoration: none;
@@ -69,4 +78,19 @@
   &:hover {
     color: #ea2845;
   }
+}
+
+.account__menu {
+  &__link {
+    color: black;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    &__text {
+      margin-left: 8px;
+      line-height: 21px;
+    }
+  }
+
 }
