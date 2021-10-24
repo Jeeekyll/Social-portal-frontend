@@ -1,16 +1,12 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import {
   AppBar,
+  Avatar,
   Backdrop,
   Button,
   Divider,
-  Drawer,
   Fade,
   IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Menu,
   MenuItem,
   Modal,
@@ -20,9 +16,6 @@ import {
 import {
   MenuIcon,
   AccountCircleIcon,
-  HomeIcon,
-  ChatIcon,
-  RssIcon,
   LogoutVariantIcon,
   SettingsIcon,
   CloseIcon,
@@ -37,6 +30,9 @@ import Login from "../Auth/Login";
 import cn from "classnames";
 import { Fade as FadeEffect } from "react-awesome-reveal";
 import Register from "../Auth/Register";
+import HeaderSidebar from "./HeaderSidebar/HeaderSidebar";
+
+const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Header: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -73,7 +69,7 @@ const Header: FC = (): ReactElement => {
   }, []);
 
   return (
-    <div>
+    <>
       <AppBar position="fixed" className={styles.header}>
         <FadeEffect delay={400}>
           <Toolbar className={styles.header__container}>
@@ -101,13 +97,10 @@ const Header: FC = (): ReactElement => {
             <div className={styles.header__user}>
               {isAuth ? (
                 <FadeEffect delay={200}>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    color="inherit"
-                  >
-                    <AccountCircleIcon />
-                  </IconButton>
+                  <Avatar
+                    src={`${api}/${user.image}`}
+                    sx={{ width: 35, height: 35, marginRight: "6px" }}
+                  />
                   <div
                     onClick={handleUserMenuClick}
                     className={cn(
@@ -186,55 +179,8 @@ const Header: FC = (): ReactElement => {
           </Toolbar>
         </FadeEffect>
       </AppBar>
-      <Drawer
-        variant="persistent"
-        anchor="left"
-        open={isMenuOpen}
-        sx={{
-          "& .MuiDrawer-paper": {
-            zIndex: 400,
-            border: "none",
-            minWidth: 180,
-            paddingTop: "70px",
-            background: "#F0F0F0",
-          },
-        }}
-      >
-        <List>
-          <Link href="/">
-            <a className={styles.header__menu__item}>
-              <ListItem button>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItem>
-            </a>
-          </Link>
 
-          <Link href="/feed">
-            <a className={styles.header__menu__item}>
-              <ListItem button>
-                <ListItemIcon>
-                  <RssIcon />
-                </ListItemIcon>
-                <ListItemText primary="News" />
-              </ListItem>
-            </a>
-          </Link>
-
-          <Link href="/chat">
-            <a className={styles.header__menu__item}>
-              <ListItem button>
-                <ListItemIcon>
-                  <ChatIcon />
-                </ListItemIcon>
-                <ListItemText primary="Chat" />
-              </ListItem>
-            </a>
-          </Link>
-        </List>
-      </Drawer>
+      <HeaderSidebar isSidebarOpen={isMenuOpen} />
 
       <Modal
         aria-labelledby="transition-modal-title"
@@ -265,7 +211,7 @@ const Header: FC = (): ReactElement => {
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </>
   );
 };
 

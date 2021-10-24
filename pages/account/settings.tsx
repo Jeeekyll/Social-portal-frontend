@@ -1,7 +1,13 @@
 import React, { FC, ReactElement } from "react";
+import AccountLayout from "layouts/AccountLayout";
+import Settings from "components/Account/Settings/Settings";
 
-const Settings: FC = (): ReactElement => {
-  return <div>your settings</div>;
+const SettingsPage: FC = (): ReactElement => {
+  return (
+    <AccountLayout title="General settings">
+      <Settings />
+    </AccountLayout>
+  );
 };
 
-export default Settings;
+export default SettingsPage;

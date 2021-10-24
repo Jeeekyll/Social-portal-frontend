@@ -58,15 +58,6 @@ const Index: NextPage = () => {
           </div>
         </Fade>
       </div>
-
-      <div style={{ maxWidth: 100 }}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, animi
-        debitis, distinctio excepturi expedita incidunt magnam natus,
-        necessitatibus neque placeat quisquam rem repellendus repudiandae
-        tempora veniam? Adipisci aspernatur at, consectetur dolor dolorem
-        doloribus eos, est fugiat fugit laboriosam magnam natus porro ratione
-        recusandae reiciendis rerum sapiente sint temporibus vero voluptatum.
-      </div>
     </>
   );
 };

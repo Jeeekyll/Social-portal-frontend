@@ -31,3 +31,10 @@ export type LoginUserDto = {
   email: string;
   password: string;
 };
+
+export type UpdateUserDto = {
+  username: string;
+  email: string;
+  password: string;
+  bio?: string;
+};

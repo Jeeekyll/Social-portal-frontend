@@ -1,0 +1,35 @@
+.profile {
+  padding-right: 30px;
+
+  &__avatar {
+    width: 240px;
+    height: auto;
+    object-fit: cover;
+    padding-bottom: 5px;
+
+    & img {
+      object-fit: cover;
+    }
+  }
+
+  &__divider {
+    padding: 5px 0;
+  }
+
+  &__item {
+    padding: 10px 0;
+
+    &__title {
+      font-weight: 300;
+      font-size: 18px;
+    }
+
+    &__content {
+      font-weight: 600;
+    }
+
+    & span {
+      font-weight: 600;
+    }
+  }
+}
