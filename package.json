@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^2.8.2",
     "@icons/material": "^0.4.1",
     "@mui/icons-material": "^5.0.4",
+    "@mui/lab": "^5.0.0-alpha.53",
     "@mui/material": "^5.0.4",
     "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.23.0",

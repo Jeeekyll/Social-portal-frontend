@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import {
   MenuIcon,
-  AccountCircleIcon,
   LogoutVariantIcon,
   SettingsIcon,
   CloseIcon,
@@ -143,24 +142,14 @@ const Header: FC = (): ReactElement => {
                     <MenuItem>
                       <Link href="/account/profile">
                         <a className={styles.account__menu__link}>
-                          <AccountCircleIcon />
+                          <SettingsIcon />
                           <div className={styles.account__menu__link__text}>
-                            Profile
+                            Account
                           </div>
                         </a>
                       </Link>
                     </MenuItem>
                     <Divider />
-                    <MenuItem>
-                      <Link href="/account/settings">
-                        <a className={styles.account__menu__link}>
-                          <SettingsIcon />
-                          <div className={styles.account__menu__link__text}>
-                            Settings
-                          </div>
-                        </a>
-                      </Link>
-                    </MenuItem>
                     <MenuItem onClick={handleLogoutOpen}>
                       <LogoutVariantIcon />
                       <div style={{ marginLeft: 8 }}>Logout</div>

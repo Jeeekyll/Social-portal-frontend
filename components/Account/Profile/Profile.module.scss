@@ -1,9 +1,8 @@
 .profile {
-  padding-right: 30px;
 
   &__avatar {
-    width: 240px;
-    height: auto;
+    width: 280px;
+    height: 200px;
     object-fit: cover;
     padding-bottom: 5px;
 
@@ -17,7 +16,7 @@
   }
 
   &__item {
-    padding: 10px 0;
+    padding: 15px 0;
 
     &__title {
       font-weight: 300;

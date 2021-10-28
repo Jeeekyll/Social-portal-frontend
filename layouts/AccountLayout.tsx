@@ -1,7 +1,6 @@
 import React, { FC, ReactElement } from "react";
 import { Container, Grid, Typography } from "@mui/material";
 import AccountSidebar from "components/Account/AccountSidebar/AccountSidebar";
-import { useRouter } from "next/router";
 import Redirect from "common/Redirect";
 
 interface AccountLayoutProps {
@@ -12,12 +11,7 @@ const AccountLayout: FC<AccountLayoutProps> = ({
   title,
   children,
 }): ReactElement => {
-  const router = useRouter();
-  if (
-    typeof window !== "undefined" &&
-    !localStorage.getItem("token") &&
-    router.route !== "/account/activation"
-  ) {
+  if (typeof window !== "undefined" && !localStorage.getItem("token")) {
     return <Redirect to="/" />;
   }
 

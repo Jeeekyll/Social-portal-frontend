@@ -1,47 +1,110 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Backdrop,
+  Button,
+  Fade,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Modal,
+  Typography,
 } from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
 import {
   AccountCircleIcon,
   LogoutVariantIcon,
   SettingsIcon,
 } from "@icons/material";
 import { useRouter } from "next/router";
+import { Box } from "@mui/system";
+import styles from "../../Header/Header.module.scss";
+import { useTypedDispatch } from "store/hooks";
+import { logout } from "store/slices/user";
 
 const AccountSidebar = () => {
   const router = useRouter();
+  const dispatch = useTypedDispatch();
+
+  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false);
+
+  const handleLogoutClose = (): void => setIsLogoutOpen(false);
+  const handleLogoutOpen = (): void => setIsLogoutOpen(true);
+
+  const onLogoutConfirm = (): void => {
+    dispatch(logout());
+    handleLogoutClose();
+    router.push("/");
+  };
 
   return (
-    <List component="nav">
-      <ListItemButton
-        selected={router.route === "/account/profile"}
-        onClick={() => router.push("/account/profile")}
+    <>
+      <List component="nav">
+        <ListItemButton
+          selected={router.route === "/account/profile"}
+          onClick={() => router.push("/account/profile")}
+        >
+          <ListItemIcon>
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
+        </ListItemButton>
+        <ListItemButton
+          selected={router.route === "/account/settings"}
+          onClick={() => router.push("/account/settings")}
+        >
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </ListItemButton>
+        <ListItemButton
+          selected={router.route === "/account/privacy"}
+          onClick={() => router.push("/account/privacy")}
+        >
+          <ListItemIcon>
+            <LockIcon />
+          </ListItemIcon>
+          <ListItemText primary="Privacy" />
+        </ListItemButton>
+        <ListItemButton onClick={handleLogoutOpen}>
+          <ListItemIcon>
+            <LogoutVariantIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItemButton>
+      </List>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={isLogoutOpen}
+        onClose={handleLogoutClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
       >
-        <ListItemIcon>
-          <AccountCircleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Profile" />
-      </ListItemButton>
-      <ListItemButton
-        selected={router.route === "/account/settings"}
-        onClick={() => router.push("/account/settings")}
-      >
-        <ListItemIcon>
-          <SettingsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Settings" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <LogoutVariantIcon />
-        </ListItemIcon>
-        <ListItemText primary="Logout" />
-      </ListItemButton>
-    </List>
+        <Fade in={isLogoutOpen}>
+          <Box className={styles.logout__modal}>
+            <Typography
+              variant="h4"
+              component="h3"
+              className={styles.logout__modal__title}
+            >
+              ARE YOU SURE?
+            </Typography>
+            <div className={styles.logout__modal__actions}>
+              <Button onClick={handleLogoutClose}>Cancel</Button>
+              <Button variant="contained" onClick={onLogoutConfirm}>
+                Confirm
+              </Button>
+            </div>
+          </Box>
+        </Fade>
+      </Modal>
+    </>
   );
 };
 

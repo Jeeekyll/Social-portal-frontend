@@ -1,34 +1,69 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useTypedSelector } from "store/hooks";
+import { useTypedDispatch, useTypedSelector } from "store/hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { LoginUserDto, UpdateUserDto } from "store/types/user.type";
+import { UpdateUserDto } from "store/types/user.type";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Divider, Grid, IconButton, Input } from "@mui/material";
-import ModeEdit from "@mui/icons-material/ModeEdit";
-import EditOffIcon from "@mui/icons-material/EditOff";
+import { Button, Divider, Grid, Input, Snackbar } from "@mui/material";
 import styles from "./Settings.module.scss";
+import { ChangeUserCredentials } from "utils/validation";
+import EditButton from "./EditButton";
+import { Fade } from "react-awesome-reveal";
+import { updateUser } from "store/slices/user";
+import Avatar from "./Avatar";
 
 const Settings = () => {
+  const dispatch = useTypedDispatch();
   const { user, isAuth } = useTypedSelector((state) => state.user);
-
-  const [isUsernameActive, setIsUsernameActive] = useState<boolean>(false);
-  const toggleUsername = (): void => setIsUsernameActive(!isUsernameActive);
-
-  const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
-  const toggleEmail = (): void => setIsEmailActive(!isEmailActive);
-
-  const [isBioActive, setIsBioActive] = useState<boolean>(false);
-  const toggleBio = (): void => setIsBioActive(!isBioActive);
 
   const {
     handleSubmit,
-    control,
     reset,
     register,
+    getValues,
     formState: { errors },
   } = useForm<UpdateUserDto>({
+    resolver: yupResolver(ChangeUserCredentials),
     defaultValues: useMemo(() => user, [user]),
+    mode: "onChange",
   });
+
+  const [isUsernameActive, setIsUsernameActive] = useState<boolean>(false);
+
+  const handleActiveUsernameChange = (): void => {
+    setIsUsernameActive(true);
+  };
+
+  const handleDiscardUsernameChange = (): void => {
+    reset({ ...getValues(), username: user.username });
+    setIsUsernameActive(false);
+  };
+
+  const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
+
+  const handleActiveEmailChange = (): void => {
+    setIsEmailActive(true);
+  };
+
+  const handleDiscardEmailChange = (): void => {
+    reset({ ...getValues(), email: user.email });
+    setIsEmailActive(false);
+  };
+
+  const [isBioActive, setIsBioActive] = useState<boolean>(false);
+  const handleActiveBioChange = (): void => {
+    setIsBioActive(true);
+  };
+
+  const handleDiscardBioChange = (): void => {
+    reset({ ...getValues(), bio: user.bio });
+    setIsBioActive(false);
+  };
+
+  const resetFormState = () => {
+    setIsBioActive(false);
+    setIsEmailActive(false);
+    setIsUsernameActive(false);
+  };
 
   useEffect(() => {
     if (!user) return;
@@ -43,14 +78,20 @@ const Settings = () => {
   const onSubmit: SubmitHandler<UpdateUserDto> = async (
     updateUserDto: UpdateUserDto
   ) => {
-    console.log(updateUserDto);
+    await dispatch(updateUser(updateUserDto));
+    await resetFormState();
+    setIsFormSubmitted(true);
   };
+
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   return (
     <>
       {isAuth && (
-        <>
+        <Fade>
           <Divider textAlign="left">Avatar</Divider>
+          <Avatar />
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <Divider textAlign="left">General</Divider>
 
@@ -64,6 +105,7 @@ const Settings = () => {
                     <Input
                       fullWidth
                       placeholder="Username"
+                      error={errors.username && true}
                       {...register("username")}
                     />
                   ) : (
@@ -73,23 +115,14 @@ const Settings = () => {
                   )}
                 </Grid>
                 <Grid item xs={5} md={5}>
-                  <div
-                    className={styles.settings__item__edit}
-                    onClick={toggleUsername}
-                  >
-                    <IconButton
-                      color="primary"
-                      size="small"
-                      style={{ marginLeft: "auto" }}
-                    >
-                      {isUsernameActive ? <EditOffIcon /> : <ModeEdit />}
-                    </IconButton>
-                    <span>{isUsernameActive ? "Discard" : "Change"}</span>
-                  </div>
+                  <EditButton
+                    isActive={isUsernameActive}
+                    activateField={handleActiveUsernameChange}
+                    discardFiled={handleDiscardUsernameChange}
+                  />
                 </Grid>
               </Grid>
             </div>
-
             <Divider />
 
             <div className={styles.settings__item}>
@@ -102,6 +135,7 @@ const Settings = () => {
                     <Input
                       fullWidth
                       placeholder="Email"
+                      error={errors.email && true}
                       {...register("email")}
                     />
                   ) : (
@@ -111,19 +145,11 @@ const Settings = () => {
                   )}
                 </Grid>
                 <Grid item xs={5} md={5}>
-                  <div
-                    className={styles.settings__item__edit}
-                    onClick={toggleEmail}
-                  >
-                    <IconButton
-                      color="primary"
-                      size="small"
-                      style={{ marginLeft: "auto" }}
-                    >
-                      {isEmailActive ? <EditOffIcon /> : <ModeEdit />}
-                    </IconButton>
-                    <span>{isEmailActive ? "Discard" : "Change"}</span>
-                  </div>
+                  <EditButton
+                    isActive={isEmailActive}
+                    activateField={handleActiveEmailChange}
+                    discardFiled={handleDiscardEmailChange}
+                  />
                 </Grid>
               </Grid>
             </div>
@@ -137,37 +163,48 @@ const Settings = () => {
                 </Grid>
                 <Grid item xs={4} md={4}>
                   {isBioActive ? (
-                    <Input fullWidth placeholder="Email" {...register("bio")} />
+                    <Input
+                      fullWidth
+                      placeholder="Bio"
+                      error={errors.bio && true}
+                      {...register("bio")}
+                    />
                   ) : (
                     <div className={styles.settings__item__value}>
-                      {user.bio}
+                      {user.bio || "Data not specified"}
                     </div>
                   )}
                 </Grid>
                 <Grid item xs={5} md={5}>
-                  <div
-                    className={styles.settings__item__edit}
-                    onClick={toggleBio}
-                  >
-                    <IconButton
-                      color="primary"
-                      size="small"
-                      style={{ marginLeft: "auto" }}
-                    >
-                      {isBioActive ? <EditOffIcon /> : <ModeEdit />}
-                    </IconButton>
-                    <span>{isBioActive ? "Discard" : "Change"}</span>
-                  </div>
+                  <EditButton
+                    isActive={isBioActive}
+                    activateField={handleActiveBioChange}
+                    discardFiled={handleDiscardBioChange}
+                  />
                 </Grid>
               </Grid>
             </div>
 
-            <Divider textAlign="left">Password</Divider>
-
-            <Button type="submit">Save</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              className={styles.settings__submit}
+            >
+              Save
+            </Button>
           </form>
-        </>
+        </Fade>
       )}
+
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={isFormSubmitted}
+        autoHideDuration={3000}
+        transitionDuration={500}
+        onClose={() => setIsFormSubmitted(false)}
+        message="Success"
+        key={"top" + "center"}
+      />
     </>
   );
 };

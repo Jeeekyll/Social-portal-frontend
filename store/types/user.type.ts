@@ -35,6 +35,10 @@ export type LoginUserDto = {
 export type UpdateUserDto = {
   username: string;
   email: string;
-  password: string;
   bio?: string;
+};
+
+export type ChangePasswordDto = {
+  currentPassword: string;
+  newPassword: string;
 };

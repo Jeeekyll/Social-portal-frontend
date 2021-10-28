@@ -3,9 +3,10 @@ import {
   CreateUserDto,
   LoginUserDto,
   ResponseUser,
+  UpdateUserDto,
   UserState,
-} from "../types/user.type";
-import AuthService from "../../services/AuthService";
+} from "store/types/user.type";
+import AuthService from "services/AuthService";
 
 export const checkAuth = createAsyncThunk(
   "user/checkUserAuth",
@@ -55,6 +56,42 @@ export const logout = createAsyncThunk(
 
     dispatch(removeUserData());
     localStorage.removeItem("token");
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  "user/update",
+  async (updateUserDto: UpdateUserDto, { dispatch }) => {
+    try {
+      const user = await AuthService.update(updateUserDto);
+      dispatch(setUserData(user));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const uploadAvatar = createAsyncThunk(
+  "user/updateAvatar",
+  async (avatar: FormData, { dispatch }) => {
+    try {
+      const user = await AuthService.uploadAvatar(avatar);
+      dispatch(setUserData(user));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteAvatar = createAsyncThunk(
+  "user/deleteAvatar",
+  async (_, { dispatch }) => {
+    try {
+      const user = await AuthService.deleteAvatar();
+      dispatch(setUserData(user));
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
