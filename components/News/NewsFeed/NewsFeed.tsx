@@ -1,25 +1,36 @@
-import React, { FC } from "react";
-import { Grid, Container } from "@mui/material";
+import React, { FC, useEffect } from "react";
+import { Grid, Typography } from "@mui/material";
+import NewsItem from "../NewsItem/NewsItem";
+import { useTypedDispatch, useTypedSelector } from "store/hooks";
+import { getArticles } from "store/slices/article";
+import styles from "./NewsFeed.module.scss";
 
 const NewsFeed: FC = () => {
+  const dispatch = useTypedDispatch();
+  const { articles } = useTypedSelector((state) => state.articles);
+
+  useEffect(() => {
+    dispatch(getArticles());
+  }, []);
+
   return (
-    <Container maxWidth="lg">
-      <h3>News</h3>
+    <div className={styles.feed__container}>
+      <Typography
+        variant="h4"
+        gutterBottom
+        component="div"
+        style={{ margin: "30px 0 40px -20px" }}
+      >
+        News
+      </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <div>Интернет</div>
-          <div>Яна Ломакина</div>
-          <div>5 часов</div>
-          <div>+ подписаться</div>
-          <div>Судья из мема «Полностью оправдан» Валерий Степанов умер от</div>
-          <div>Ему было 66 лет.</div>
-          <div>картинка</div>
-          <div>кол-во комментов</div>
-          <div>скопировать ссылку</div>
-          <div>кол-во лайков</div>
-        </Grid>
+        {articles &&
+          articles.length > 0 &&
+          articles.map((article) => (
+            <NewsItem key={article.id} article={article} />
+          ))}
       </Grid>
-    </Container>
+    </div>
   );
 };
 

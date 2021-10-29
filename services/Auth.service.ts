@@ -1,22 +1,16 @@
 import axios from "axios";
 import {
   ChangePasswordDto,
+  ChangePasswordResponse,
   CreateUserDto,
   LoginUserDto,
   ResponseUser,
   UpdateUserDto,
+  UserResponse,
 } from "store/types/user.type";
 import $api from "./index";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
-
-interface UserResponse {
-  user: ResponseUser;
-}
-
-interface ChangePasswordResponse {
-  data: boolean;
-}
 
 export default class AuthService {
   static async register(createUserDto: CreateUserDto): Promise<ResponseUser> {

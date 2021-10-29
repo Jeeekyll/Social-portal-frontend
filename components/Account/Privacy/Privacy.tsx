@@ -6,7 +6,7 @@ import { ChangePasswordDto } from "store/types/user.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Fade } from "react-awesome-reveal";
 import { ChangeUserPassword } from "utils/validation";
-import AuthService from "services/AuthService";
+import AuthService from "services/Auth.service";
 
 const Privacy: FC = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);

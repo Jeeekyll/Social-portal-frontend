@@ -42,3 +42,11 @@ export type ChangePasswordDto = {
   currentPassword: string;
   newPassword: string;
 };
+
+export interface UserResponse {
+  user: ResponseUser;
+}
+
+export interface ChangePasswordResponse {
+  data: boolean;
+}
