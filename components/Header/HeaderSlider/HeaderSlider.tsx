@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import styles from "./HeaderSlider.module.scss";
 import { Button } from "@mui/material";
 import Fade from "react-reveal/Fade";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const homeSliderImages = [
   { src: "/header/header-1.jpg" },
@@ -48,9 +49,15 @@ const HeaderSlider: FC = () => {
 
         <Fade delay={1200}>
           <div className={styles.home__slider__content__actions}>
-            <Button variant="outlined" size="large">
-              Read news
-            </Button>
+            <AnchorLink
+              href="#news"
+              className={styles.home__slider__content__actions__news}
+            >
+              <Button variant="outlined" size="large">
+                Read news
+              </Button>
+            </AnchorLink>
+
             <Button variant="contained" size="large">
               Chat
             </Button>

@@ -1,13 +1,18 @@
 import React, { FC, useEffect } from "react";
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useTypedDispatch, useTypedSelector } from "store/hooks";
-import { getArticle } from "store/slices/article";
+import {
+  dislikeSelectedArticle,
+  getArticle,
+  likeSelectedArticle,
+} from "store/slices/article";
 import { ArticleProps } from "./Article.props";
 import styles from "./Article.module.scss";
-import { format } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import cn from "classnames";
+import Comments from "./Comments/Comments";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -19,11 +24,19 @@ const Article: FC<ArticleProps> = ({ slug }) => {
     dispatch(getArticle(slug));
   }, [slug]);
 
+  const handleLikeClick = () => {
+    dispatch(likeSelectedArticle(article.slug));
+  };
+
+  const handleDislikeClick = () => {
+    dispatch(dislikeSelectedArticle(article.slug));
+  };
+
   return (
     <>
-      <div className={styles.article}>
-        {article && (
-          <>
+      {article && (
+        <>
+          <div className={styles.article}>
             <div className={styles.article__container}>
               <div className={styles.article__header}>
                 <Typography variant="h6" component="div">
@@ -33,7 +46,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
                   {article.author.username}
                 </Typography>
                 <Typography variant="body1">
-                  {format(new Date(article.createdAt), "dd MMM y")}
+                  {formatDistanceToNow(new Date(article.createdAt))}
                 </Typography>
               </div>
               <Typography
@@ -55,13 +68,18 @@ const Article: FC<ArticleProps> = ({ slug }) => {
               </Typography>
 
               <div className={styles.article__footer}>
-                <div className={styles.article__footer_comments}>
+                <AnchorLink
+                  className={styles.article__footer_comments}
+                  href="#article-comments"
+                >
                   <ModeCommentOutlinedIcon />
-                  {/*{commentariesCount || 10}*/}10
-                </div>
+                  {(article.comments && article.comments.length) || 0}
+                </AnchorLink>
+
                 <div className={styles.article__footer_likes}>
                   <ArrowBackIosIcon
                     style={{ transform: "rotate(-90deg)", marginTop: "-10px" }}
+                    onClick={handleDislikeClick}
                   />
                   <div
                     style={{
@@ -73,6 +91,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
                   </div>
                   <ArrowBackIosIcon
                     style={{ transform: "rotate(90deg)", marginTop: "10px" }}
+                    onClick={handleLikeClick}
                   />
                 </div>
               </div>
@@ -89,23 +108,11 @@ const Article: FC<ArticleProps> = ({ slug }) => {
             >
               <div>{article.body}</div>
             </div>
-          </>
-        )}
-      </div>
+          </div>
 
-      <div className={cn(styles.article, styles.comments)}>
-        <div className={styles.comments__container}>
-          <Typography
-            variant="h6"
-            gutterBottom
-            component="div"
-            className={styles.comments__title}
-          >
-            10 comments
-          </Typography>
-          comments form & list
-        </div>
-      </div>
+          <Comments comments={article.comments} articleId={article.id} />
+        </>
+      )}
     </>
   );
 };

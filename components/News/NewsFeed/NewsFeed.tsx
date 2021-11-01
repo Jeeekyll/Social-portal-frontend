@@ -14,12 +14,12 @@ const NewsFeed: FC = () => {
   }, []);
 
   return (
-    <div className={styles.feed__container}>
+    <div className={styles.feed__container} id="news">
       <Typography
         variant="h4"
         gutterBottom
         component="div"
-        style={{ margin: "30px 0 40px -20px" }}
+        style={{ margin: "0 0 40px -20px" }}
       >
         News
       </Typography>

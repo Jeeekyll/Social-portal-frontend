@@ -7,6 +7,8 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { format } from "date-fns";
 import Link from "next/link";
+import { useTypedDispatch } from "../../../store/hooks";
+import { dislikeArticle, likeArticle } from "../../../store/slices/article";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -15,6 +17,8 @@ interface NewsItemProps {
 }
 
 const NewsItem: FC<NewsItemProps> = ({ article }) => {
+  const dispatch = useTypedDispatch();
+
   const {
     title,
     description,
@@ -25,6 +29,14 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
     author,
     slug,
   } = article;
+
+  const handleLikeArticle = () => {
+    dispatch(likeArticle(slug));
+  };
+
+  const handleDislikeArticle = () => {
+    dispatch(dislikeArticle(slug));
+  };
 
   return (
     <Grid item xs={12} className={styles.article}>
@@ -82,6 +94,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
         <div className={styles.article__footer_likes}>
           <ArrowBackIosIcon
             style={{ transform: "rotate(-90deg)", marginTop: "-10px" }}
+            onClick={handleDislikeArticle}
           />
           <div
             style={{
@@ -93,6 +106,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
           </div>
           <ArrowBackIosIcon
             style={{ transform: "rotate(90deg)", marginTop: "10px" }}
+            onClick={handleLikeArticle}
           />
         </div>
       </div>

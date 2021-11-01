@@ -1,4 +1,5 @@
 import { User } from "./user.type";
+import { ArticleComment } from "./comment.type";
 
 export interface Article {
   id: number;
@@ -13,6 +14,7 @@ export interface Article {
   createdAt: Date | string;
   slug: string;
   tagList: [];
+  comments: ArticleComment[];
 }
 
 export interface ArticleState {

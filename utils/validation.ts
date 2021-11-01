@@ -21,3 +21,7 @@ export const ChangeUserPassword = yup.object().shape({
   currentPassword: yup.string().min(4).max(30).required(),
   newPassword: yup.string().min(4).max(30).required(),
 });
+
+export const CreateArticleComment = yup.object().shape({
+  text: yup.string().min(4).max(200).required(),
+});
