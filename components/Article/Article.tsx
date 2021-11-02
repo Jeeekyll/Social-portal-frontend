@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useTypedDispatch, useTypedSelector } from "store/hooks";
 import {
   dislikeSelectedArticle,
@@ -13,11 +13,15 @@ import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Comments from "./Comments/Comments";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import Link from "next/link";
+import CreateIcon from "@mui/icons-material/Create";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Article: FC<ArticleProps> = ({ slug }) => {
   const { article } = useTypedSelector((state) => state.articles);
+  const { user, isAuth } = useTypedSelector((state) => state.user);
+
   const dispatch = useTypedDispatch();
 
   useEffect(() => {
@@ -40,7 +44,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
             <div className={styles.article__container}>
               <div className={styles.article__header}>
                 <Typography variant="h6" component="div">
-                  Criminal
+                  {/*{article.category.name} */}
                 </Typography>
                 <Typography variant="body1">
                   {article.author.username}
@@ -48,6 +52,17 @@ const Article: FC<ArticleProps> = ({ slug }) => {
                 <Typography variant="body1">
                   {formatDistanceToNow(new Date(article.createdAt))}
                 </Typography>
+
+                {isAuth && user && user.id === article.author.id && (
+                  <Link href={`/articles/${article.slug}/edit`}>
+                    <Button
+                      className={styles.article__header_edit}
+                      startIcon={<CreateIcon />}
+                    >
+                      Edit
+                    </Button>
+                  </Link>
+                )}
               </div>
               <Typography
                 variant="h4"
@@ -106,7 +121,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
               className={styles.article__container}
               style={{ marginTop: 25 }}
             >
-              <div>{article.body}</div>
+              <Typography variant="body1">{article.body}</Typography>
             </div>
           </div>
 

@@ -83,12 +83,24 @@ export const dislikeSelectedArticle = createAsyncThunk(
   }
 );
 
-export const createArticleComment = createAsyncThunk(
+export const createComment = createAsyncThunk(
   "article/createArticleComment",
   async (createCommentDto: CreateCommentDto, { dispatch }) => {
     try {
       const comment = await CommentService.create(createCommentDto);
       dispatch(addArticleComment(comment));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const removeComment = createAsyncThunk(
+  "article/deleteArticleComment",
+  async (commentId: number, { dispatch }) => {
+    try {
+      const idx = await CommentService.delete(commentId);
+      dispatch(deleteArticleComment(idx));
     } catch (error) {
       console.log(error);
     }
@@ -125,6 +137,11 @@ const articleSlice = createSlice({
     addArticleComment(state, { payload }: PayloadAction<ArticleComment>) {
       state.article.comments = [payload, ...state.article.comments];
     },
+    deleteArticleComment(state, { payload }: PayloadAction<number>) {
+      state.article.comments = state.article.comments.filter(
+        (item) => item.id !== payload
+      );
+    },
   },
 });
 
@@ -134,5 +151,6 @@ export const {
   updateArticle,
   updateSelectedArticle,
   addArticleComment,
+  deleteArticleComment,
 } = articleSlice.actions;
 export default articleSlice.reducer;

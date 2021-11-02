@@ -25,3 +25,15 @@ export const ChangeUserPassword = yup.object().shape({
 export const CreateArticleComment = yup.object().shape({
   text: yup.string().min(4).max(200).required(),
 });
+
+export const CreateArticle = yup.object().shape({
+  title: yup.string().min(4).max(100).required(),
+  description: yup.string().min(4).max(300).required(),
+  body: yup.string().min(4).max(2000).required(),
+});
+
+export const UpdateArticle = yup.object().shape({
+  title: yup.string().min(4).max(100).required(),
+  description: yup.string().min(4).max(300).required(),
+  body: yup.string().min(4).max(2000).required(),
+});

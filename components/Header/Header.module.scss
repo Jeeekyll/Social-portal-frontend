@@ -2,6 +2,20 @@
   background: #fff4e2;
   color: black;
 
+  &__create {
+    text-decoration: none;
+    margin-left: 15px;
+  }
+
+  &__search {
+    margin-left: 35px;
+    background-color: #fff;
+
+    & input {
+      height: 16px;
+    }
+  }
+
 
   &__container {
     max-width: 1100px;

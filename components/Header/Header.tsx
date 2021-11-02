@@ -7,9 +7,11 @@ import {
   Divider,
   Fade,
   IconButton,
+  InputAdornment,
   Menu,
   MenuItem,
   Modal,
+  OutlinedInput,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -30,6 +32,7 @@ import cn from "classnames";
 import { Fade as FadeEffect } from "react-awesome-reveal";
 import Register from "../Auth/Register";
 import HeaderSidebar from "./HeaderSidebar/HeaderSidebar";
+import SearchIcon from "@mui/icons-material/Search";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -93,6 +96,26 @@ const Header: FC = (): ReactElement => {
                 </Typography>
               </a>
             </Link>
+            <div className={styles.header__search}>
+              <OutlinedInput
+                size="small"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="medium" />
+                  </InputAdornment>
+                }
+              />
+            </div>
+
+            {isAuth && (
+              <Link href="/articles/create">
+                <a className={styles.header__create}>
+                  <Button variant="contained" size="small">
+                    New post
+                  </Button>
+                </a>
+              </Link>
+            )}
             <div className={styles.header__user}>
               {isAuth ? (
                 <FadeEffect delay={200}>

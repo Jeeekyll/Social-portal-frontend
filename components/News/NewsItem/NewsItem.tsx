@@ -5,10 +5,10 @@ import styles from "./NewsItem.module.scss";
 import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { format } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
-import { useTypedDispatch } from "../../../store/hooks";
-import { dislikeArticle, likeArticle } from "../../../store/slices/article";
+import { useTypedDispatch } from "store/hooks";
+import { dislikeArticle, likeArticle } from "store/slices/article";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -22,12 +22,13 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
   const {
     title,
     description,
-    commentariesCount,
     createdAt,
     cover,
     favouritesCount,
     author,
     slug,
+    comments,
+    category,
   } = article;
 
   const handleLikeArticle = () => {
@@ -42,7 +43,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
     <Grid item xs={12} className={styles.article}>
       <div className={styles.article__header}>
         <Typography variant="h6" component="div">
-          Criminal
+          {(category && category.name) || "Category"}
         </Typography>
 
         <Typography
@@ -57,7 +58,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
           component="div"
           className={styles.article__header__date}
         >
-          {createdAt && format(new Date(createdAt), "dd MMM y")}
+          {createdAt && formatDistanceToNow(new Date(createdAt))}
         </Typography>
         <div className={styles.article__header__subscribe}>
           <PersonAddIcon />
@@ -89,7 +90,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
       <div className={styles.article__footer}>
         <div className={styles.article__footer_comments}>
           <ModeCommentOutlinedIcon />
-          {commentariesCount || 10}
+          {(comments && comments.length) || 0}
         </div>
         <div className={styles.article__footer_likes}>
           <ArrowBackIosIcon

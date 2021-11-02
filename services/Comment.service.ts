@@ -14,4 +14,11 @@ export default class AuthService {
 
     return data;
   }
+
+  static async delete(commentId): Promise<number> {
+    const { data } = await $api.delete<{ data: number }>(
+      `${api}/comments/${commentId}`
+    );
+    return data.data;
+  }
 }

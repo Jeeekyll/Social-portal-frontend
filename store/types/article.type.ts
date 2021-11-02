@@ -1,9 +1,9 @@
 import { User } from "./user.type";
 import { ArticleComment } from "./comment.type";
+import { Category } from "./category.type";
 
 export interface Article {
   id: number;
-  author: User;
   articlesCount: number;
   title: string;
   description: string;
@@ -14,7 +14,9 @@ export interface Article {
   createdAt: Date | string;
   slug: string;
   tagList: [];
+  author: User;
   comments: ArticleComment[];
+  category: Category;
 }
 
 export interface ArticleState {
@@ -34,3 +36,11 @@ export interface ArticlesResponse {
 export interface ArticleResponse {
   article: Article;
 }
+
+export interface CreateArticleDto {
+  title: string;
+  description: string;
+  body: string;
+}
+
+export type UpdateArticleDto = CreateArticleDto;
