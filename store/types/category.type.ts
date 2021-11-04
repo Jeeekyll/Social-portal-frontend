@@ -3,3 +3,7 @@ export interface Category {
   name: string;
   cover: string;
 }
+
+export interface CategoryResponse {
+  data: Category[];
+}

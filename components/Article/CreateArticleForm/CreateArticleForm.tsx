@@ -1,32 +1,34 @@
-import React, { ChangeEvent, FC, useRef, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./CreateArticleForm.module.scss";
-import { Button, IconButton, TextField, Typography } from "@mui/material";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Button, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Article, CreateArticleDto } from "store/types/article.type";
 import { Fade } from "react-awesome-reveal";
 import { CreateArticle } from "utils/validation";
 import ArticleService from "services/Article.service";
 import Link from "next/link";
-import { PhotoCamera } from "@mui/icons-material";
-import classNames from "classnames";
+import { Category } from "store/types/category.type";
 
-const CreateArticleForm: FC = () => {
+interface CreateArticleFormProps {
+  categories: Category[] | null;
+}
+
+const CreateArticleForm: FC<CreateArticleFormProps> = ({
+  categories: serverCategories,
+}) => {
   const [isArticleCreated, setIsArticleCreated] = useState<boolean>(false);
   const [article, setArticle] = useState<Article | null>(null);
+  const [categories, setCategories] = useState<Category[] | null>(null);
 
-  const [articleCover, setArticleCover] = useState<string | null>(null);
-  const articleCoverInputRef = useRef<HTMLInputElement>(null);
-
-  const onArticleCoverUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files[0]) return;
-
-    setArticleCover(event.target.files[0].name);
-  };
+  useEffect(() => {
+    setCategories(serverCategories);
+  }, [serverCategories]);
 
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors, isDirty },
   } = useForm<CreateArticleDto>({
     resolver: yupResolver(CreateArticle),
@@ -64,8 +66,8 @@ const CreateArticleForm: FC = () => {
                 gutterBottom
                 className={styles.create__title}
               >
-                Your post created. You can{" "}
-                <Link href={`/articles/${article.slug}`}>view</Link> it now.
+                Your post created. You can
+                <Link href={`/articles/${article.slug}`}> view </Link> it now.
               </Typography>
             </>
           ) : (
@@ -109,27 +111,28 @@ const CreateArticleForm: FC = () => {
                   error={errors.body && true}
                 />
 
-                <div className={classNames(styles.create__cover)}>
-                  <IconButton
-                    color="primary"
-                    onClick={() => articleCoverInputRef.current.click()}
-                    type="button"
-                    size="large"
-                  >
-                    <PhotoCamera />
-                  </IconButton>
-                  <Typography variant="body2">
-                    {articleCover || "Upload cover"}
-                  </Typography>
-                </div>
-
-                <input
-                  type="file"
-                  ref={articleCoverInputRef}
-                  style={{ display: "none" }}
-                  accept="image/*"
-                  onChange={onArticleCoverUpload}
-                />
+                {categories && categories.length > 0 && (
+                  <Controller
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        onChange={onChange}
+                        value={value}
+                        variant="standard"
+                        error={errors.category && true}
+                        className={styles.create__item}
+                      >
+                        {categories.map((category) => (
+                          <MenuItem value={category.id} key={category.id}>
+                            {category.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    )}
+                    control={control}
+                    name="category"
+                    defaultValue={categories[0].id}
+                  />
+                )}
 
                 {isDirty && (
                   <Fade>
