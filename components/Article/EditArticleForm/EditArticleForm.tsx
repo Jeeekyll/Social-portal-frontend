@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { Article, UpdateArticleDto } from "store/types/article.type";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateArticle } from "utils/validation";
 import ArticleService from "services/Article.service";
@@ -15,6 +15,8 @@ import styles from "../CreateArticleForm/CreateArticleForm.module.scss";
 import {
   Button,
   IconButton,
+  MenuItem,
+  Select,
   Snackbar,
   TextField,
   Typography,
@@ -26,9 +28,11 @@ import { Fade } from "react-awesome-reveal";
 import { EditArticleFormProps } from "./EditArticleForm.props";
 import { useRouter } from "next/router";
 import { formatDistanceToNow } from "date-fns";
+import { Category } from "store/types/category.type";
 
 const EditArticleForm: FC<EditArticleFormProps> = ({
   article: serverArticle,
+  categories: serverCategories,
 }) => {
   const router = useRouter();
 
@@ -37,6 +41,8 @@ const EditArticleForm: FC<EditArticleFormProps> = ({
 
   const [articleCover, setArticleCover] = useState<string | null>(null);
   const articleCoverInputRef = useRef<HTMLInputElement>(null);
+
+  const [categories, setCategories] = useState<Category[] | null>(null);
 
   const onArticleCoverUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files[0]) return;
@@ -56,23 +62,28 @@ const EditArticleForm: FC<EditArticleFormProps> = ({
     handleSubmit,
     register,
     reset,
+    control,
     formState: { errors, isDirty },
   } = useForm<UpdateArticleDto>({
     resolver: yupResolver(UpdateArticle),
-    defaultValues: useMemo(() => article, [article]),
+    defaultValues: useMemo(() => {
+      return { ...article, category: article?.category?.id };
+    }, [article]),
     mode: "onChange",
   });
 
   useEffect(() => {
-    if (!serverArticle) return;
+    if (!serverArticle || !serverCategories) return;
 
     setArticle(serverArticle);
+    setCategories(serverCategories);
     setArticleCover(serverArticle.cover);
 
     reset({
       title: serverArticle.title,
       description: serverArticle.description,
       body: serverArticle.body,
+      category: serverArticle.category.id,
     });
   }, [serverArticle]);
 
@@ -163,6 +174,29 @@ const EditArticleForm: FC<EditArticleFormProps> = ({
                 accept="image/*"
                 onChange={onArticleCoverUpload}
               />
+
+              {categories && categories.length > 0 && (
+                <Controller
+                  render={({ field: { onChange, value } }) => (
+                    <Select
+                      onChange={onChange}
+                      value={value}
+                      variant="standard"
+                      error={errors.category && true}
+                      className={styles.create__item}
+                    >
+                      {categories.map((category) => (
+                        <MenuItem value={category.id} key={category.id}>
+                          {category.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                  control={control}
+                  name="category"
+                  defaultValue={categories[0].id}
+                />
+              )}
 
               <Fade>
                 <div className={styles.create__actions}>

@@ -44,7 +44,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
             <div className={styles.article__container}>
               <div className={styles.article__header}>
                 <Typography variant="h6" component="div">
-                  {/*{article.category.name} */}
+                  {article.category.name}
                 </Typography>
                 <Typography variant="body1">
                   {article.author.username}
@@ -64,6 +64,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
                   </Link>
                 )}
               </div>
+
               <Typography
                 variant="h4"
                 gutterBottom

@@ -8,9 +8,7 @@
   text-decoration: none;
 
   &:hover {
-    box-shadow: 4px 5px 19px 6px rgba(0, 0, 0, 0.19);
-    -webkit-box-shadow: 4px 5px 19px 6px rgba(0, 0, 0, 0.19);
-    -moz-box-shadow: 4px 5px 19px 6px rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
   }
 
   &:not(:last-child) {
