@@ -9,6 +9,7 @@ import {
   UserResponse,
 } from "store/types/user.type";
 import $api from "./index";
+import { Article, UserArticlesResponse } from "store/types/article.type";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -57,5 +58,12 @@ export default class AuthService {
       changePasswordDto
     );
     return data.data;
+  }
+
+  static async findArticles(): Promise<Article[]> {
+    const { data } = await $api.get<UserArticlesResponse>(
+      `${api}/user/articles`
+    );
+    return data.articles;
   }
 }

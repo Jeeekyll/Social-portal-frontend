@@ -16,6 +16,7 @@ import {
   LogoutVariantIcon,
   SettingsIcon,
 } from "@icons/material";
+import ArticleIcon from "@mui/icons-material/Article";
 import { useRouter } from "next/router";
 import { Box } from "@mui/system";
 import styles from "../../Header/Header.module.scss";
@@ -49,6 +50,17 @@ const AccountSidebar = () => {
           </ListItemIcon>
           <ListItemText primary="Profile" />
         </ListItemButton>
+
+        <ListItemButton
+          selected={router.route === "/account/articles"}
+          onClick={() => router.push("/account/articles")}
+        >
+          <ListItemIcon>
+            <ArticleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Articles" />
+        </ListItemButton>
+
         <ListItemButton
           selected={router.route === "/account/settings"}
           onClick={() => router.push("/account/settings")}
@@ -58,6 +70,7 @@ const AccountSidebar = () => {
           </ListItemIcon>
           <ListItemText primary="Settings" />
         </ListItemButton>
+
         <ListItemButton
           selected={router.route === "/account/privacy"}
           onClick={() => router.push("/account/privacy")}
@@ -67,6 +80,7 @@ const AccountSidebar = () => {
           </ListItemIcon>
           <ListItemText primary="Privacy" />
         </ListItemButton>
+
         <ListItemButton onClick={handleLogoutOpen}>
           <ListItemIcon>
             <LogoutVariantIcon />

@@ -22,6 +22,18 @@ export const getArticles = createAsyncThunk(
   }
 );
 
+export const searchArticles = createAsyncThunk(
+  "articles/searchArticles",
+  async (query: string, { dispatch }) => {
+    try {
+      const articles = await ArticleService.search(query);
+      dispatch(setFlowArticles(articles));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const getArticle = createAsyncThunk(
   "articles/getArticle",
   async (slug: string, { dispatch }) => {
@@ -125,6 +137,9 @@ const articleSlice = createSlice({
       state.articles = [...state.articles, ...payload.articles];
       state.articlesCount = payload.articlesCount;
     },
+    setFlowArticles(state, { payload }: PayloadAction<ArticlesResponse>) {
+      state.articles = payload.articles;
+    },
     setArticle(state, { payload }: PayloadAction<Article>) {
       state.article = payload;
     },
@@ -174,5 +189,6 @@ export const {
   deleteArticleComment,
   setHasMore,
   setOffset,
+  setFlowArticles,
 } = articleSlice.actions;
 export default articleSlice.reducer;

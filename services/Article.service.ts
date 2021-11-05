@@ -69,4 +69,11 @@ export default class ArticleService {
 
     return data.article;
   }
+
+  static async search(query: string): Promise<ArticlesResponse> {
+    const { data } = await $api.get<ArticlesResponse>(`${api}/articles`, {
+      params: { search: query },
+    });
+    return data;
+  }
 }

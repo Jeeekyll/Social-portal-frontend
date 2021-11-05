@@ -34,6 +34,10 @@ export interface ArticlesResponse {
   articlesCount: number;
 }
 
+export interface UserArticlesResponse {
+  articles: Article[];
+}
+
 export interface ArticleResponse {
   article: Article;
 }

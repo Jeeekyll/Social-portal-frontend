@@ -1,7 +1,12 @@
 import React, { FC, useEffect, useRef } from "react";
 import { CircularProgress, Grid } from "@mui/material";
 import NewsItem from "../NewsItem/NewsItem";
-import { useObserver, useTypedDispatch, useTypedSelector } from "store/hooks";
+import {
+  useObserver,
+  usePrevious,
+  useTypedDispatch,
+  useTypedSelector,
+} from "store/hooks";
 import {
   getArticles,
   queryLimit,
@@ -17,10 +22,6 @@ const NewsFeed: FC = () => {
   const lastElement = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    dispatch(getArticles({ offset }));
-  }, [offset]);
-
-  useEffect(() => {
     if (articles.length < 0) return;
 
     if (articles.length < articlesCount) {
@@ -29,6 +30,10 @@ const NewsFeed: FC = () => {
       dispatch(setHasMore(false));
     }
   }, [articles.length]);
+
+  useEffect(() => {
+    dispatch(getArticles({ offset }));
+  }, [offset]);
 
   const handleArticlesLoading = () => {
     dispatch(setOffset(offset + queryLimit));

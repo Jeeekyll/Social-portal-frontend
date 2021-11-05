@@ -1,4 +1,10 @@
-import React, { FC, ReactElement, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FC,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import {
   AppBar,
   Avatar,
@@ -33,6 +39,8 @@ import { Fade as FadeEffect } from "react-awesome-reveal";
 import Register from "../Auth/Register";
 import HeaderSidebar from "./HeaderSidebar/HeaderSidebar";
 import SearchIcon from "@mui/icons-material/Search";
+import ArticleService from "../../services/Article.service";
+import { searchArticles } from "../../store/slices/article";
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -70,6 +78,26 @@ const Header: FC = (): ReactElement => {
     dispatch(checkAuth());
   }, []);
 
+  const [search, setSearch] = useState<string>("");
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (!search.length) return;
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+    setTimer(
+      setTimeout(async () => {
+        await dispatch(searchArticles(search));
+      }, 500)
+    );
+  }, [search]);
+
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
   return (
     <>
       <AppBar position="fixed" className={styles.header}>
@@ -99,6 +127,7 @@ const Header: FC = (): ReactElement => {
             <div className={styles.header__search}>
               <OutlinedInput
                 size="small"
+                onChange={onSearchChange}
                 startAdornment={
                   <InputAdornment position="start">
                     <SearchIcon fontSize="medium" />

@@ -24,3 +24,13 @@ export const useObserver = (ref, canLoad, isLoading, callback) => {
     observer.current.observe(ref.current);
   }, [isLoading]);
 };
+
+export const usePrevious = <T>(value: T): T | undefined => {
+  const ref = useRef<T>();
+
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+};
