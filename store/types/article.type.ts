@@ -25,6 +25,7 @@ export interface ArticleState {
   isLoaded: boolean;
   articlesCount: number;
   limit: number;
+  hasMore: boolean;
   offset: number;
 }
 

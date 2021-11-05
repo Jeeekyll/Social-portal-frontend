@@ -15,6 +15,12 @@
     margin-bottom: 25px;
   }
 
+  &__fade {
+    &:not(:last-child) {
+      margin-bottom: 25px;
+    }
+  }
+
   &__header {
     display: flex;
     align-items: center;
@@ -62,6 +68,7 @@
 
     &_description {
       margin-top: 8px;
+      line-height: 24px;
     }
   }
 

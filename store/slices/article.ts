@@ -6,15 +6,15 @@ import {
 } from "store/types/article.type";
 import ArticleService from "services/Article.service";
 import { ArticleComment, CreateCommentDto } from "../types/comment.type";
-import CommentService from "../../services/Comment.service";
+import CommentService from "services/Comment.service";
 
-export const queryLimit = 10;
+export const queryLimit = 3;
 
 export const getArticles = createAsyncThunk(
   "articles/getArticles",
-  async (_, { dispatch }) => {
+  async ({ offset }: { offset: number }, { dispatch }) => {
     try {
-      const articles = await ArticleService.findAll(0, queryLimit);
+      const articles = await ArticleService.findAll(offset, queryLimit);
       dispatch(setArticles(articles));
     } catch (error) {
       console.log(error);
@@ -108,11 +108,12 @@ export const removeComment = createAsyncThunk(
 );
 
 const initialState: ArticleState = {
-  articles: null,
+  articles: [],
   article: null,
   isLoaded: false,
   articlesCount: 0,
   offset: 0,
+  hasMore: false,
   limit: queryLimit,
 };
 
@@ -121,7 +122,7 @@ const articleSlice = createSlice({
   initialState,
   reducers: {
     setArticles(state, { payload }: PayloadAction<ArticlesResponse>) {
-      state.articles = payload.articles;
+      state.articles = [...state.articles, ...payload.articles];
       state.articlesCount = payload.articlesCount;
     },
     setArticle(state, { payload }: PayloadAction<Article>) {
@@ -142,6 +143,25 @@ const articleSlice = createSlice({
         (item) => item.id !== payload
       );
     },
+    setHasMore(state, { payload }: PayloadAction<boolean>) {
+      state.hasMore = payload;
+    },
+    setOffset(state, { payload }: PayloadAction<number>) {
+      state.offset = payload;
+    },
+  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(getArticles.pending, (state) => {
+        state.isLoaded = true;
+      })
+      .addCase(getArticles.fulfilled, (state) => {
+        state.isLoaded = false;
+      })
+      .addCase(getArticles.rejected, (state) => {
+        state.isLoaded = false;
+      });
   },
 });
 
@@ -152,5 +172,7 @@ export const {
   updateSelectedArticle,
   addArticleComment,
   deleteArticleComment,
+  setHasMore,
+  setOffset,
 } = articleSlice.actions;
 export default articleSlice.reducer;
