@@ -1,0 +1,27 @@
+.accordion-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+
+  //content spacing
+  padding: 0 15px;
+  margin-top: 15px;
+}
+
+//plus symbol
+.accordion-control::after {
+  content: "\002B";
+  font-size: 30px;
+}
+.accordion-control.active::after {
+  content: "\2212";
+}

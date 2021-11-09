@@ -1,0 +1,42 @@
+.settings {
+  padding-right: 30px;
+
+  &__submit {
+    margin-top: 25px;
+  }
+
+  &__divider {
+    padding: 5px 0;
+  }
+
+  &__item {
+    padding: 15px 0;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    &__value {
+      font-weight: 600;
+    }
+
+    &__edit {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      & span {
+        transition: all 0.3s ease-in;
+
+
+        &:hover {
+          border-bottom: 1px solid #3f51b5;
+          color: #3f51b5;
+        }
+      }
+
+    }
+  }
+
+}

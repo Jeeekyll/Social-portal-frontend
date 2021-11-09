@@ -1,0 +1,110 @@
+.header {
+  background: #fff4e2;
+  color: black;
+
+  &__create {
+    text-decoration: none;
+    margin-left: 15px;
+  }
+
+  &__search {
+    margin-left: 35px;
+    background-color: #fff;
+
+    & input {
+      height: 16px;
+    }
+  }
+
+
+  &__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  &__menu {
+    &__item {
+      text-decoration: none;
+      color: black;
+    }
+
+    &_arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.header__title {
+  text-decoration: none;
+  margin-left: 30px;
+  color: inherit;
+}
+
+.header__user {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+
+  &__username {
+    font-family: "Roboto";
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+  }
+
+  &__auth {
+    padding: 6px 10px;
+    border-radius: 6px;
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.logout__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 400px;
+  background: white;
+  padding: 30px;
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.header__item {
+  transition: color 0.2s ease-in;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &:hover {
+    color: #ea2845;
+  }
+}
+
+.account__menu {
+  &__link {
+    color: black;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 5px 0;
+
+    &__text {
+      margin-left: 8px;
+      line-height: 21px;
+    }
+  }
+
+}

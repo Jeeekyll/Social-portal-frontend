@@ -1,0 +1,56 @@
+.avatar {
+  padding: 10px 0;
+
+  &__image {
+    width: 280px;
+    height: 200px;
+    cursor: pointer;
+    z-index: 3;
+    position: relative;
+    transition: all 0.3s ease-in;
+    overflow: hidden;
+
+    &:hover {
+      & .avatar__actions {
+        opacity: 1;
+        visibility: visible;
+        z-index: 10;
+      }
+
+      & img {
+        transform: scale(1.05);
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .5);
+        z-index: 8;
+      }
+    }
+
+    & img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      transition: all 0.3s ease-in 0s;
+    }
+
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    transition: all 0.3s ease-in;
+  }
+}
