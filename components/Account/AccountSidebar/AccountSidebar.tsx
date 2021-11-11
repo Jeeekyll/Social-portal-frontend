@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react';
 import {
   Backdrop,
   Button,
@@ -9,51 +9,51 @@ import {
   ListItemText,
   Modal,
   Typography,
-} from "@mui/material"
-import LockIcon from "@mui/icons-material/Lock"
+} from '@mui/material';
+import LockIcon from '@mui/icons-material/Lock';
 import {
   AccountCircleIcon,
   LogoutVariantIcon,
   SettingsIcon,
-} from "@icons/material"
-import ArticleIcon from "@mui/icons-material/Article"
-import { useRouter } from "next/router"
-import { Box } from "@mui/system"
-import { useTypedDispatch } from "store/hooks"
-import { logout } from "store/slices/user"
-import styles from "../../Header/Header.module.scss"
+} from '@icons/material';
+import ArticleIcon from '@mui/icons-material/Article';
+import { useRouter } from 'next/router';
+import { Box } from '@mui/system';
+import { useTypedDispatch } from 'store/hooks';
+import { logout } from 'store/slices/user';
+import styles from '../../Header/Header.module.scss';
 
 const AccountSidebar = () => {
-  const router = useRouter()
-  const dispatch = useTypedDispatch()
+  const router = useRouter();
+  const dispatch = useTypedDispatch();
 
-  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false)
+  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false);
 
-  const handleLogoutClose = (): void => setIsLogoutOpen(false)
-  const handleLogoutOpen = (): void => setIsLogoutOpen(true)
+  const handleLogoutClose = (): void => setIsLogoutOpen(false);
+  const handleLogoutOpen = (): void => setIsLogoutOpen(true);
 
   const onLogoutConfirm = (): void => {
-    dispatch(logout())
-    handleLogoutClose()
-    router.push("/")
-  }
+    dispatch(logout());
+    handleLogoutClose();
+    router.push('/');
+  };
 
   return (
     <>
       <List component='nav'>
         <ListItemButton
-          selected={router.route === "/account/profile"}
-          onClick={() => router.push("/account/profile")}
+          selected={router.route === '/account/profile'}
+          onClick={() => router.push('/account/profile')}
         >
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
-          <ListItemText primary='Profile' />
+          <ListItemText primary='Index' />
         </ListItemButton>
 
         <ListItemButton
-          selected={router.route === "/account/articles"}
-          onClick={() => router.push("/account/articles")}
+          selected={router.route === '/account/articles'}
+          onClick={() => router.push('/account/articles')}
         >
           <ListItemIcon>
             <ArticleIcon />
@@ -62,8 +62,8 @@ const AccountSidebar = () => {
         </ListItemButton>
 
         <ListItemButton
-          selected={router.route === "/account/settings"}
-          onClick={() => router.push("/account/settings")}
+          selected={router.route === '/account/settings'}
+          onClick={() => router.push('/account/settings')}
         >
           <ListItemIcon>
             <SettingsIcon />
@@ -72,8 +72,8 @@ const AccountSidebar = () => {
         </ListItemButton>
 
         <ListItemButton
-          selected={router.route === "/account/privacy"}
-          onClick={() => router.push("/account/privacy")}
+          selected={router.route === '/account/privacy'}
+          onClick={() => router.push('/account/privacy')}
         >
           <ListItemIcon>
             <LockIcon />
@@ -119,7 +119,7 @@ const AccountSidebar = () => {
         </Fade>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default AccountSidebar
+export default AccountSidebar;

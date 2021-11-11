@@ -1,24 +1,24 @@
-import React, { FC } from "react"
-import { Article } from "store/types/article.type"
-import { Grid, Typography } from "@mui/material"
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined"
-import PersonAddIcon from "@mui/icons-material/PersonAdd"
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
-import { formatDistanceToNow } from "date-fns"
-import Link from "next/link"
-import { useTypedDispatch } from "store/hooks"
-import { dislikeArticle, likeArticle } from "store/slices/article"
-import { Fade } from "react-awesome-reveal"
-import styles from "./NewsItem.module.scss"
+import React, { FC } from 'react';
+import { Article } from 'store/types/article.type';
+import { Grid, Typography } from '@mui/material';
+import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { formatDistanceToNow } from 'date-fns';
+import Link from 'next/link';
+import { useTypedDispatch } from 'store/hooks';
+import { dislikeArticle, likeArticle } from 'store/slices/article';
+import { Fade } from 'react-awesome-reveal';
+import styles from './NewsItem.module.scss';
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API
+const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 interface NewsItemProps {
-  article: Article
+  article: Article;
 }
 
 const NewsItem: FC<NewsItemProps> = ({ article }) => {
-  const dispatch = useTypedDispatch()
+  const dispatch = useTypedDispatch();
 
   const {
     title,
@@ -30,31 +30,36 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
     slug,
     comments,
     category,
-  } = article
+  } = article;
 
   const handleLikeArticle = () => {
-    dispatch(likeArticle(slug))
-  }
+    dispatch(likeArticle(slug));
+  };
 
   const handleDislikeArticle = () => {
-    dispatch(dislikeArticle(slug))
-  }
+    dispatch(dislikeArticle(slug));
+  };
 
   return (
     <Fade triggerOnce className={styles.article__fade}>
       <Grid item xs={12} className={styles.article}>
         <div className={styles.article__header}>
           <Typography variant='h6' component='div'>
-            {(category && category.name) || "Category"}
+            {(category && category.name) || 'Category'}
           </Typography>
 
-          <Typography
-            variant='body1'
-            component='div'
-            className={styles.article__header__username}
-          >
-            {author.username}
-          </Typography>
+          <Link href={`/profile/${author.username}`}>
+            <a>
+              <Typography
+                variant='body1'
+                component='div'
+                className={styles.article__header__username}
+              >
+                {author.username}
+              </Typography>
+            </a>
+          </Link>
+
           <Typography
             variant='body2'
             component='div'
@@ -64,7 +69,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
           </Typography>
           <div className={styles.article__header__subscribe}>
             <PersonAddIcon />
-            <span>subscribe</span>
+            <span>follow</span>
           </div>
         </div>
 
@@ -96,26 +101,26 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
           </div>
           <div className={styles.article__footer_likes}>
             <ArrowBackIosIcon
-              style={{ transform: "rotate(-90deg)", marginTop: "-10px" }}
+              style={{ transform: 'rotate(-90deg)', marginTop: '-10px' }}
               onClick={handleDislikeArticle}
             />
             <div
               style={{
-                color: favouritesCount >= 0 ? "#2ea83a" : "red",
+                color: favouritesCount >= 0 ? '#2ea83a' : 'red',
                 fontWeight: 600,
               }}
             >
               {favouritesCount}
             </div>
             <ArrowBackIosIcon
-              style={{ transform: "rotate(90deg)", marginTop: "10px" }}
+              style={{ transform: 'rotate(90deg)', marginTop: '10px' }}
               onClick={handleLikeArticle}
             />
           </div>
         </div>
       </Grid>
     </Fade>
-  )
-}
+  );
+};
 
-export default NewsItem
+export default NewsItem;

@@ -1,23 +1,23 @@
-import React, { FC } from "react"
-import { Button, IconButton, TextField, Typography } from "@mui/material"
-import { formatDistanceToNow } from "date-fns"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { CreateCommentDto } from "store/types/comment.type"
-import { CreateArticleComment } from "utils/validation"
-import { useTypedDispatch, useTypedSelector } from "store/hooks"
-import { createComment, removeComment } from "store/slices/article"
-import DeleteIcon from "@mui/icons-material/Delete"
-import { Fade } from "react-awesome-reveal"
-import { CommentsProps } from "./Comments.props"
-import styles from "./Comments.module.scss"
+import React, { FC } from 'react';
+import { Button, IconButton, TextField, Typography } from '@mui/material';
+import { formatDistanceToNow } from 'date-fns';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { CreateCommentDto } from 'store/types/comment.type';
+import { CreateArticleComment } from 'utils/validation';
+import { useTypedDispatch, useTypedSelector } from 'store/hooks';
+import { createComment, removeComment } from 'store/slices/article';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Fade } from 'react-awesome-reveal';
+import { CommentsProps } from './Comments.props';
+import styles from './Comments.module.scss';
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API
+const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Comments: FC<CommentsProps> = ({ comments, articleId }) => {
-  const dispatch = useTypedDispatch()
+  const dispatch = useTypedDispatch();
 
-  const { user, isAuth } = useTypedSelector((state) => state.user)
+  const { user, isAuth } = useTypedSelector((state) => state.user);
 
   const {
     handleSubmit,
@@ -26,19 +26,19 @@ const Comments: FC<CommentsProps> = ({ comments, articleId }) => {
     reset,
   } = useForm<CreateCommentDto>({
     resolver: yupResolver(CreateArticleComment),
-    mode: "onChange",
-  })
+    mode: 'onChange',
+  });
 
   const onSubmit: SubmitHandler<CreateCommentDto> = async (
     createCommentDto: CreateCommentDto
   ) => {
-    dispatch(createComment({ ...createCommentDto, articleId }))
-    reset()
-  }
+    dispatch(createComment({ ...createCommentDto, articleId }));
+    reset();
+  };
 
   const handleDeleteCommentary = (commentId: number) => {
-    dispatch(removeComment(commentId))
-  }
+    dispatch(removeComment(commentId));
+  };
 
   return (
     <>
@@ -68,7 +68,7 @@ const Comments: FC<CommentsProps> = ({ comments, articleId }) => {
                   placeholder='Leave a comment...'
                   fullWidth
                   error={errors.text && true}
-                  {...register("text")}
+                  {...register('text')}
                 />
 
                 <Button
@@ -100,7 +100,7 @@ const Comments: FC<CommentsProps> = ({ comments, articleId }) => {
                       <img
                         src={
                           `${api}/${comment.author.image}` ||
-                          "/account/profile-empty.png"
+                          '/account/profile-empty.png'
                         }
                         alt='user-avatar'
                       />
@@ -131,7 +131,7 @@ const Comments: FC<CommentsProps> = ({ comments, articleId }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Comments
+export default Comments;

@@ -1,13 +1,13 @@
-import React, { FC, ReactElement } from "react"
-import AccountLayout from "layouts/AccountLayout"
-import Profile from "components/Account/Profile/Profile"
+import React, { FC, ReactElement } from 'react';
+import AccountLayout from 'layouts/AccountLayout';
+import Profile from '../../components/Account/Profile/Profile';
 
 const ProfilePage: FC = (): ReactElement => {
   return (
-    <AccountLayout title='Profile'>
+    <AccountLayout title='Index'>
       <Profile />
     </AccountLayout>
-  )
-}
+  );
+};
 
-export default ProfilePage
+export default ProfilePage;
