@@ -1,24 +1,24 @@
-import React, { FC } from "react";
-import { Article } from "store/types/article.type";
-import { Grid, Typography } from "@mui/material";
-import styles from "./NewsItem.module.scss";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { formatDistanceToNow } from "date-fns";
-import Link from "next/link";
-import { useTypedDispatch } from "store/hooks";
-import { dislikeArticle, likeArticle } from "store/slices/article";
-import { Fade } from "react-awesome-reveal";
+import React, { FC } from "react"
+import { Article } from "store/types/article.type"
+import { Grid, Typography } from "@mui/material"
+import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined"
+import PersonAddIcon from "@mui/icons-material/PersonAdd"
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
+import { formatDistanceToNow } from "date-fns"
+import Link from "next/link"
+import { useTypedDispatch } from "store/hooks"
+import { dislikeArticle, likeArticle } from "store/slices/article"
+import { Fade } from "react-awesome-reveal"
+import styles from "./NewsItem.module.scss"
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API;
+const api = process.env.NEXT_PUBLIC_DOMAIN_API
 
 interface NewsItemProps {
-  article: Article;
+  article: Article
 }
 
 const NewsItem: FC<NewsItemProps> = ({ article }) => {
-  const dispatch = useTypedDispatch();
+  const dispatch = useTypedDispatch()
 
   const {
     title,
@@ -30,34 +30,34 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
     slug,
     comments,
     category,
-  } = article;
+  } = article
 
   const handleLikeArticle = () => {
-    dispatch(likeArticle(slug));
-  };
+    dispatch(likeArticle(slug))
+  }
 
   const handleDislikeArticle = () => {
-    dispatch(dislikeArticle(slug));
-  };
+    dispatch(dislikeArticle(slug))
+  }
 
   return (
     <Fade triggerOnce className={styles.article__fade}>
       <Grid item xs={12} className={styles.article}>
         <div className={styles.article__header}>
-          <Typography variant="h6" component="div">
+          <Typography variant='h6' component='div'>
             {(category && category.name) || "Category"}
           </Typography>
 
           <Typography
-            variant="body1"
-            component="div"
+            variant='body1'
+            component='div'
             className={styles.article__header__username}
           >
             {author.username}
           </Typography>
           <Typography
-            variant="body2"
-            component="div"
+            variant='body2'
+            component='div'
             className={styles.article__header__date}
           >
             {createdAt && formatDistanceToNow(new Date(createdAt))}
@@ -71,7 +71,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
         <div className={styles.article__body}>
           <Link href={`/articles/${slug}`}>
             <a className={styles.article__body_title}>
-              <Typography variant="h5" component="div">
+              <Typography variant='h5' component='div'>
                 {title}
               </Typography>
             </a>
@@ -83,7 +83,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
           <Link href={`/articles/${slug}`}>
             <a>
               <div className={styles.article__cover}>
-                <img src={`${api}/${cover}`} alt="post-cover" />
+                <img src={`${api}/${cover}`} alt='post-cover' />
               </div>
             </a>
           </Link>
@@ -115,7 +115,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
         </div>
       </Grid>
     </Fade>
-  );
-};
+  )
+}
 
-export default NewsItem;
+export default NewsItem

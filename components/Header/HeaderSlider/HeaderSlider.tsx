@@ -1,15 +1,15 @@
-import React, { FC } from "react";
-import Slider from "react-slick";
-import styles from "./HeaderSlider.module.scss";
-import { Button } from "@mui/material";
-import Fade from "react-reveal/Fade";
-import AnchorLink from "react-anchor-link-smooth-scroll";
+import React, { FC } from "react"
+import Slider from "react-slick"
+import { Button } from "@mui/material"
+import Fade from "react-reveal/Fade"
+import AnchorLink from "react-anchor-link-smooth-scroll"
+import styles from "./HeaderSlider.module.scss"
 
 const homeSliderImages = [
   { src: "/header/header-1.jpg" },
   { src: "/header/header-2.jpg" },
   { src: "/header/header-4.jpg" },
-];
+]
 
 const HeaderSlider: FC = () => {
   const homeSliderSettings = {
@@ -21,7 +21,7 @@ const HeaderSlider: FC = () => {
     autoplaySpeed: 3500,
     fade: true,
     draggable: false,
-  };
+  }
 
   return (
     <>
@@ -39,7 +39,7 @@ const HeaderSlider: FC = () => {
           </h3>
         </Fade>
 
-        <Fade right distance="200px" duration={700} delay={600}>
+        <Fade right distance='200px' duration={700} delay={600}>
           <div className={styles.home__slider__content__desc}>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
             doloremque, eaque ex facilis fuga iste itaque nulla odit placeat
@@ -50,22 +50,22 @@ const HeaderSlider: FC = () => {
         <Fade delay={1200}>
           <div className={styles.home__slider__content__actions}>
             <AnchorLink
-              href="#news"
+              href='#news'
               className={styles.home__slider__content__actions__news}
             >
-              <Button variant="outlined" size="large">
+              <Button variant='outlined' size='large'>
                 Read news
               </Button>
             </AnchorLink>
 
-            <Button variant="contained" size="large">
+            <Button variant='contained' size='large'>
               Chat
             </Button>
           </div>
         </Fade>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default HeaderSlider;
+export default HeaderSlider

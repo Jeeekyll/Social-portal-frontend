@@ -1,52 +1,52 @@
 export interface ResponseUser {
-  id: number;
-  email: string;
-  bio: string;
-  image: string;
-  password: string;
-  token: string;
-  username: string;
+  id: number
+  email: string
+  bio: string
+  image: string
+  password: string
+  token: string
+  username: string
 }
 
 export interface User {
-  id: number;
-  email: string;
-  bio: string;
-  image: string;
-  username: string;
+  id: number
+  email: string
+  bio: string
+  image: string
+  username: string
 }
 
 export interface UserState {
-  user: User | null;
-  isAuth: boolean;
+  user: User | null
+  isAuth: boolean
 }
 
 export type CreateUserDto = {
-  username: string;
-  email: string;
-  password: string;
-};
+  username: string
+  email: string
+  password: string
+}
 
 export type LoginUserDto = {
-  email: string;
-  password: string;
-};
+  email: string
+  password: string
+}
 
 export type UpdateUserDto = {
-  username: string;
-  email: string;
-  bio?: string;
-};
+  username: string
+  email: string
+  bio?: string
+}
 
 export type ChangePasswordDto = {
-  currentPassword: string;
-  newPassword: string;
-};
+  currentPassword: string
+  newPassword: string
+}
 
 export interface UserResponse {
-  user: ResponseUser;
+  user: ResponseUser
 }
 
 export interface ChangePasswordResponse {
-  data: boolean;
+  data: boolean
 }

@@ -1,24 +1,23 @@
-import React from "react";
-import { useTypedSelector } from "store/hooks";
-import { Divider, Grid } from "@mui/material";
-import styles from "./Profile.module.scss";
-import { Fade } from "react-awesome-reveal";
+import React from "react"
+import { useTypedSelector } from "store/hooks"
+import { Divider, Grid } from "@mui/material"
+import { Fade } from "react-awesome-reveal"
+import styles from "./Profile.module.scss"
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API;
+const api = process.env.NEXT_PUBLIC_DOMAIN_API
 
 const Profile = () => {
-  const { user } = useTypedSelector((state) => state.user);
+  const { user } = useTypedSelector((state) => state.user)
 
-  const userImage = (): string => {
-    return user.image ? `${api}/${user.image}` : `/account/profile-empty.png`;
-  };
+  const userImage = (): string =>
+    user.image ? `${api}/${user.image}` : "/account/profile-empty.png"
 
   return (
     <>
       {user && (
         <Fade>
           <div className={styles.profile}>
-            <Divider textAlign="left" className={styles.profile__divider}>
+            <Divider textAlign='left' className={styles.profile__divider}>
               Avatar
             </Divider>
             <div className={styles.profile__item}>
@@ -26,12 +25,12 @@ const Profile = () => {
                 <img
                   src={userImage()}
                   className={styles.profile__avatar}
-                  alt="avatar"
+                  alt='avatar'
                 />
               </div>
             </div>
 
-            <Divider textAlign="left">General</Divider>
+            <Divider textAlign='left'>General</Divider>
             <div className={styles.profile__item}>
               <Grid container spacing={2}>
                 <Grid item xs={3} md={3}>
@@ -58,7 +57,7 @@ const Profile = () => {
               </Grid>
             </div>
 
-            <Divider textAlign="left" className={styles.profile__divider}>
+            <Divider textAlign='left' className={styles.profile__divider}>
               Advanced
             </Divider>
 
@@ -78,7 +77,7 @@ const Profile = () => {
         </Fade>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

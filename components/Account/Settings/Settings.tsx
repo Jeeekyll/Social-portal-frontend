@@ -1,19 +1,19 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useTypedDispatch, useTypedSelector } from "store/hooks";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { UpdateUserDto } from "store/types/user.type";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Divider, Grid, Input, Snackbar } from "@mui/material";
-import styles from "./Settings.module.scss";
-import { ChangeUserCredentials } from "utils/validation";
-import EditButton from "./EditButton";
-import { Fade } from "react-awesome-reveal";
-import { updateUser } from "store/slices/user";
-import Avatar from "./Avatar";
+import React, { useEffect, useMemo, useState } from "react"
+import { useTypedDispatch, useTypedSelector } from "store/hooks"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { UpdateUserDto } from "store/types/user.type"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { Button, Divider, Grid, Input, Snackbar } from "@mui/material"
+import { ChangeUserCredentials } from "utils/validation"
+import { Fade } from "react-awesome-reveal"
+import { updateUser } from "store/slices/user"
+import EditButton from "./EditButton"
+import styles from "./Settings.module.scss"
+import Avatar from "./Avatar"
 
 const Settings = () => {
-  const dispatch = useTypedDispatch();
-  const { user, isAuth } = useTypedSelector((state) => state.user);
+  const dispatch = useTypedDispatch()
+  const { user, isAuth } = useTypedSelector((state) => state.user)
 
   const {
     handleSubmit,
@@ -25,78 +25,78 @@ const Settings = () => {
     resolver: yupResolver(ChangeUserCredentials),
     defaultValues: useMemo(() => user, [user]),
     mode: "onChange",
-  });
+  })
 
-  const [isUsernameActive, setIsUsernameActive] = useState<boolean>(false);
+  const [isUsernameActive, setIsUsernameActive] = useState<boolean>(false)
 
   const handleActiveUsernameChange = (): void => {
-    setIsUsernameActive(true);
-  };
+    setIsUsernameActive(true)
+  }
 
   const handleDiscardUsernameChange = (): void => {
-    reset({ ...getValues(), username: user.username });
-    setIsUsernameActive(false);
-  };
+    reset({ ...getValues(), username: user.username })
+    setIsUsernameActive(false)
+  }
 
-  const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
+  const [isEmailActive, setIsEmailActive] = useState<boolean>(false)
 
   const handleActiveEmailChange = (): void => {
-    setIsEmailActive(true);
-  };
+    setIsEmailActive(true)
+  }
 
   const handleDiscardEmailChange = (): void => {
-    reset({ ...getValues(), email: user.email });
-    setIsEmailActive(false);
-  };
+    reset({ ...getValues(), email: user.email })
+    setIsEmailActive(false)
+  }
 
-  const [isBioActive, setIsBioActive] = useState<boolean>(false);
+  const [isBioActive, setIsBioActive] = useState<boolean>(false)
   const handleActiveBioChange = (): void => {
-    setIsBioActive(true);
-  };
+    setIsBioActive(true)
+  }
 
   const handleDiscardBioChange = (): void => {
-    reset({ ...getValues(), bio: user.bio });
-    setIsBioActive(false);
-  };
+    reset({ ...getValues(), bio: user.bio })
+    setIsBioActive(false)
+  }
 
   const resetFormState = () => {
-    setIsBioActive(false);
-    setIsEmailActive(false);
-    setIsUsernameActive(false);
-  };
+    setIsBioActive(false)
+    setIsEmailActive(false)
+    setIsUsernameActive(false)
+  }
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) return
 
     reset({
       username: user.username,
       email: user.email,
       bio: user.bio,
-    });
-  }, [user]);
+    })
+  }, [user])
 
   const onSubmit: SubmitHandler<UpdateUserDto> = async (
     updateUserDto: UpdateUserDto
   ) => {
-    await dispatch(updateUser(updateUserDto));
-    await resetFormState();
-    setIsFormSubmitted(true);
-  };
+    await dispatch(updateUser(updateUserDto))
+    await resetFormState()
+    setIsFormSubmitted(true)
+  }
 
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false)
 
   return (
     <>
       {isAuth && (
         <Fade>
-          <Divider textAlign="left">Avatar</Divider>
+          <Divider textAlign='left'>Avatar</Divider>
           <Avatar />
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Divider textAlign="left">General</Divider>
+            <Divider textAlign='left'>General</Divider>
 
             <div className={styles.settings__item}>
-              <Grid container spacing={2} alignItems="center">
+              <Grid container spacing={2} alignItems='center'>
                 <Grid item xs={3} md={3}>
                   <div className={styles.settings__item__title}>Username</div>
                 </Grid>
@@ -104,7 +104,7 @@ const Settings = () => {
                   {isUsernameActive ? (
                     <Input
                       fullWidth
-                      placeholder="Username"
+                      placeholder='Username'
                       error={errors.username && true}
                       {...register("username")}
                     />
@@ -126,7 +126,7 @@ const Settings = () => {
             <Divider />
 
             <div className={styles.settings__item}>
-              <Grid container spacing={2} alignItems="center">
+              <Grid container spacing={2} alignItems='center'>
                 <Grid item xs={3} md={3}>
                   <div className={styles.settings__item__title}>Email</div>
                 </Grid>
@@ -134,7 +134,7 @@ const Settings = () => {
                   {isEmailActive ? (
                     <Input
                       fullWidth
-                      placeholder="Email"
+                      placeholder='Email'
                       error={errors.email && true}
                       {...register("email")}
                     />
@@ -154,10 +154,10 @@ const Settings = () => {
               </Grid>
             </div>
 
-            <Divider textAlign="left">Advanced</Divider>
+            <Divider textAlign='left'>Advanced</Divider>
 
             <div className={styles.settings__item}>
-              <Grid container spacing={2} alignItems="center">
+              <Grid container spacing={2} alignItems='center'>
                 <Grid item xs={3} md={3}>
                   <div className={styles.settings__item__title}>Bio</div>
                 </Grid>
@@ -165,7 +165,7 @@ const Settings = () => {
                   {isBioActive ? (
                     <Input
                       fullWidth
-                      placeholder="Bio"
+                      placeholder='Bio'
                       error={errors.bio && true}
                       {...register("bio")}
                     />
@@ -186,8 +186,8 @@ const Settings = () => {
             </div>
 
             <Button
-              type="submit"
-              variant="contained"
+              type='submit'
+              variant='contained'
               className={styles.settings__submit}
             >
               Save
@@ -202,11 +202,11 @@ const Settings = () => {
         autoHideDuration={3000}
         transitionDuration={500}
         onClose={() => setIsFormSubmitted(false)}
-        message="Success"
+        message='Success'
         key={"top" + "center"}
       />
     </>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

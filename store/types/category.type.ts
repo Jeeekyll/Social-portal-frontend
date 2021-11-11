@@ -1,9 +1,9 @@
 export interface Category {
-  id: number;
-  name: string;
-  cover: string;
+  id: number
+  name: string
+  cover: string
 }
 
 export interface CategoryResponse {
-  data: Category[];
+  data: Category[]
 }

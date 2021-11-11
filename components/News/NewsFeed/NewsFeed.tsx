@@ -1,48 +1,48 @@
-import React, { FC, useEffect, useRef, useState } from "react";
-import { CircularProgress, Grid } from "@mui/material";
-import NewsItem from "../NewsItem/NewsItem";
-import { useObserver, useTypedDispatch, useTypedSelector } from "store/hooks";
-import { getArticles, queryLimit, clearArticles } from "store/slices/article";
-import styles from "./NewsFeed.module.scss";
+import React, { FC, useEffect, useRef, useState } from "react"
+import { CircularProgress, Grid, Typography } from "@mui/material"
+import { useObserver, useTypedDispatch, useTypedSelector } from "store/hooks"
+import { getArticles, queryLimit, clearArticles } from "store/slices/article"
+import NewsItem from "../NewsItem/NewsItem"
+import styles from "./NewsFeed.module.scss"
 
 const NewsFeed: FC = () => {
-  const dispatch = useTypedDispatch();
+  const dispatch = useTypedDispatch()
   const { articles, isLoaded, articlesCount } = useTypedSelector(
     (state) => state.articles
-  );
-  const lastElement = useRef<HTMLDivElement>(null);
+  )
+  const lastElement = useRef<HTMLDivElement>(null)
 
-  //observer pagination params
-  const [offset, setOffset] = useState<number>(0);
-  const [hasMore, setHasMore] = useState<boolean>(false);
+  // observer pagination params
+  const [offset, setOffset] = useState<number>(0)
+  const [hasMore, setHasMore] = useState<boolean>(false)
 
   useEffect(() => {
-    dispatch(clearArticles());
-  }, []);
+    dispatch(clearArticles())
+  }, [])
 
-  //increase articles capacity
+  // increase articles capacity
   useEffect(() => {
-    if (articles.length < 0) return;
+    if (articles.length < 0) return
 
     if (articles.length < articlesCount) {
-      setHasMore(true);
+      setHasMore(true)
     } else {
-      setHasMore(false);
+      setHasMore(false)
     }
-  }, [articles.length]);
+  }, [articles.length])
 
   useEffect(() => {
-    dispatch(getArticles({ offset }));
-  }, [offset]);
+    dispatch(getArticles({ offset }))
+  }, [offset])
 
   const handleArticlesLoading = () => {
-    setOffset(offset + queryLimit);
-  };
+    setOffset(offset + queryLimit)
+  }
 
-  useObserver(lastElement, hasMore, isLoaded, handleArticlesLoading);
+  useObserver(lastElement, hasMore, isLoaded, handleArticlesLoading)
 
   return (
-    <div className={styles.feed__container} id="news">
+    <div className={styles.feed__container} id='news'>
       <Grid>
         {articles &&
           articles.length > 0 &&
@@ -52,6 +52,19 @@ const NewsFeed: FC = () => {
               article={article}
             />
           ))}
+
+        {articles && !articles.length && (
+          <div style={{ textAlign: "center" }}>
+            <Typography
+              variant='h4'
+              gutterBottom
+              component='div'
+              style={{ marginBottom: 50 }}
+            >
+              Articles not found
+            </Typography>
+          </div>
+        )}
       </Grid>
 
       <div
@@ -62,7 +75,7 @@ const NewsFeed: FC = () => {
         <CircularProgress />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NewsFeed;
+export default NewsFeed

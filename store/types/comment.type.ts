@@ -1,17 +1,17 @@
-import { User } from "./user.type";
+import { User } from "./user.type"
 
 export interface Comment {
-  id: number;
-  text: string;
-  createdAt: Date | string;
-  updatedAt: Date | string;
+  id: number
+  text: string
+  createdAt: Date | string
+  updatedAt: Date | string
 }
 
 export interface ArticleComment extends Comment {
-  author: User;
+  author: User
 }
 
 export interface CreateCommentDto {
-  text: string;
-  articleId: number;
+  text: string
+  articleId: number
 }

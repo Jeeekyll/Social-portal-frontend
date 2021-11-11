@@ -1,3 +1,3 @@
 export interface ArticleProps {
-  slug: string;
+  slug: string
 }

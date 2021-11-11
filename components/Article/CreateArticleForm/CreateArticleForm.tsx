@@ -1,29 +1,29 @@
-import React, { FC, useEffect, useState } from "react";
-import styles from "./CreateArticleForm.module.scss";
-import { Button, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Article, CreateArticleDto } from "store/types/article.type";
-import { Fade } from "react-awesome-reveal";
-import { CreateArticle } from "utils/validation";
-import ArticleService from "services/Article.service";
-import Link from "next/link";
-import { Category } from "store/types/category.type";
+import React, { FC, useEffect, useState } from "react"
+import { Button, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { Article, CreateArticleDto } from "store/types/article.type"
+import { Fade } from "react-awesome-reveal"
+import { CreateArticle } from "utils/validation"
+import ArticleService from "services/Article.service"
+import Link from "next/link"
+import { Category } from "store/types/category.type"
+import styles from "./CreateArticleForm.module.scss"
 
 interface CreateArticleFormProps {
-  categories: Category[] | null;
+  categories: Category[] | null
 }
 
 const CreateArticleForm: FC<CreateArticleFormProps> = ({
   categories: serverCategories,
 }) => {
-  const [isArticleCreated, setIsArticleCreated] = useState<boolean>(false);
-  const [article, setArticle] = useState<Article | null>(null);
-  const [categories, setCategories] = useState<Category[] | null>(null);
+  const [isArticleCreated, setIsArticleCreated] = useState<boolean>(false)
+  const [article, setArticle] = useState<Article | null>(null)
+  const [categories, setCategories] = useState<Category[] | null>(null)
 
   useEffect(() => {
-    setCategories(serverCategories);
-  }, [serverCategories]);
+    setCategories(serverCategories)
+  }, [serverCategories])
 
   const {
     handleSubmit,
@@ -33,19 +33,19 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
   } = useForm<CreateArticleDto>({
     resolver: yupResolver(CreateArticle),
     mode: "onChange",
-  });
+  })
 
   const onSubmit: SubmitHandler<CreateArticleDto> = async (
     createArticleDto: CreateArticleDto
   ) => {
     try {
-      const article = await ArticleService.create(createArticleDto);
-      setArticle(article);
-      setIsArticleCreated(true);
+      const article = await ArticleService.create(createArticleDto)
+      setArticle(article)
+      setIsArticleCreated(true)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <div className={styles.create}>
@@ -54,15 +54,15 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
           {isArticleCreated ? (
             <>
               <Typography
-                variant="h4"
+                variant='h4'
                 gutterBottom
-                component="div"
+                component='div'
                 className={styles.create__title}
               >
                 Success
               </Typography>
               <Typography
-                variant="body1"
+                variant='body1'
                 gutterBottom
                 className={styles.create__title}
               >
@@ -73,9 +73,9 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
           ) : (
             <>
               <Typography
-                variant="h4"
+                variant='h4'
                 gutterBottom
-                component="div"
+                component='div'
                 className={styles.create__title}
               >
                 Create post
@@ -84,28 +84,28 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
               <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                   fullWidth
-                  variant="standard"
-                  label="Title"
+                  variant='standard'
+                  label='Title'
                   {...register("title")}
                   className={styles.create__item}
                   error={errors.title && true}
                 />
                 <TextField
-                  label="Description"
+                  label='Description'
                   multiline
                   maxRows={6}
                   fullWidth
-                  variant="standard"
+                  variant='standard'
                   {...register("description")}
                   className={styles.create__item}
                   error={errors.description && true}
                 />
                 <TextField
-                  label="Content"
+                  label='Content'
                   multiline
                   maxRows={6}
                   fullWidth
-                  variant="standard"
+                  variant='standard'
                   {...register("body")}
                   className={styles.create__item}
                   error={errors.body && true}
@@ -117,7 +117,7 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
                       <Select
                         onChange={onChange}
                         value={value}
-                        variant="standard"
+                        variant='standard'
                         error={errors.category && true}
                         className={styles.create__item}
                       >
@@ -129,7 +129,7 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
                       </Select>
                     )}
                     control={control}
-                    name="category"
+                    name='category'
                     defaultValue={categories[0].id}
                   />
                 )}
@@ -137,8 +137,8 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
                 {isDirty && (
                   <Fade>
                     <Button
-                      type="submit"
-                      variant="contained"
+                      type='submit'
+                      variant='contained'
                       disabled={Object.keys(errors).length > 0}
                     >
                       Create
@@ -151,7 +151,7 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreateArticleForm;
+export default CreateArticleForm
