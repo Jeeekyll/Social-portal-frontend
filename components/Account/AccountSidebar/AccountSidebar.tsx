@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { Box } from '@mui/system';
 import { useTypedDispatch } from 'store/hooks';
 import { logout } from 'store/slices/user';
-import styles from '../../Header/Header.module.scss';
+import styles from 'Header/Header.module.scss';
 
 const AccountSidebar = () => {
   const router = useRouter();
@@ -48,7 +48,7 @@ const AccountSidebar = () => {
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
-          <ListItemText primary='Index' />
+          <ListItemText primary='Profile' />
         </ListItemButton>
 
         <ListItemButton

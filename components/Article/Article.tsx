@@ -1,40 +1,40 @@
-import React, { FC, useEffect } from "react"
-import { Button, Typography } from "@mui/material"
-import { useTypedDispatch, useTypedSelector } from "store/hooks"
+import React, { FC, useEffect } from 'react';
+import { Button, Typography } from '@mui/material';
+import { useTypedDispatch, useTypedSelector } from 'store/hooks';
 import {
   dislikeSelectedArticle,
   getArticle,
   likeSelectedArticle,
-} from "store/slices/article"
-import { formatDistanceToNow } from "date-fns"
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined"
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos"
-import AnchorLink from "react-anchor-link-smooth-scroll"
-import Link from "next/link"
-import CreateIcon from "@mui/icons-material/Create"
-import Comments from "./Comments/Comments"
-import styles from "./Article.module.scss"
-import { ArticleProps } from "./Article.props"
+} from 'store/slices/article';
+import { formatDistanceToNow } from 'date-fns';
+import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import Link from 'next/link';
+import CreateIcon from '@mui/icons-material/Create';
+import Comments from './Comments/Comments';
+import styles from './Article.module.scss';
+import { ArticleProps } from './Article.props';
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API
+const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Article: FC<ArticleProps> = ({ slug }) => {
-  const { article } = useTypedSelector((state) => state.articles)
-  const { user, isAuth } = useTypedSelector((state) => state.user)
+  const { article } = useTypedSelector((state) => state.articles);
+  const { user, isAuth } = useTypedSelector((state) => state.user);
 
-  const dispatch = useTypedDispatch()
+  const dispatch = useTypedDispatch();
 
   useEffect(() => {
-    dispatch(getArticle(slug))
-  }, [slug])
+    dispatch(getArticle(slug));
+  }, [slug]);
 
   const handleLikeClick = () => {
-    dispatch(likeSelectedArticle(article.slug))
-  }
+    dispatch(likeSelectedArticle(article.slug));
+  };
 
   const handleDislikeClick = () => {
-    dispatch(dislikeSelectedArticle(article.slug))
-  }
+    dispatch(dislikeSelectedArticle(article.slug));
+  };
 
   return (
     <>
@@ -94,19 +94,19 @@ const Article: FC<ArticleProps> = ({ slug }) => {
 
                 <div className={styles.article__footer_likes}>
                   <ArrowBackIosIcon
-                    style={{ transform: "rotate(-90deg)", marginTop: "-10px" }}
+                    style={{ transform: 'rotate(-90deg)', marginTop: '-10px' }}
                     onClick={handleDislikeClick}
                   />
                   <div
                     style={{
-                      color: article.favouritesCount >= 0 ? "#2ea83a" : "red",
+                      color: article.favouritesCount >= 0 ? '#2ea83a' : 'red',
                       fontWeight: 600,
                     }}
                   >
                     {article.favouritesCount}
                   </div>
                   <ArrowBackIosIcon
-                    style={{ transform: "rotate(90deg)", marginTop: "10px" }}
+                    style={{ transform: 'rotate(90deg)', marginTop: '10px' }}
                     onClick={handleLikeClick}
                   />
                 </div>
@@ -130,7 +130,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Article
+export default Article;
