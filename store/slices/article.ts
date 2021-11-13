@@ -1,38 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  Article,
-  ArticlesResponse,
-  ArticleState,
-} from 'store/types/article.type';
+import { Article, ArticleState } from 'store/types/article.type';
 import ArticleService from 'services/Article.service';
-import { ArticleComment, CreateCommentDto } from 'types/comment.type';
+import { ArticleComment, CreateCommentDto } from 'store/types/comment.type';
 import CommentService from 'services/Comment.service';
 
+//articles observe limit
 export const queryLimit = 3;
-
-export const getArticles = createAsyncThunk(
-  'articles/getArticles',
-  async ({ offset }: { offset: number }, { dispatch }) => {
-    try {
-      const articles = await ArticleService.findAll(offset, queryLimit);
-      dispatch(setArticles(articles));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-export const searchArticles = createAsyncThunk(
-  'articles/searchArticles',
-  async (query: string, { dispatch }) => {
-    try {
-      const articles = await ArticleService.search(query);
-      dispatch(setFlowArticles(articles));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
 
 export const getArticle = createAsyncThunk(
   'articles/getArticle',
@@ -120,34 +93,18 @@ export const removeComment = createAsyncThunk(
 );
 
 const initialState: ArticleState = {
-  articles: [],
   article: null,
-  isLoaded: false,
-  articlesCount: 0,
 };
 
 const articleSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
-    setArticles(state, { payload }: PayloadAction<ArticlesResponse>) {
-      state.articles = [...state.articles, ...payload.articles];
-      state.articlesCount = payload.articlesCount;
-    },
-    clearArticles(state) {
-      state.articles = [];
-      state.articlesCount = 0;
-    },
-    setFlowArticles(state, { payload }: PayloadAction<ArticlesResponse>) {
-      state.articles = payload.articles;
-      state.articlesCount = payload.articlesCount;
-    },
     setArticle(state, { payload }: PayloadAction<Article>) {
       state.article = payload;
     },
     updateArticle(state, { payload }: PayloadAction<Article>) {
-      const articleById = state.articles.findIndex((i) => i.id === payload.id);
-      state.articles[articleById] = payload;
+      state.article = payload;
     },
     updateSelectedArticle(state, { payload }: PayloadAction<Article>) {
       state.article = payload;
@@ -161,29 +118,13 @@ const articleSlice = createSlice({
       );
     },
   },
-
-  extraReducers: (builder) => {
-    builder
-      .addCase(getArticles.pending, (state) => {
-        state.isLoaded = true;
-      })
-      .addCase(getArticles.fulfilled, (state) => {
-        state.isLoaded = false;
-      })
-      .addCase(getArticles.rejected, (state) => {
-        state.isLoaded = false;
-      });
-  },
 });
 
 export const {
-  setArticles,
   setArticle,
   updateArticle,
   updateSelectedArticle,
   addArticleComment,
   deleteArticleComment,
-  setFlowArticles,
-  clearArticles,
 } = articleSlice.actions;
 export default articleSlice.reducer;

@@ -6,7 +6,7 @@ import {
   ResponseUser,
   UpdateUserDto,
   UserState,
-} from 'types/user.type';
+} from 'store/types/user.type';
 
 export const checkAuth = createAsyncThunk(
   'user/checkUserAuth',

@@ -28,7 +28,7 @@ import { useRouter } from 'next/router';
 import { formatDistanceToNow } from 'date-fns';
 import { Category } from 'store/types/category.type';
 import { EditArticleFormProps } from './EditArticleForm.props';
-import styles from 'CreateArticleForm/CreateArticleForm.module.scss';
+import styles from '../CreateArticleForm/CreateArticleForm.module.scss';
 
 const EditArticleForm: FC<EditArticleFormProps> = ({
   article: serverArticle,

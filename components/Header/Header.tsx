@@ -33,18 +33,18 @@ import { useDispatch } from 'react-redux';
 import { Box } from '@mui/system';
 import cn from 'classnames';
 import { Fade as FadeEffect } from 'react-awesome-reveal';
-import SearchIcon from '@mui/icons-material/Search';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Register from '../Auth/Register';
 import HeaderSidebar from './HeaderSidebar/HeaderSidebar';
 import Login from 'components/Auth/Login';
 import styles from './Header.module.scss';
-import { searchArticles } from 'store/slices/article';
+import { useRouter } from 'next/router';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Header: FC = (): ReactElement => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const { user, isAuth } = useTypedSelector((state) => state.user);
 
@@ -72,31 +72,12 @@ const Header: FC = (): ReactElement => {
   const onLogoutClick = (): void => {
     dispatch(logout());
     handleLogoutClose();
+    router.push('/');
   };
 
   useEffect(() => {
     dispatch(checkAuth());
   }, []);
-
-  const [search, setSearch] = useState<string>('');
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    if (!search.length) return;
-
-    if (timer) {
-      clearTimeout(timer);
-    }
-    setTimer(
-      setTimeout(async () => {
-        await dispatch(searchArticles(search));
-      }, 500)
-    );
-  }, [search]);
-
-  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-  };
 
   return (
     <>
@@ -124,17 +105,6 @@ const Header: FC = (): ReactElement => {
                 </Typography>
               </a>
             </Link>
-            <div className={styles.header__search}>
-              <OutlinedInput
-                size='small'
-                onChange={onSearchChange}
-                startAdornment={
-                  <InputAdornment position='start'>
-                    <SearchIcon fontSize='medium' />
-                  </InputAdornment>
-                }
-              />
-            </div>
 
             <div className={styles.header__user}>
               {isAuth ? (

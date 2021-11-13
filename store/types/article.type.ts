@@ -20,10 +20,7 @@ export interface Article {
 }
 
 export interface ArticleState {
-  articles: Article[] | null;
   article: Article | null;
-  isLoaded: boolean;
-  articlesCount: number;
 }
 
 export interface ArticlesResponse {
