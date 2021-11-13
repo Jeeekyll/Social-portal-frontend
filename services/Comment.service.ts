@@ -1,7 +1,7 @@
-import { ArticleComment, CreateCommentDto } from "store/types/comment.type"
-import $api from "./index"
+import { ArticleComment, CreateCommentDto } from 'store/types/comment.type';
+import $api from './index';
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API
+const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 export default class CommentService {
   static async create(
@@ -10,15 +10,15 @@ export default class CommentService {
     const { data } = await $api.post<ArticleComment>(
       `${api}/comments`,
       createComment
-    )
+    );
 
-    return data
+    return data;
   }
 
   static async delete(commentId): Promise<number> {
     const { data } = await $api.delete<{ data: number }>(
       `${api}/comments/${commentId}`
-    )
-    return data.data
+    );
+    return data.data;
   }
 }

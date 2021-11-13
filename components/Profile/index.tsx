@@ -4,6 +4,7 @@ import { ProfileProps } from './Profile.props';
 import ProfileService from '../../services/Profile.service';
 import { useTypedSelector } from '../../store/hooks';
 import { Button } from '@mui/material';
+import styles from './Profile.module.scss';
 
 const Profile: FC<ProfileProps> = ({ username }) => {
   const { user, isAuth } = useTypedSelector((state) => state.user);
@@ -33,12 +34,12 @@ const Profile: FC<ProfileProps> = ({ username }) => {
   }, [username]);
 
   return (
-    <div className='container' style={{ marginTop: 100 }}>
+    <div className='page ' style={{ marginTop: 100 }}>
       {isAuth ? (
         <>
           {profile && Object.keys(profile).length > 0 && (
             <div>
-              <div>{profile.username}</div>
+              <div className='page__title'>{profile.username}</div>
               <div>{profile.bio || 'Data not specified'}</div>
               <div>{profile.image}</div>
 

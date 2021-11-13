@@ -4,7 +4,7 @@ import React, {
   ReactElement,
   useEffect,
   useState,
-} from "react"
+} from 'react';
 import {
   AppBar,
   Avatar,
@@ -19,81 +19,83 @@ import {
   OutlinedInput,
   Toolbar,
   Typography,
-} from "@mui/material"
+} from '@mui/material';
 import {
   MenuIcon,
   LogoutVariantIcon,
   SettingsIcon,
   CloseIcon,
-} from "@icons/material"
-import Link from "next/link"
-import { useTypedSelector } from "store/hooks"
-import { checkAuth, logout } from "store/slices/user"
-import { useDispatch } from "react-redux"
-import { Box } from "@mui/system"
-import cn from "classnames"
-import { Fade as FadeEffect } from "react-awesome-reveal"
-import SearchIcon from "@mui/icons-material/Search"
-import BorderColorIcon from "@mui/icons-material/BorderColor"
-import Register from "../Auth/Register"
-import HeaderSidebar from "./HeaderSidebar/HeaderSidebar"
-import Login from "components/Auth/Login"
-import styles from "./Header.module.scss"
-import { searchArticles } from "store/slices/article"
+} from '@icons/material';
+import Link from 'next/link';
+import { useTypedSelector } from 'store/hooks';
+import { checkAuth, logout } from 'store/slices/user';
+import { useDispatch } from 'react-redux';
+import { Box } from '@mui/system';
+import cn from 'classnames';
+import { Fade as FadeEffect } from 'react-awesome-reveal';
+import SearchIcon from '@mui/icons-material/Search';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import Register from '../Auth/Register';
+import HeaderSidebar from './HeaderSidebar/HeaderSidebar';
+import Login from 'components/Auth/Login';
+import styles from './Header.module.scss';
+import { searchArticles } from 'store/slices/article';
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API
+const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Header: FC = (): ReactElement => {
-  const dispatch = useDispatch()
-  const { user, isAuth } = useTypedSelector((state) => state.user)
+  const dispatch = useDispatch();
+  const { user, isAuth } = useTypedSelector((state) => state.user);
 
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const toggleMenuOpen = (): void => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false)
-  const handleLogoutOpen = (): void => setIsLogoutOpen(true)
-  const handleLogoutClose = (): void => setIsLogoutOpen(false)
+  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false);
+  const handleLogoutOpen = (): void => setIsLogoutOpen(true);
+  const handleLogoutClose = (): void => setIsLogoutOpen(false);
 
-  const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(null)
+  const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(
+    null
+  );
   const handleUserMenuClick = (event: React.MouseEvent<HTMLElement>): void => {
-    setUserMenuAnchor(event.currentTarget)
-  }
+    setUserMenuAnchor(event.currentTarget);
+  };
   const handleUserMenuClose = (): void => {
-    setUserMenuAnchor(null)
-  }
+    setUserMenuAnchor(null);
+  };
 
-  const isUserMenuOpen = Boolean(userMenuAnchor)
+  const isUserMenuOpen = Boolean(userMenuAnchor);
 
   const onLogoutClick = (): void => {
-    dispatch(logout())
-    handleLogoutClose()
-  }
+    dispatch(logout());
+    handleLogoutClose();
+  };
 
   useEffect(() => {
-    dispatch(checkAuth())
-  }, [])
+    dispatch(checkAuth());
+  }, []);
 
-  const [search, setSearch] = useState<string>("")
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
+  const [search, setSearch] = useState<string>('');
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!search.length) return
+    if (!search.length) return;
 
     if (timer) {
-      clearTimeout(timer)
+      clearTimeout(timer);
     }
     setTimer(
       setTimeout(async () => {
-        await dispatch(searchArticles(search))
+        await dispatch(searchArticles(search));
       }, 500)
-    )
-  }, [search])
+    );
+  }, [search]);
 
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value)
-  }
+    setSearch(event.target.value);
+  };
 
   return (
     <>
@@ -141,7 +143,7 @@ const Header: FC = (): ReactElement => {
                     sx={{
                       width: 35,
                       height: 35,
-                      marginRight: "6px",
+                      marginRight: '6px',
                     }}
                   />
                   <div
@@ -162,31 +164,31 @@ const Header: FC = (): ReactElement => {
                     PaperProps={{
                       elevation: 0,
                       sx: {
-                        overflow: "visible",
+                        overflow: 'visible',
                         minWidth: 150,
-                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                         mt: 2,
-                        "&:before": {
+                        '&:before': {
                           content: '""',
-                          display: "block",
-                          position: "absolute",
+                          display: 'block',
+                          position: 'absolute',
                           top: 0,
                           right: 14,
                           width: 10,
                           height: 10,
-                          bgcolor: "background.paper",
-                          transform: "translateY(-50%) rotate(45deg)",
+                          bgcolor: 'background.paper',
+                          transform: 'translateY(-50%) rotate(45deg)',
                           zIndex: 0,
                         },
                       },
                     }}
                     transformOrigin={{
-                      horizontal: "right",
-                      vertical: "top",
+                      horizontal: 'right',
+                      vertical: 'top',
                     }}
                     anchorOrigin={{
-                      horizontal: "right",
-                      vertical: "bottom",
+                      horizontal: 'right',
+                      vertical: 'bottom',
                     }}
                   >
                     <MenuItem>
@@ -262,7 +264,7 @@ const Header: FC = (): ReactElement => {
         </Fade>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

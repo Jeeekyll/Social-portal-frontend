@@ -1,10 +1,10 @@
-import Header from "components/Header/Header"
-import type { AppProps } from "next/app"
-import React, { FC } from "react"
-import { Provider } from "react-redux"
-import { store } from "store/store"
-import Head from "next/head"
-import "../styles/stylesheets/style.scss"
+import Header from 'components/Header/Header';
+import type { AppProps } from 'next/app';
+import React, { FC } from 'react';
+import { Provider } from 'react-redux';
+import { store } from 'store/store';
+import Head from 'next/head';
+import '../styles/stylesheets/style.scss';
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -34,6 +34,6 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
         </Provider>
       </main>
     </>
-  )
-}
-export default MyApp
+  );
+};
+export default MyApp;
