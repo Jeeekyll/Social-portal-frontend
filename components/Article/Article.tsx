@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useTypedDispatch, useTypedSelector } from 'store/hooks';
 import {
@@ -15,18 +15,34 @@ import CreateIcon from '@mui/icons-material/Create';
 import Comments from './Comments/Comments';
 import styles from './Article.module.scss';
 import { ArticleProps } from './Article.props';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Article: FC<ArticleProps> = ({ slug }) => {
   const { article } = useTypedSelector((state) => state.articles);
   const { user, isAuth } = useTypedSelector((state) => state.user);
-
   const dispatch = useTypedDispatch();
+
+  const [isArticleLiked, setIsArticleLiked] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(getArticle(slug));
   }, [slug]);
+
+  useEffect(() => {
+    if (!article || !article.userFavourites) return;
+
+    const isLiked =
+      article.userFavourites.findIndex((i) => i === article.id) === -1;
+
+    if (isLiked) {
+      setIsArticleLiked(true);
+    } else {
+      setIsArticleLiked(false);
+    }
+  }, [article]);
 
   const handleLikeClick = () => {
     dispatch(likeSelectedArticle(article.slug));
@@ -46,11 +62,18 @@ const Article: FC<ArticleProps> = ({ slug }) => {
                 <Typography variant='h6' component='div'>
                   {article.category.name}
                 </Typography>
-                <Typography variant='body1'>
-                  {article.author.username}
+                <Typography
+                  variant='body1'
+                  className={styles.article__header_author}
+                >
+                  <Link href={`/profile/${article.author.username}`}>
+                    <a className={styles.article__header_author}>
+                      {article.author.username}
+                    </a>
+                  </Link>
                 </Typography>
                 <Typography variant='body1'>
-                  {formatDistanceToNow(new Date(article.createdAt))}
+                  Created {formatDistanceToNow(new Date(article.createdAt))} ago
                 </Typography>
 
                 {isAuth && user && user.id === article.author.id && (
@@ -92,23 +115,28 @@ const Article: FC<ArticleProps> = ({ slug }) => {
                   {(article.comments && article.comments.length) || 0}
                 </AnchorLink>
 
-                <div className={styles.article__footer_likes}>
-                  <ArrowBackIosIcon
-                    style={{ transform: 'rotate(-90deg)', marginTop: '-10px' }}
-                    onClick={handleDislikeClick}
-                  />
+                <div className={styles.article__likes}>
                   <div
                     style={{
                       color: article.favouritesCount >= 0 ? '#2ea83a' : 'red',
                       fontWeight: 600,
+                      fontSize: 20,
                     }}
                   >
                     {article.favouritesCount}
                   </div>
-                  <ArrowBackIosIcon
-                    style={{ transform: 'rotate(90deg)', marginTop: '10px' }}
-                    onClick={handleLikeClick}
-                  />
+
+                  <div
+                    onClick={
+                      isArticleLiked ? handleLikeClick : handleDislikeClick
+                    }
+                  >
+                    {isArticleLiked ? (
+                      <FavoriteBorderOutlinedIcon />
+                    ) : (
+                      <FavoriteOutlinedIcon />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

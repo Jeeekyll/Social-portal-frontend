@@ -6,6 +6,16 @@
   margin: 0 auto;
   border-radius: 0 10px 10px;
 
+  &__likes {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    & svg {
+      cursor: pointer;
+    }
+  }
+
 
   &__container {
     margin: 0 auto;
@@ -18,6 +28,15 @@
     align-items: center;
     gap: 30px;
     margin-bottom: 20px;
+
+    &_author {
+      text-decoration: none;
+      color: black;
+
+      &:hover {
+        color: #3766a9;
+      }
+    }
 
     &_edit {
       margin-left: auto;

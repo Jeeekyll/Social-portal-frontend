@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Button, IconButton, TextField, Typography } from '@mui/material';
 import { formatDistanceToNow } from 'date-fns';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -16,7 +16,6 @@ const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Comments: FC<CommentsProps> = ({ comments, articleId }) => {
   const dispatch = useTypedDispatch();
-
   const { user, isAuth } = useTypedSelector((state) => state.user);
 
   const {
@@ -134,4 +133,4 @@ const Comments: FC<CommentsProps> = ({ comments, articleId }) => {
   );
 };
 
-export default Comments;
+export default memo(Comments);
