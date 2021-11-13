@@ -4,7 +4,7 @@ import Profile from '../../components/Account/Profile/Profile';
 
 const ProfilePage: FC = (): ReactElement => {
   return (
-    <AccountLayout title='Index'>
+    <AccountLayout title='Profile'>
       <Profile />
     </AccountLayout>
   );

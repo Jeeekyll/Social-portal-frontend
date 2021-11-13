@@ -1,0 +1,15 @@
+.follow {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 4px;
+  text-transform: capitalize;
+  color: #3766a9;
+
+  & span {
+    line-height: 22px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

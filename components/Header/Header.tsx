@@ -45,6 +45,7 @@ const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Header: FC = (): ReactElement => {
   const dispatch = useDispatch();
+
   const { user, isAuth } = useTypedSelector((state) => state.user);
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);

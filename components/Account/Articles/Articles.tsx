@@ -1,31 +1,31 @@
-import React, { FC, useEffect, useState } from "react"
-import { Article } from "store/types/article.type"
-import AuthService from "services/Auth.service"
-import { IconButton, List, ListItemButton, ListItemText } from "@mui/material"
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
-import EditIcon from "@mui/icons-material/Edit"
-import Link from "next/link"
+import React, { FC, useEffect, useState } from 'react';
+import { Article } from 'store/types/article.type';
+import AuthService from 'services/Auth.service';
+import { IconButton, List, ListItemButton, ListItemText } from '@mui/material';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import EditIcon from '@mui/icons-material/Edit';
+import Link from 'next/link';
 
 const Articles: FC = () => {
-  const [articles, setArticles] = useState<Article[] | null>(null)
+  const [articles, setArticles] = useState<Article[] | null>(null);
 
   const trimArticlesTitle = (str: string): string => {
-    if (!str) return
-    return str.length > 40 ? `${str.slice(0, 40)}...` : str
-  }
+    if (!str) return;
+    return str.length > 40 ? `${str.slice(0, 40)}...` : str;
+  };
 
   const fetchArticles = async () => {
     try {
-      const articles = await AuthService.findArticles()
-      setArticles(articles)
+      const articles = await AuthService.findArticles();
+      setArticles(articles);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchArticles()
-  }, [])
+    fetchArticles();
+  }, []);
 
   return (
     <List>
@@ -48,7 +48,7 @@ const Articles: FC = () => {
           </ListItemButton>
         ))}
     </List>
-  )
-}
+  );
+};
 
-export default Articles
+export default Articles;

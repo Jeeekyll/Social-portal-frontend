@@ -1,10 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Profile as ProfileType } from 'store/types/profile.type';
 import { ProfileProps } from './Profile.props';
-import ProfileService from '../../services/Profile.service';
-import { useTypedSelector } from '../../store/hooks';
-import { Button } from '@mui/material';
+import ProfileService from 'services/Profile.service';
+import { useTypedSelector } from 'store/hooks';
+import { setCoverImage } from 'utils/setCoverImage';
+import FollowButton from 'components/Profile/FollowButton/FollowButton';
 import styles from './Profile.module.scss';
+import { Typography } from '@mui/material';
 
 const Profile: FC<ProfileProps> = ({ username }) => {
   const { user, isAuth } = useTypedSelector((state) => state.user);
@@ -19,13 +21,23 @@ const Profile: FC<ProfileProps> = ({ username }) => {
     }
   };
 
-  const handleFollow = () => {
-    console.log('follow');
-  };
+  const handleFollow = useCallback(async (username: string) => {
+    try {
+      const profile = await ProfileService.follow(username);
+      setProfile(profile);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
-  const handleUnfollow = () => {
-    console.log('unfollow');
-  };
+  const handleUnfollow = useCallback(async (username: string) => {
+    try {
+      const profile = await ProfileService.unfollow(username);
+      setProfile(profile);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     if (!username) return;
@@ -34,28 +46,36 @@ const Profile: FC<ProfileProps> = ({ username }) => {
   }, [username]);
 
   return (
-    <div className='page ' style={{ marginTop: 100 }}>
-      {isAuth ? (
-        <>
-          {profile && Object.keys(profile).length > 0 && (
-            <div>
-              <div className='page__title'>{profile.username}</div>
-              <div>{profile.bio || 'Data not specified'}</div>
-              <div>{profile.image}</div>
+    <div className={styles.profile__container}>
+      {profile && Object.keys(profile).length > 0 && (
+        <div>
+          <img
+            className={styles.profile__cover}
+            src={setCoverImage(profile.image)}
+            alt='profile-image'
+            style={{ marginBottom: 25 }}
+          />
 
-              {profile.id !== user.id && (
-                <Button
-                  variant='contained'
-                  onClick={profile.following ? handleUnfollow : handleFollow}
-                >
-                  {profile.following ? 'Follow' : 'Unfollow'}
-                </Button>
-              )}
-            </div>
-          )}
-        </>
-      ) : (
-        <div>You must login </div>
+          <div className={styles.profile__item}>
+            <Typography variant='h6' component='div'>
+              Name:
+            </Typography>
+            <div>{profile.username}</div>
+            {user && profile.id !== user.id && isAuth && (
+              <FollowButton
+                onFollowClick={handleFollow}
+                onUnfollowClick={handleUnfollow}
+                profile={profile}
+              />
+            )}
+          </div>
+          <div className={styles.profile__item}>
+            <Typography variant='h6' component='div'>
+              Bio:
+            </Typography>
+            <div>{profile.bio || 'Data not specified'}</div>
+          </div>
+        </div>
       )}
     </div>
   );

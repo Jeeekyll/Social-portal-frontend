@@ -1,16 +1,16 @@
-import React from "react"
-import { useTypedSelector } from "store/hooks"
-import { Divider, Grid } from "@mui/material"
-import { Fade } from "react-awesome-reveal"
-import styles from "./Profile.module.scss"
+import React from 'react';
+import { useTypedSelector } from 'store/hooks';
+import { Divider, Grid } from '@mui/material';
+import { Fade } from 'react-awesome-reveal';
+import styles from './Profile.module.scss';
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API
+const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Profile = () => {
-  const { user } = useTypedSelector((state) => state.user)
+  const { user } = useTypedSelector((state) => state.user);
 
   const userImage = (): string =>
-    user.image ? `${api}/${user.image}` : "/account/profile-empty.png"
+    user.image ? `${api}/${user.image}` : '/account/profile-empty.png';
 
   return (
     <>
@@ -68,7 +68,7 @@ const Profile = () => {
                 </Grid>
                 <Grid item>
                   <div className={styles.profile__item__content}>
-                    {user.bio || "Data not specified"}
+                    {user.bio || 'Data not specified'}
                   </div>
                 </Grid>
               </Grid>
@@ -77,7 +77,7 @@ const Profile = () => {
         </Fade>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
