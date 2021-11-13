@@ -49,15 +49,13 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
           </Typography>
 
           <Link href={`/profile/${author.username}`}>
-            <a>
-              <Typography
-                variant='body1'
-                component='div'
-                className={styles.article__header__username}
-              >
-                {author.username}
-              </Typography>
-            </a>
+            <Typography
+              variant='body1'
+              component='div'
+              className={styles.article__header__username}
+            >
+              {author.username}
+            </Typography>
           </Link>
 
           <Typography

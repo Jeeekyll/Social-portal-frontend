@@ -1,15 +1,16 @@
-import React, { FC } from "react"
-import Slider from "react-slick"
-import { Button } from "@mui/material"
-import Fade from "react-reveal/Fade"
-import AnchorLink from "react-anchor-link-smooth-scroll"
-import styles from "./HeaderSlider.module.scss"
+import React, { FC } from 'react';
+import Slider from 'react-slick';
+import { Button } from '@mui/material';
+import Fade from 'react-reveal/Fade';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import styles from './HeaderSlider.module.scss';
 
 const homeSliderImages = [
-  { src: "/header/header-1.jpg" },
-  { src: "/header/header-2.jpg" },
-  { src: "/header/header-4.jpg" },
-]
+  { src: '/header/header-1.jpg' },
+  { src: '/header/header-2.jpg' },
+  { src: '/header/header-4.jpg' },
+  { src: '/header/header-5.jpg' },
+];
 
 const HeaderSlider: FC = () => {
   const homeSliderSettings = {
@@ -21,7 +22,7 @@ const HeaderSlider: FC = () => {
     autoplaySpeed: 3500,
     fade: true,
     draggable: false,
-  }
+  };
 
   return (
     <>
@@ -65,7 +66,7 @@ const HeaderSlider: FC = () => {
         </Fade>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default HeaderSlider
+export default HeaderSlider;

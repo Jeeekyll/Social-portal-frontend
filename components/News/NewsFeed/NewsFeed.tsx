@@ -1,9 +1,19 @@
-import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
+  Box,
   CircularProgress,
   Grid,
-  InputAdornment,
-  OutlinedInput,
+  IconButton,
+  Tab,
+  Tabs,
+  TextField,
   Typography,
 } from '@mui/material';
 import { useObserver } from 'store/hooks';
@@ -13,6 +23,15 @@ import styles from './NewsFeed.module.scss';
 import { Article } from 'store/types/article.type';
 import ArticleService from '@services/Article.service';
 import SearchIcon from '@mui/icons-material/Search';
+import PublicIcon from '@mui/icons-material/Public';
+import PersonIcon from '@mui/icons-material/Person';
+import { Fade } from 'react-awesome-reveal';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+
+const newsFeedTabs = [
+  { value: 'global', label: 'Global', icon: <PublicIcon /> },
+  { value: 'personal', label: 'Personal', icon: <PersonIcon /> },
+];
 
 const NewsFeed: FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -23,6 +42,30 @@ const NewsFeed: FC = () => {
   const [offset, setOffset] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const lastElement = useRef<HTMLDivElement>(null);
+
+  const handleArticlesLoading = () => {
+    setOffset(offset + queryLimit);
+  };
+
+  useObserver(lastElement, hasMore, isLoaded, handleArticlesLoading);
+
+  //search articles state
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const [activeTab, setActiveTab] = useState<string>(newsFeedTabs[0].value);
+
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const toggleIsSearchActive = () => {
+    setIsSearchActive(!isSearchActive);
+  };
+
+  const onTabChange = (e: SyntheticEvent, val: string) => {
+    setActiveTab(val);
+  };
 
   const fetchArticles = async (offset: number) => {
     setIsLoaded(true);
@@ -48,7 +91,6 @@ const NewsFeed: FC = () => {
 
   const searchArticles = async (query: string) => {
     resetArticlesState();
-    console.log(articles);
     try {
       const { articles } = await ArticleService.search(query);
       setArticles(articles);
@@ -56,9 +98,6 @@ const NewsFeed: FC = () => {
       console.log(error);
     }
   };
-
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!searchQuery.length) return;
@@ -72,10 +111,6 @@ const NewsFeed: FC = () => {
       }, 500)
     );
   }, [searchQuery]);
-
-  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-  };
 
   // increase articles capacity
   useEffect(() => {
@@ -92,25 +127,35 @@ const NewsFeed: FC = () => {
     fetchArticles(offset);
   }, [offset]);
 
-  const handleArticlesLoading = () => {
-    setOffset(offset + queryLimit);
-  };
-
-  useObserver(lastElement, hasMore, isLoaded, handleArticlesLoading);
-
   return (
     <div className={styles.feed__container} id='news'>
-      <div>
-        <OutlinedInput
-          size='small'
-          onChange={onSearchChange}
-          startAdornment={
-            <InputAdornment position='start'>
-              <SearchIcon fontSize='medium' />
-            </InputAdornment>
-          }
-        />
+      <div className={styles.feed__actions}>
+        <div>
+          <Tabs value={activeTab} onChange={onTabChange}>
+            {newsFeedTabs &&
+              newsFeedTabs.map(({ icon, value }, index) => (
+                <Tab
+                  key={index}
+                  value={value}
+                  icon={icon}
+                  className={styles.feed__actions__tab}
+                />
+              ))}
+          </Tabs>
+        </div>
+
+        <div className={styles.feed__search}>
+          {isSearchActive && (
+            <Fade>
+              <TextField onChange={onSearchChange} variant='standard' />
+            </Fade>
+          )}
+          <IconButton onClick={toggleIsSearchActive}>
+            <SearchIcon />
+          </IconButton>
+        </div>
       </div>
+
       <Grid>
         {articles &&
           articles.length > 0 &&
@@ -120,19 +165,20 @@ const NewsFeed: FC = () => {
               article={article}
             />
           ))}
-
-        {/*{articles && !articles.length && (*/}
-        {/*  <div style={{ textAlign: 'center' }}>*/}
-        {/*    <Typography*/}
-        {/*      variant='h4'*/}
-        {/*      gutterBottom*/}
-        {/*      component='div'*/}
-        {/*      style={{ marginBottom: 50 }}*/}
-        {/*    >*/}
-        {/*      Articles not found*/}
-        {/*    </Typography>*/}
-        {/*  </div>*/}
-        {/*)}*/}
+        {!articles ||
+          (articles.length === 0 && (
+            <Fade>
+              <Typography
+                variant='h5'
+                gutterBottom
+                component='div'
+                className={styles.feed__error}
+              >
+                News not found
+                <ErrorOutlineIcon />
+              </Typography>
+            </Fade>
+          ))}
       </Grid>
 
       <div

@@ -6,6 +6,12 @@
     min-height: 60vh;
   }
 
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   &__loader {
     margin-top: 25px;
     border-radius: 8px;
@@ -19,5 +25,29 @@
       width: 25px !important;
       height: 25px !important;
     }
+  }
+
+  &__actions {
+    background: #fff;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__tab {
+      max-width: 100px;
+      min-width: 65px;
+      min-height: 33px;
+      justify-content: flex-end;
+      padding: 13px;
+    }
+
+  }
+
+  &__search {
+    display: flex;
+    gap: 10px;
   }
 }
