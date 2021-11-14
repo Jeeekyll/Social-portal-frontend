@@ -111,7 +111,7 @@ const articleSlice = createSlice({
     },
     setFavourites(state, { payload }: PayloadAction<Article>) {
       state.article.favouritesCount = payload.favouritesCount;
-      state.article.userFavourites = payload.userFavourites;
+      state.article.isFavourite = payload.isFavourite;
     },
     addArticleComment(state, { payload }: PayloadAction<ArticleComment>) {
       state.article.comments = [payload, ...state.article.comments];

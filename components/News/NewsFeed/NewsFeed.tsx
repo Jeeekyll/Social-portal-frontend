@@ -7,7 +7,6 @@ import React, {
   useState,
 } from 'react';
 import {
-  Box,
   CircularProgress,
   Grid,
   IconButton,
@@ -27,6 +26,8 @@ import PublicIcon from '@mui/icons-material/Public';
 import PersonIcon from '@mui/icons-material/Person';
 import { Fade } from 'react-awesome-reveal';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
+import ArticlesLoader from '@components/Preloaders/ArticlesLoader';
 
 const newsFeedTabs = [
   { value: 'global', label: 'Global', icon: <PublicIcon /> },
@@ -67,6 +68,19 @@ const NewsFeed: FC = () => {
     setActiveTab(val);
   };
 
+  const resetArticlesState = () => {
+    setHasMore(false);
+    setArticlesCount(0);
+    setArticles([]);
+  };
+
+  const reloadArticlesFeed = () => {
+    resetArticlesState();
+    if (!offset) fetchArticles(offset);
+    setOffset(0);
+    setIsSearchActive(false);
+  };
+
   const fetchArticles = async (offset: number) => {
     setIsLoaded(true);
     try {
@@ -82,29 +96,23 @@ const NewsFeed: FC = () => {
     }
   };
 
-  const resetArticlesState = () => {
-    setOffset(0);
-    setHasMore(false);
-    setArticlesCount(0);
-    setArticles([]);
-  };
-
   const searchArticles = async (query: string) => {
     resetArticlesState();
+    setIsLoaded(true);
     try {
       const { articles } = await ArticleService.search(query);
       setArticles(articles);
+      setIsLoaded(false);
     } catch (error) {
       console.log(error);
+      setIsLoaded(false);
     }
   };
 
   useEffect(() => {
     if (!searchQuery.length) return;
 
-    if (timer) {
-      clearTimeout(timer);
-    }
+    if (timer) clearTimeout(timer);
     setTimer(
       setTimeout(async () => {
         await searchArticles(searchQuery);
@@ -114,7 +122,7 @@ const NewsFeed: FC = () => {
 
   // increase articles capacity
   useEffect(() => {
-    if (!articles || articles.length === 0) return;
+    if (!articles) return;
 
     if (articles.length < articlesCount) {
       setHasMore(true);
@@ -150,8 +158,10 @@ const NewsFeed: FC = () => {
               <TextField onChange={onSearchChange} variant='standard' />
             </Fade>
           )}
-          <IconButton onClick={toggleIsSearchActive}>
-            <SearchIcon />
+          <IconButton
+            onClick={isSearchActive ? reloadArticlesFeed : toggleIsSearchActive}
+          >
+            {isSearchActive ? <BackspaceOutlinedIcon /> : <SearchIcon />}
           </IconButton>
         </div>
       </div>
@@ -165,6 +175,15 @@ const NewsFeed: FC = () => {
               article={article}
             />
           ))}
+
+        {isLoaded && (
+          <div>
+            <ArticlesLoader />
+            <ArticlesLoader />
+            <ArticlesLoader />
+          </div>
+        )}
+
         {!articles ||
           (articles.length === 0 && (
             <Fade>

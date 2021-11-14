@@ -8,7 +8,6 @@ import {
 } from 'store/slices/article';
 import { formatDistanceToNow } from 'date-fns';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Link from 'next/link';
 import CreateIcon from '@mui/icons-material/Create';
@@ -17,6 +16,7 @@ import styles from './Article.module.scss';
 import { ArticleProps } from './Article.props';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import { AttentionSeeker, Fade } from 'react-awesome-reveal';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -25,24 +25,11 @@ const Article: FC<ArticleProps> = ({ slug }) => {
   const { user, isAuth } = useTypedSelector((state) => state.user);
   const dispatch = useTypedDispatch();
 
-  const [isArticleLiked, setIsArticleLiked] = useState<boolean>(false);
+  console.log(article);
 
   useEffect(() => {
     dispatch(getArticle(slug));
   }, [slug]);
-
-  useEffect(() => {
-    if (!article || !article.userFavourites) return;
-
-    const isLiked =
-      article.userFavourites.findIndex((i) => i === article.id) === -1;
-
-    if (isLiked) {
-      setIsArticleLiked(true);
-    } else {
-      setIsArticleLiked(false);
-    }
-  }, [article]);
 
   const handleLikeClick = () => {
     dispatch(likeSelectedArticle(article.slug));
@@ -54,7 +41,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
 
   return (
     <>
-      {article && (
+      {article && Object.keys(article).length > 0 && (
         <>
           <div className={styles.article}>
             <div className={styles.article__container}>
@@ -116,25 +103,19 @@ const Article: FC<ArticleProps> = ({ slug }) => {
                 </AnchorLink>
 
                 <div className={styles.article__likes}>
-                  <div
-                    style={{
-                      color: article.favouritesCount >= 0 ? '#2ea83a' : 'red',
-                      fontWeight: 600,
-                      fontSize: 20,
-                    }}
-                  >
+                  <div className={styles.article__likes__value}>
                     {article.favouritesCount}
                   </div>
-
                   <div
                     onClick={
-                      isArticleLiked ? handleLikeClick : handleDislikeClick
+                      article.isFavourite ? handleDislikeClick : handleLikeClick
                     }
+                    className={styles.article__likes__icon}
                   >
-                    {isArticleLiked ? (
-                      <FavoriteBorderOutlinedIcon />
-                    ) : (
+                    {article.isFavourite ? (
                       <FavoriteOutlinedIcon />
+                    ) : (
+                      <FavoriteBorderOutlinedIcon />
                     )}
                   </div>
                 </div>

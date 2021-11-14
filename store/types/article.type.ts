@@ -17,7 +17,7 @@ export interface Article {
   author: User;
   comments: ArticleComment[];
   category: Category;
-  userFavourites: number[];
+  isFavourite: boolean;
 }
 
 export interface ArticleState {

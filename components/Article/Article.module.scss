@@ -9,7 +9,18 @@
   &__likes {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
+
+    &__value {
+      font-size: 18px;
+      color: #2ea83a;
+      font-weight: 600;
+    }
+
+    &__icon {
+      display: flex;
+      align-items: center;
+    }
 
     & svg {
       cursor: pointer;
@@ -79,8 +90,10 @@
     &_likes {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       cursor: pointer;
+
+
     }
   }
 }
