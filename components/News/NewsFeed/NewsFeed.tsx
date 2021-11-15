@@ -176,13 +176,13 @@ const NewsFeed: FC = () => {
             />
           ))}
 
-        {isLoaded && (
-          <div>
-            <ArticlesLoader />
-            <ArticlesLoader />
-            <ArticlesLoader />
-          </div>
-        )}
+        {/*{isLoaded && (*/}
+        {/*  <div>*/}
+        {/*    <ArticlesLoader />*/}
+        {/*    <ArticlesLoader />*/}
+        {/*    <ArticlesLoader />*/}
+        {/*  </div>*/}
+        {/*)}*/}
 
         {!articles ||
           (articles.length === 0 && (

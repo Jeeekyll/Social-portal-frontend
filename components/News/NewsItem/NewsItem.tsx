@@ -3,13 +3,11 @@ import { Article } from 'store/types/article.type';
 import { Grid, Typography } from '@mui/material';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
-import { useTypedDispatch } from 'store/hooks';
-import { dislikeArticle, likeArticle } from 'store/slices/article';
 import { Fade } from 'react-awesome-reveal';
 import styles from './NewsItem.module.scss';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -18,8 +16,6 @@ interface NewsItemProps {
 }
 
 const NewsItem: FC<NewsItemProps> = ({ article }) => {
-  const dispatch = useTypedDispatch();
-
   const {
     title,
     description,
@@ -31,14 +27,6 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
     comments,
     category,
   } = article;
-
-  const handleLikeArticle = () => {
-    dispatch(likeArticle(slug));
-  };
-
-  const handleDislikeArticle = () => {
-    dispatch(dislikeArticle(slug));
-  };
 
   return (
     <Fade triggerOnce className={styles.article__fade}>
@@ -95,13 +83,8 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
         <div className={styles.article__footer}>
           <div className={styles.article__footer_comments}>
             <ModeCommentOutlinedIcon />
-            {(comments && comments.length) || 0}
           </div>
           <div className={styles.article__footer_likes}>
-            <ArrowBackIosIcon
-              style={{ transform: 'rotate(-90deg)', marginTop: '-10px' }}
-              onClick={handleDislikeArticle}
-            />
             <div
               style={{
                 color: favouritesCount >= 0 ? '#2ea83a' : 'red',
@@ -110,10 +93,7 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
             >
               {favouritesCount}
             </div>
-            <ArrowBackIosIcon
-              style={{ transform: 'rotate(90deg)', marginTop: '10px' }}
-              onClick={handleLikeArticle}
-            />
+            <FavoriteBorderOutlinedIcon />
           </div>
         </div>
       </Grid>

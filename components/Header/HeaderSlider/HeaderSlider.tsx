@@ -9,7 +9,6 @@ const homeSliderImages = [
   { src: '/header/header-1.jpg' },
   { src: '/header/header-2.jpg' },
   { src: '/header/header-4.jpg' },
-  { src: '/header/header-5.jpg' },
 ];
 
 const HeaderSlider: FC = () => {
