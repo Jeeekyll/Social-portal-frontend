@@ -1,17 +1,17 @@
-import React, { FC, useState } from "react"
-import { Button, Divider, Grid, Input, Snackbar } from "@mui/material"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { ChangePasswordDto } from "store/types/user.type"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { Fade } from "react-awesome-reveal"
-import { ChangeUserPassword } from "utils/validation"
-import AuthService from "services/Auth.service"
-import styles from "./Privacy.module.scss"
+import React, { FC, useState } from 'react';
+import { Button, Divider, Grid, Input, Snackbar } from '@mui/material';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { ChangePasswordDto } from 'store/types/user.type';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Fade } from 'react-awesome-reveal';
+import { ChangeUserPassword } from 'utils/validation';
+import AuthService from 'services/Auth.service';
+import styles from './Privacy.module.scss';
 
 const Privacy: FC = () => {
-  const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false)
+  const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
   const [backendResponseMessage, setBackendResponseMessage] =
-    useState<string>("")
+    useState<string>('');
 
   const {
     handleSubmit,
@@ -19,8 +19,8 @@ const Privacy: FC = () => {
     formState: { errors, isDirty },
   } = useForm<ChangePasswordDto>({
     resolver: yupResolver(ChangeUserPassword),
-    mode: "onChange",
-  })
+    mode: 'onChange',
+  });
 
   const onSubmit: SubmitHandler<ChangePasswordDto> = async (
     changePasswordDto: ChangePasswordDto
@@ -28,14 +28,14 @@ const Privacy: FC = () => {
     try {
       const isPasswordChanged = await AuthService.changePassword(
         changePasswordDto
-      )
-      setIsFormSubmitted(isPasswordChanged)
-      setBackendResponseMessage("Success")
+      );
+      setIsFormSubmitted(isPasswordChanged);
+      setBackendResponseMessage('Success');
     } catch (error) {
-      setIsFormSubmitted(true)
-      setBackendResponseMessage(error.response.data.message)
+      setIsFormSubmitted(true);
+      setBackendResponseMessage(error.response.data.message);
     }
-  }
+  };
 
   return (
     <>
@@ -54,7 +54,7 @@ const Privacy: FC = () => {
                   type='password'
                   placeholder='Password'
                   error={errors.currentPassword && true}
-                  {...register("currentPassword")}
+                  {...register('currentPassword')}
                 />
               </Grid>
             </Grid>
@@ -71,7 +71,7 @@ const Privacy: FC = () => {
                   type='password'
                   placeholder='New password'
                   error={errors.newPassword && true}
-                  {...register("newPassword")}
+                  {...register('newPassword')}
                 />
               </Grid>
             </Grid>
@@ -92,16 +92,16 @@ const Privacy: FC = () => {
       </Fade>
 
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={isFormSubmitted}
         autoHideDuration={3000}
         transitionDuration={500}
         onClose={() => setIsFormSubmitted(false)}
         message={backendResponseMessage}
-        key={"top" + "center"}
+        key={'top' + 'center'}
       />
     </>
-  )
-}
+  );
+};
 
-export default Privacy
+export default Privacy;

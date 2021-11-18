@@ -1,3 +1,3 @@
 export interface HeaderSidebarProps {
-  isSidebarOpen: boolean
+  isSidebarOpen: boolean;
 }

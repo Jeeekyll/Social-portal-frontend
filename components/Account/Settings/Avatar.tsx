@@ -1,34 +1,34 @@
-import React, { ChangeEvent, useRef } from "react"
-import { useTypedDispatch, useTypedSelector } from "store/hooks"
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined"
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
-import { Button } from "@mui/material"
-import { deleteAvatar, uploadAvatar } from "store/slices/user"
-import styles from "./Avatar.module.scss"
+import React, { ChangeEvent, useRef } from 'react';
+import { useTypedDispatch, useTypedSelector } from 'store/hooks';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { Button } from '@mui/material';
+import { deleteAvatar, uploadAvatar } from 'store/slices/user';
+import styles from './Avatar.module.scss';
 
-const api = process.env.NEXT_PUBLIC_DOMAIN_API
+const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Avatar = () => {
-  const { image } = useTypedSelector((state) => state.user.user)
-  const dispatch = useTypedDispatch()
+  const { image } = useTypedSelector((state) => state.user.user);
+  const dispatch = useTypedDispatch();
 
-  const fileUploadRef = useRef(null)
+  const fileUploadRef = useRef(null);
 
   const imageSource = (): string =>
-    image ? `${api}/${image}` : "/account/profile-empty.png"
+    image ? `${api}/${image}` : '/account/profile-empty.png';
 
   const onUploadImage = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files[0]) return
+    if (!event.target.files[0]) return;
 
-    const data = new FormData()
-    data.append("avatar", event.target.files[0])
+    const data = new FormData();
+    data.append('avatar', event.target.files[0]);
 
-    dispatch(uploadAvatar(data))
-  }
+    dispatch(uploadAvatar(data));
+  };
 
   const onDeleteImage = () => {
-    dispatch(deleteAvatar())
-  }
+    dispatch(deleteAvatar());
+  };
 
   return (
     <div className={styles.avatar}>
@@ -61,12 +61,12 @@ const Avatar = () => {
       <input
         type='file'
         accept='image/*'
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         ref={fileUploadRef}
         onChange={onUploadImage}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Avatar
+export default Avatar;

@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from "react"
-import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import React, { FC, useEffect, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import {
   Backdrop,
   Button,
@@ -7,24 +7,24 @@ import {
   Modal,
   TextField,
   Typography,
-} from "@mui/material"
-import { LoginUserDto } from "store/types/user.type"
-import { LoginFormSchema } from "utils/validation"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { login } from "store/slices/user"
-import { useDispatch } from "react-redux"
-import { Box } from "@mui/system"
-import { Fade as FadeEffect } from "react-awesome-reveal"
-import styles from "./Login.module.scss"
+} from '@mui/material';
+import { LoginUserDto } from 'store/types/user.type';
+import { LoginFormSchema } from 'utils/validation';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { login } from 'store/slices/user';
+import { useDispatch } from 'react-redux';
+import { Box } from '@mui/system';
+import { Fade as FadeEffect } from 'react-awesome-reveal';
+import styles from './Login.module.scss';
 
 const Login: FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const handleModalOpen = (): void => setIsModalOpen(true)
-  const handleModalClose = (): void => setIsModalOpen(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const handleModalOpen = (): void => setIsModalOpen(true);
+  const handleModalClose = (): void => setIsModalOpen(false);
 
-  const [loginStepper, setLoginStepper] = useState<number>(1)
+  const [loginStepper, setLoginStepper] = useState<number>(1);
 
   const {
     handleSubmit,
@@ -34,25 +34,25 @@ const Login: FC = () => {
     formState: { errors },
   } = useForm<LoginUserDto>({
     resolver: yupResolver(LoginFormSchema),
-    mode: "onChange",
-  })
+    mode: 'onChange',
+  });
 
-  const watchAllFields = watch()
+  const watchAllFields = watch();
 
   const onSubmit: SubmitHandler<LoginUserDto> = async (
     loginUserDto: LoginUserDto
   ) => {
-    dispatch(login(loginUserDto))
-  }
+    dispatch(login(loginUserDto));
+  };
 
   useEffect(() => {
-    if (isModalOpen) return
+    if (isModalOpen) return;
 
     if (!isModalOpen) {
-      setLoginStepper(1)
-      reset()
+      setLoginStepper(1);
+      reset();
     }
-  }, [isModalOpen])
+  }, [isModalOpen]);
 
   return (
     <>
@@ -156,7 +156,7 @@ const Login: FC = () => {
         </Fade>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

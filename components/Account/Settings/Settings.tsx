@@ -1,19 +1,19 @@
-import React, { useEffect, useMemo, useState } from "react"
-import { useTypedDispatch, useTypedSelector } from "store/hooks"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { UpdateUserDto } from "store/types/user.type"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { Button, Divider, Grid, Input, Snackbar } from "@mui/material"
-import { ChangeUserCredentials } from "utils/validation"
-import { Fade } from "react-awesome-reveal"
-import { updateUser } from "store/slices/user"
-import EditButton from "./EditButton"
-import styles from "./Settings.module.scss"
-import Avatar from "./Avatar"
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTypedDispatch, useTypedSelector } from 'store/hooks';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { UpdateUserDto } from 'store/types/user.type';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Divider, Grid, Input, Snackbar } from '@mui/material';
+import { ChangeUserCredentials } from 'utils/validation';
+import { Fade } from 'react-awesome-reveal';
+import { updateUser } from 'store/slices/user';
+import EditButton from './EditButton';
+import styles from './Settings.module.scss';
+import Avatar from './Avatar';
 
 const Settings = () => {
-  const dispatch = useTypedDispatch()
-  const { user, isAuth } = useTypedSelector((state) => state.user)
+  const dispatch = useTypedDispatch();
+  const { user, isAuth } = useTypedSelector((state) => state.user);
 
   const {
     handleSubmit,
@@ -24,66 +24,66 @@ const Settings = () => {
   } = useForm<UpdateUserDto>({
     resolver: yupResolver(ChangeUserCredentials),
     defaultValues: useMemo(() => user, [user]),
-    mode: "onChange",
-  })
+    mode: 'onChange',
+  });
 
-  const [isUsernameActive, setIsUsernameActive] = useState<boolean>(false)
+  const [isUsernameActive, setIsUsernameActive] = useState<boolean>(false);
 
   const handleActiveUsernameChange = (): void => {
-    setIsUsernameActive(true)
-  }
+    setIsUsernameActive(true);
+  };
 
   const handleDiscardUsernameChange = (): void => {
-    reset({ ...getValues(), username: user.username })
-    setIsUsernameActive(false)
-  }
+    reset({ ...getValues(), username: user.username });
+    setIsUsernameActive(false);
+  };
 
-  const [isEmailActive, setIsEmailActive] = useState<boolean>(false)
+  const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
 
   const handleActiveEmailChange = (): void => {
-    setIsEmailActive(true)
-  }
+    setIsEmailActive(true);
+  };
 
   const handleDiscardEmailChange = (): void => {
-    reset({ ...getValues(), email: user.email })
-    setIsEmailActive(false)
-  }
+    reset({ ...getValues(), email: user.email });
+    setIsEmailActive(false);
+  };
 
-  const [isBioActive, setIsBioActive] = useState<boolean>(false)
+  const [isBioActive, setIsBioActive] = useState<boolean>(false);
   const handleActiveBioChange = (): void => {
-    setIsBioActive(true)
-  }
+    setIsBioActive(true);
+  };
 
   const handleDiscardBioChange = (): void => {
-    reset({ ...getValues(), bio: user.bio })
-    setIsBioActive(false)
-  }
+    reset({ ...getValues(), bio: user.bio });
+    setIsBioActive(false);
+  };
 
   const resetFormState = () => {
-    setIsBioActive(false)
-    setIsEmailActive(false)
-    setIsUsernameActive(false)
-  }
+    setIsBioActive(false);
+    setIsEmailActive(false);
+    setIsUsernameActive(false);
+  };
 
   useEffect(() => {
-    if (!user) return
+    if (!user) return;
 
     reset({
       username: user.username,
       email: user.email,
       bio: user.bio,
-    })
-  }, [user])
+    });
+  }, [user]);
 
   const onSubmit: SubmitHandler<UpdateUserDto> = async (
     updateUserDto: UpdateUserDto
   ) => {
-    await dispatch(updateUser(updateUserDto))
-    await resetFormState()
-    setIsFormSubmitted(true)
-  }
+    await dispatch(updateUser(updateUserDto));
+    await resetFormState();
+    setIsFormSubmitted(true);
+  };
 
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false)
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   return (
     <>
@@ -106,7 +106,7 @@ const Settings = () => {
                       fullWidth
                       placeholder='Username'
                       error={errors.username && true}
-                      {...register("username")}
+                      {...register('username')}
                     />
                   ) : (
                     <div className={styles.settings__item__value}>
@@ -136,7 +136,7 @@ const Settings = () => {
                       fullWidth
                       placeholder='Email'
                       error={errors.email && true}
-                      {...register("email")}
+                      {...register('email')}
                     />
                   ) : (
                     <div className={styles.settings__item__value}>
@@ -167,11 +167,11 @@ const Settings = () => {
                       fullWidth
                       placeholder='Bio'
                       error={errors.bio && true}
-                      {...register("bio")}
+                      {...register('bio')}
                     />
                   ) : (
                     <div className={styles.settings__item__value}>
-                      {user.bio || "Data not specified"}
+                      {user.bio || 'Data not specified'}
                     </div>
                   )}
                 </Grid>
@@ -197,16 +197,16 @@ const Settings = () => {
       )}
 
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={isFormSubmitted}
         autoHideDuration={3000}
         transitionDuration={500}
         onClose={() => setIsFormSubmitted(false)}
         message='Success'
-        key={"top" + "center"}
+        key={'top' + 'center'}
       />
     </>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;

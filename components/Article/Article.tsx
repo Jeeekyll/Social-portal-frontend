@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useTypedDispatch, useTypedSelector } from 'store/hooks';
 import {
@@ -16,7 +16,6 @@ import styles from './Article.module.scss';
 import { ArticleProps } from './Article.props';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import { AttentionSeeker, Fade } from 'react-awesome-reveal';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -24,8 +23,6 @@ const Article: FC<ArticleProps> = ({ slug }) => {
   const { article } = useTypedSelector((state) => state.articles);
   const { user, isAuth } = useTypedSelector((state) => state.user);
   const dispatch = useTypedDispatch();
-
-  console.log(article);
 
   useEffect(() => {
     dispatch(getArticle(slug));

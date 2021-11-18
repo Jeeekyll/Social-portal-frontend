@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from "react"
-import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import React, { FC, useEffect, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import {
   Backdrop,
   Button,
@@ -7,18 +7,18 @@ import {
   Modal,
   TextField,
   Typography,
-} from "@mui/material"
-import { CreateUserDto } from "store/types/user.type"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { RegisterFormSchema } from "utils/validation"
-import { useTypedDispatch } from "store/hooks"
-import { register as registerThunk } from "store/slices/user"
-import { Box } from "@mui/system"
-import { Fade as FadeEffect } from "react-awesome-reveal"
-import styles from "./Register.module.scss"
+} from '@mui/material';
+import { CreateUserDto } from 'store/types/user.type';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { RegisterFormSchema } from 'utils/validation';
+import { useTypedDispatch } from 'store/hooks';
+import { register as registerThunk } from 'store/slices/user';
+import { Box } from '@mui/system';
+import { Fade as FadeEffect } from 'react-awesome-reveal';
+import styles from './Register.module.scss';
 
 const Register: FC = () => {
-  const dispatch = useTypedDispatch()
+  const dispatch = useTypedDispatch();
 
   const {
     handleSubmit,
@@ -28,31 +28,31 @@ const Register: FC = () => {
     formState: { errors },
   } = useForm<CreateUserDto>({
     resolver: yupResolver(RegisterFormSchema),
-    mode: "onChange",
-  })
+    mode: 'onChange',
+  });
 
-  const watchAllFields = watch()
+  const watchAllFields = watch();
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const handleModalOpen = (): void => setIsModalOpen(true)
-  const handleModalClose = (): void => setIsModalOpen(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const handleModalOpen = (): void => setIsModalOpen(true);
+  const handleModalClose = (): void => setIsModalOpen(false);
 
-  const [registerStepper, setRegisterStepper] = useState<number>(1)
+  const [registerStepper, setRegisterStepper] = useState<number>(1);
 
   const onSubmit: SubmitHandler<CreateUserDto> = async (
     createUserDto: CreateUserDto
   ) => {
-    dispatch(registerThunk(createUserDto))
-  }
+    dispatch(registerThunk(createUserDto));
+  };
 
   useEffect(() => {
-    if (isModalOpen) return
+    if (isModalOpen) return;
 
     if (!isModalOpen) {
-      setRegisterStepper(1)
-      reset()
+      setRegisterStepper(1);
+      reset();
     }
-  }, [isModalOpen])
+  }, [isModalOpen]);
 
   return (
     <>
@@ -175,7 +175,7 @@ const Register: FC = () => {
         </Fade>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

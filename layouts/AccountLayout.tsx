@@ -1,18 +1,18 @@
-import React, { FC, ReactElement } from "react"
-import { Container, Grid, Typography } from "@mui/material"
-import AccountSidebar from "components/Account/AccountSidebar/AccountSidebar"
-import Redirect from "common/Redirect"
+import React, { FC, ReactElement } from 'react';
+import { Container, Grid, Typography } from '@mui/material';
+import AccountSidebar from 'components/Account/AccountSidebar/AccountSidebar';
+import Redirect from 'common/Redirect';
 
 interface AccountLayoutProps {
-  title: string
+  title: string;
 }
 
 const AccountLayout: FC<AccountLayoutProps> = ({
   title,
   children,
 }): ReactElement => {
-  if (typeof window !== "undefined" && !localStorage.getItem("token")) {
-    return <Redirect to='/' />
+  if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
+    return <Redirect to='/' />;
   }
 
   return (
@@ -24,7 +24,7 @@ const AccountLayout: FC<AccountLayoutProps> = ({
               variant='h5'
               gutterBottom
               component='div'
-              style={{ textAlign: "center", marginTop: 20, marginBottom: 15 }}
+              style={{ textAlign: 'center', marginTop: 20, marginBottom: 15 }}
             >
               {title}
             </Typography>
@@ -37,7 +37,7 @@ const AccountLayout: FC<AccountLayoutProps> = ({
         </Grid>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default AccountLayout
+export default AccountLayout;

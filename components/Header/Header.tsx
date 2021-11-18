@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  FC,
-  ReactElement,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import {
   AppBar,
   Avatar,
@@ -12,11 +6,9 @@ import {
   Button,
   Fade,
   IconButton,
-  InputAdornment,
   Menu,
   MenuItem,
   Modal,
-  OutlinedInput,
   Toolbar,
   Typography,
 } from '@mui/material';
