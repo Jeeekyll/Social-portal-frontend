@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from 'store/store';
 import Head from 'next/head';
 import '../styles/stylesheets/style.scss';
+import { socket, SocketContext } from 'context/socket';
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -28,10 +29,12 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
         />
       </Head>
       <main>
-        <Provider store={store}>
-          <Header />
-          <Component {...pageProps} />
-        </Provider>
+        <SocketContext.Provider value={socket}>
+          <Provider store={store}>
+            <Header />
+            <Component {...pageProps} />
+          </Provider>
+        </SocketContext.Provider>
       </main>
     </>
   );
