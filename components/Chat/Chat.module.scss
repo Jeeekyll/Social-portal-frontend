@@ -1,0 +1,65 @@
+.chat {
+  max-width: 630px;
+  margin: 100px auto 0 auto;
+
+
+  &__title {
+    text-align: center;
+  }
+}
+
+.followings {
+  &__container {
+    max-width: 600px;
+    margin: 100px auto 0 auto;
+    padding: 0 15px;
+  }
+
+  &__title {
+    margin-bottom: 25px;
+  }
+
+  &__items {
+    padding: 0 20px;
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  &__item {
+    padding: 20px 0;
+    display: flex;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #dce1e6;
+    }
+
+    &__actions {
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    &_username {
+      font-weight: 600;
+    }
+
+    &_bio {
+      font-size: 14px;
+    }
+
+    &_cover {
+      width: 80px;
+      height: 80px;
+      margin-right: 35px;
+
+
+      & img {
+        border-radius: 50%;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

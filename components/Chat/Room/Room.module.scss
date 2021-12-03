@@ -1,0 +1,43 @@
+.room {
+  max-width: 630px;
+  margin: 100px auto 0;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+}
+
+.message {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #dce1e6;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__actions {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+
+    &_input {
+      width: 100%;
+    }
+
+    &_submit {
+      margin-top: 10px;
+      align-self: flex-end;
+      display: inline-flex;
+    }
+  }
+}

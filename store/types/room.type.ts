@@ -12,8 +12,17 @@ export interface RoomsResponse {
   data: Room[];
 }
 
+export interface CreateRoomResponse {
+  data: Room;
+}
+
 export type RoomSingle = Room & { messages: Message[] };
 
 export interface RoomResponse {
   data: RoomSingle;
+}
+
+export interface CreateRoomDto {
+  name: string;
+  description?: string;
 }

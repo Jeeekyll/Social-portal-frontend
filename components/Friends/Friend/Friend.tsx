@@ -6,9 +6,21 @@ import Link from 'next/link';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SendIcon from '@mui/icons-material/Send';
 import { FriendProps } from '@components/Friends/Friend/Friend.props';
+import { useTypedSelector } from '../../../store/hooks';
+import { RoomService } from '@services/Room.service';
 
 const Friend: FC<FriendProps> = ({ user }) => {
-  const { username, image, bio } = user;
+  const { user: currentUser } = useTypedSelector((state) => state.user);
+  const { username, image, bio, id } = user;
+
+  const handleJoinRoom = async () => {
+    try {
+      const response = await RoomService.joinRoom(id, currentUser.id);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={styles.followings__item}>
@@ -37,8 +49,8 @@ const Friend: FC<FriendProps> = ({ user }) => {
         </IconButton>
 
         <IconButton size='small'>
-          <Link href={`/messages/${username}`}>
-            <SendIcon />
+          <Link href={`/messages/${id}`}>
+            <SendIcon onClick={handleJoinRoom} />
           </Link>
         </IconButton>
       </div>

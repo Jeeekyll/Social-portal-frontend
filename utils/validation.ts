@@ -38,3 +38,8 @@ export const UpdateArticle = yup.object().shape({
   description: yup.string().min(4).max(300).required(),
   body: yup.string().min(4).max(2000).required(),
 });
+
+export const CreateRoomSchema = yup.object().shape({
+  name: yup.string().min(3).max(100).required(),
+  description: yup.string().max(100).notRequired(),
+});

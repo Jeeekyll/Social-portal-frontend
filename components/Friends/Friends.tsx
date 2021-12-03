@@ -35,7 +35,6 @@ const Friends = () => {
       >
         Friends
       </Typography>
-      <button>Create room</button>
       <div className={styles.followings__items}>
         {users &&
           users.length > 0 &&

@@ -6,11 +6,13 @@ import { useTypedSelector } from 'store/hooks';
 import { setCoverImage } from 'utils/setCoverImage';
 import FollowButton from 'components/Profile/FollowButton/FollowButton';
 import styles from './Profile.module.scss';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 
 const Profile: FC<ProfileProps> = ({ username }) => {
   const { user, isAuth } = useTypedSelector((state) => state.user);
   const [profile, setProfile] = useState<ProfileType | null>(null);
+  const router = useRouter();
 
   const getProfile = async (username: string) => {
     try {
@@ -45,6 +47,10 @@ const Profile: FC<ProfileProps> = ({ username }) => {
     getProfile(username);
   }, [username]);
 
+  const onBackButtonClick = () => {
+    router.back();
+  };
+
   return (
     <div className={styles.profile__container}>
       {profile && Object.keys(profile).length > 0 && (
@@ -77,6 +83,9 @@ const Profile: FC<ProfileProps> = ({ username }) => {
           </div>
         </div>
       )}
+      <Button variant='contained' onClick={onBackButtonClick}>
+        Back
+      </Button>
     </div>
   );
 };
