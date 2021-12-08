@@ -21,7 +21,11 @@ const Room: FC = () => {
   };
 
   const handleMessageSend = () => {
-    socket.emit('addMessage', { text: message, room, user });
+    socket.emit('SERVER@MESSAGE:CREATE', {
+      text: message,
+      room,
+      user,
+    });
     setMessage('');
   };
 
@@ -37,20 +41,31 @@ const Room: FC = () => {
   useEffect(() => {
     if (!router.query?.id) return;
     getRoomMessages();
-  }, [router]);
+
+    socket.emit('SERVER@ROOM:JOIN', {
+      roomId: router.query.id,
+    });
+  }, [router.query.id]);
 
   useEffect(() => {
-    if (!isAuth) return;
+    socket.on('CLIENT@ROOM:LEAVE', (response) => {
+      console.log(response);
+    });
 
-    socket.on('getMessage', (response) => {
+    socket.on('CLIENT@MESSAGE:GET', (response) => {
+      console.log(response);
       setRoom((state) => ({
         ...state,
         messages: [...state.messages, response],
       }));
     });
+  }, [socket]);
 
-    socket.emit('joinRoom', { roomId: router.query.id, user });
-  }, [socket, isAuth, router.query.id]);
+  useEffect(() => {
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const onBackButtonClick = () => {
     router.back();
