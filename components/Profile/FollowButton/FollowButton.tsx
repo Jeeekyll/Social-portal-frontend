@@ -3,27 +3,36 @@ import { FollowButtonProps } from '@components/Profile/FollowButton/FollowButton
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import styles from './FollowButton.module.scss';
+import ProfileService from '@services/Profile.service';
 
-const FollowButton: FC<FollowButtonProps> = ({
-  profile,
-  onUnfollowClick,
-  onFollowClick,
-}) => {
+const FollowButton: FC<FollowButtonProps> = ({ profile, setProfile }) => {
+  const handleFollow = async () => {
+    try {
+      const user = await ProfileService.follow(profile.username);
+      setProfile(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    try {
+      const user = await ProfileService.unfollow(profile.username);
+      setProfile(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       {profile.following ? (
-        <div
-          onClick={() => onUnfollowClick(profile.username)}
-          className={styles.follow}
-        >
+        <div onClick={handleUnfollow} className={styles.follow}>
           <PersonAddDisabledIcon />
           <span>unfollow</span>
         </div>
       ) : (
-        <div
-          onClick={() => onFollowClick(profile.username)}
-          className={styles.follow}
-        >
+        <div onClick={handleFollow} className={styles.follow}>
           <PersonAddIcon />
           <span>follow</span>
         </div>

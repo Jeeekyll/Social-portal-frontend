@@ -15,7 +15,7 @@ export default class ArticleService {
     offset: number,
     limit: number
   ): Promise<ArticlesResponse> {
-    const { data } = await axios.get<ArticlesResponse>(`${api}/articles`, {
+    const { data } = await $api.get<ArticlesResponse>(`${api}/articles`, {
       params: { offset, limit },
     });
     return data;

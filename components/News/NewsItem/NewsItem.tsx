@@ -1,13 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Article } from 'store/types/article.type';
 import { Grid, Typography } from '@mui/material';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 import { Fade } from 'react-awesome-reveal';
 import styles from './NewsItem.module.scss';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FollowButton from '@components/Profile/FollowButton/FollowButton';
+import { Profile } from '@store/types/profile.type';
+import { useTypedSelector } from '@store/hooks';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -24,9 +26,11 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
     favouritesCount,
     author,
     slug,
-    comments,
     category,
   } = article;
+
+  const [profile, setProfile] = useState<Profile>(author);
+  const { isAuth } = useTypedSelector((state) => state.user);
 
   return (
     <Fade triggerOnce className={styles.article__fade}>
@@ -53,10 +57,14 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
           >
             {createdAt && formatDistanceToNow(new Date(createdAt))}
           </Typography>
-          <div className={styles.article__header__subscribe}>
-            <PersonAddIcon />
-            <span>follow</span>
-          </div>
+
+          {/*  Follow button  */}
+
+          {isAuth && (
+            <div className={styles.article__header__subscribe}>
+              <FollowButton profile={profile} setProfile={setProfile} />
+            </div>
+          )}
         </div>
 
         <div className={styles.article__body}>

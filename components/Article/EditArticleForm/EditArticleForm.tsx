@@ -9,7 +9,7 @@ import React, {
 import { Article, UpdateArticleDto } from 'store/types/article.type';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { UpdateArticle } from 'utils/validation';
+import { UpdateArticleSchema } from 'utils/validation';
 import ArticleService from 'services/Article.service';
 import {
   Button,
@@ -65,7 +65,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({
     control,
     formState: { errors, isDirty },
   } = useForm<UpdateArticleDto>({
-    resolver: yupResolver(UpdateArticle),
+    resolver: yupResolver(UpdateArticleSchema),
     defaultValues: useMemo(
       () => ({ ...article, category: article?.category?.id }),
       [article]

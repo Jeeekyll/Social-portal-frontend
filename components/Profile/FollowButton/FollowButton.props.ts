@@ -1,7 +1,7 @@
 import { Profile } from 'store/types/profile.type';
+import { Dispatch, SetStateAction } from 'react';
 
 export interface FollowButtonProps {
-  onFollowClick: (username: string) => Promise<void>;
-  onUnfollowClick: (username: string) => Promise<void>;
   profile: Profile;
+  setProfile: Dispatch<SetStateAction<Profile>>;
 }

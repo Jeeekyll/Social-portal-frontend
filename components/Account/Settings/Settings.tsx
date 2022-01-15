@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { UpdateUserDto } from 'store/types/user.type';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Divider, Grid, Input, Snackbar } from '@mui/material';
-import { ChangeUserCredentials } from 'utils/validation';
+import { UpdateUserCredentialsSchema } from 'utils/validation';
 import { Fade } from 'react-awesome-reveal';
 import { updateUser } from 'store/slices/user';
 import EditButton from './EditButton';
@@ -22,7 +22,7 @@ const Settings = () => {
     getValues,
     formState: { errors },
   } = useForm<UpdateUserDto>({
-    resolver: yupResolver(ChangeUserCredentials),
+    resolver: yupResolver(UpdateUserCredentialsSchema),
     defaultValues: useMemo(() => user, [user]),
     mode: 'onChange',
   });

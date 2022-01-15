@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import {
   AppBar,
   Avatar,
@@ -66,10 +66,6 @@ const Header: FC = (): ReactElement => {
     handleLogoutClose();
     router.push('/');
   };
-
-  useEffect(() => {
-    dispatch(checkAuth());
-  }, []);
 
   return (
     <>

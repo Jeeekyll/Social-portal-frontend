@@ -1,11 +1,11 @@
-import Header from 'components/Header/Header';
 import type { AppProps } from 'next/app';
 import React, { FC } from 'react';
 import { Provider } from 'react-redux';
 import { store } from 'store/store';
 import Head from 'next/head';
-import '../styles/stylesheets/style.scss';
+import 'styles/stylesheets/style.scss';
 import { socket, SocketContext } from 'context/socket';
+import DefaultLayout from '../layouts/DefaultLayout';
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
@@ -31,12 +31,14 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
       <main>
         <SocketContext.Provider value={socket}>
           <Provider store={store}>
-            <Header />
-            <Component {...pageProps} />
+            <DefaultLayout>
+              <Component {...pageProps} />
+            </DefaultLayout>
           </Provider>
         </SocketContext.Provider>
       </main>
     </>
   );
 };
+
 export default MyApp;

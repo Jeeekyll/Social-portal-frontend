@@ -11,8 +11,10 @@ import { useRouter } from 'next/router';
 
 const Profile: FC<ProfileProps> = ({ username }) => {
   const { user, isAuth } = useTypedSelector((state) => state.user);
-  const [profile, setProfile] = useState<ProfileType | null>(null);
+
   const router = useRouter();
+
+  const [profile, setProfile] = useState<ProfileType | null>(null);
 
   const getProfile = async (username: string) => {
     try {
@@ -22,24 +24,6 @@ const Profile: FC<ProfileProps> = ({ username }) => {
       console.log(error);
     }
   };
-
-  const handleFollow = useCallback(async (username: string) => {
-    try {
-      const profile = await ProfileService.follow(username);
-      setProfile(profile);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
-  const handleUnfollow = useCallback(async (username: string) => {
-    try {
-      const profile = await ProfileService.unfollow(username);
-      setProfile(profile);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
 
   useEffect(() => {
     if (!username) return;
@@ -68,11 +52,7 @@ const Profile: FC<ProfileProps> = ({ username }) => {
             </Typography>
             <div>{profile.username}</div>
             {user && profile.id !== user.id && isAuth && (
-              <FollowButton
-                onFollowClick={handleFollow}
-                onUnfollowClick={handleUnfollow}
-                profile={profile}
-              />
+              <FollowButton profile={profile} setProfile={setProfile} />
             )}
           </div>
           <div className={styles.profile__item}>
