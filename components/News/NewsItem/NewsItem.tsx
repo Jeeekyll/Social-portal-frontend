@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Article } from 'store/types/article.type';
 import { Grid, Typography } from '@mui/material';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
@@ -6,31 +6,34 @@ import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 import { Fade } from 'react-awesome-reveal';
 import styles from './NewsItem.module.scss';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FollowButton from '@components/Profile/FollowButton/FollowButton';
+import FollowButton from '@components/ToggleButtons/FollowButton/FollowButton';
 import { Profile } from '@store/types/profile.type';
 import { useTypedSelector } from '@store/hooks';
+import FavouriteButton from '@components/ToggleButtons/FavouriteButton/FavouriteButton';
+import { NewsItemProps } from './NewsItem.props';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
-interface NewsItemProps {
-  article: Article;
-}
+const NewsItem: FC<NewsItemProps> = ({ article, setArticles }) => {
+  const { id, title, description, createdAt, cover, author, slug, category } =
+    article;
 
-const NewsItem: FC<NewsItemProps> = ({ article }) => {
-  const {
-    title,
-    description,
-    createdAt,
-    cover,
-    favouritesCount,
-    author,
-    slug,
-    category,
-  } = article;
-
-  const [profile, setProfile] = useState<Profile>(author);
   const { isAuth } = useTypedSelector((state) => state.user);
+
+  const onProfileChange = (profileDto: Profile) => {
+    setArticles((articles) =>
+      articles.map((article) => {
+        if (article.id === id) return { ...article, author: profileDto };
+        return article;
+      })
+    );
+  };
+
+  const onFavouriteChange = (articleDto: Article) => {
+    setArticles((articles) =>
+      articles.map((article) => (article.id === id ? articleDto : article))
+    );
+  };
 
   return (
     <Fade triggerOnce className={styles.article__fade}>
@@ -62,7 +65,10 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
 
           {isAuth && (
             <div className={styles.article__header__subscribe}>
-              <FollowButton profile={profile} setProfile={setProfile} />
+              <FollowButton
+                profile={article.author}
+                onChange={onProfileChange}
+              />
             </div>
           )}
         </div>
@@ -92,17 +98,8 @@ const NewsItem: FC<NewsItemProps> = ({ article }) => {
           <div className={styles.article__footer_comments}>
             <ModeCommentOutlinedIcon />
           </div>
-          <div className={styles.article__footer_likes}>
-            <div
-              style={{
-                color: favouritesCount >= 0 ? '#2ea83a' : 'red',
-                fontWeight: 600,
-              }}
-            >
-              {favouritesCount}
-            </div>
-            <FavoriteBorderOutlinedIcon />
-          </div>
+
+          <FavouriteButton article={article} onChange={onFavouriteChange} />
         </div>
       </Grid>
     </Fade>

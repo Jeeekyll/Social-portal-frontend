@@ -172,6 +172,7 @@ const NewsFeed: FC = () => {
             <NewsItem
               key={`${article.id}_${article.title}`}
               article={article}
+              setArticles={setArticles}
             />
           ))}
 

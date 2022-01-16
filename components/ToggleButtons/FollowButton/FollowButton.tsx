@@ -1,15 +1,15 @@
 import React, { FC, memo } from 'react';
-import { FollowButtonProps } from '@components/Profile/FollowButton/FollowButton.props';
+import { FollowButtonProps } from '@components/ToggleButtons/FollowButton/FollowButton.props';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import styles from './FollowButton.module.scss';
 import ProfileService from '@services/Profile.service';
 
-const FollowButton: FC<FollowButtonProps> = ({ profile, setProfile }) => {
+const FollowButton: FC<FollowButtonProps> = ({ profile, onChange }) => {
   const handleFollow = async () => {
     try {
       const user = await ProfileService.follow(profile.username);
-      setProfile(user);
+      onChange(user);
     } catch (error) {
       console.log(error);
     }
@@ -18,7 +18,7 @@ const FollowButton: FC<FollowButtonProps> = ({ profile, setProfile }) => {
   const handleUnfollow = async () => {
     try {
       const user = await ProfileService.unfollow(profile.username);
-      setProfile(user);
+      onChange(user);
     } catch (error) {
       console.log(error);
     }

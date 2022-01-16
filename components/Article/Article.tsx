@@ -39,7 +39,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
   return (
     <>
       {article && Object.keys(article).length > 0 && (
-        <>
+        <div className={styles.article__wrapper}>
           <div className={styles.article}>
             <div className={styles.article__container}>
               <div className={styles.article__header}>
@@ -133,7 +133,7 @@ const Article: FC<ArticleProps> = ({ slug }) => {
           </div>
 
           <Comments comments={article.comments} articleId={article.id} />
-        </>
+        </div>
       )}
     </>
   );
