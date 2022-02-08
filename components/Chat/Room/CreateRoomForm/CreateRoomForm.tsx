@@ -13,9 +13,9 @@ import { CreateRoomDto } from 'store/types/room.type';
 import cn from 'classnames';
 import styles from './CreateRoomForm.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CreateRoomSchema } from '@utils/validation';
-import { CreateRoomProps } from '@components/Chat/Room/CreateRoomForm/CreateRoom.props';
-import { RoomService } from '@services/Room.service';
+import { CreateRoomSchema } from '@/utils/validation';
+import { CreateRoomProps } from '@/components/Chat/Room/CreateRoomForm/CreateRoom.props';
+import { RoomService } from '@/services/Room.service';
 
 const CreateRoomForm: FC<CreateRoomProps> = ({ addRoom }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

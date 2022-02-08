@@ -1,12 +1,12 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Room } from '../../store/types/room.type';
-import { RoomService } from '@services/Room.service';
+import { Room } from '@/store/types/room.type';
+import { RoomService } from '@/services/Room.service';
 import Link from 'next/link';
 import { IconButton, Typography } from '@mui/material';
-import CreateRoomForm from '@components/Chat/Room/CreateRoomForm/CreateRoomForm';
+import CreateRoomForm from '@/components/Chat/Room/CreateRoomForm/CreateRoomForm';
 import cn from 'classnames';
 import styles from './Chat.module.scss';
-import { useTypedSelector } from '../../store/hooks';
+import { useTypedSelector } from '@/store/hooks';
 import SendIcon from '@mui/icons-material/Send';
 
 const Chat: FC = () => {

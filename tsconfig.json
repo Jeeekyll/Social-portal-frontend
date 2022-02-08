@@ -15,13 +15,14 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["./components/*"],
-      "@api/*": ["./api/*"],
-      "@services/*": ["./services/*"],
-      "@public/*": ["./public/*"],
-      "@utils/*": ["./utils/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@store/*": ["./store/*"]
+      "@/components/*": ["./components/*"],
+      "@/api/*": ["./api/*"],
+      "@/services/*": ["./services/*"],
+      "@/public/*": ["./public/*"],
+      "@/common/*": ["./common/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/assets/*": ["./src/assets/*"],
+      "@/store/*": ["./store/*"]
     }
   },
   "exclude": ["node_modules"],

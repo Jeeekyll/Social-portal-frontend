@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Popup from '@components/UI/Popup/Popup';
+import Popup from '@/components/UI/Popup/Popup';
 
 const Test = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);

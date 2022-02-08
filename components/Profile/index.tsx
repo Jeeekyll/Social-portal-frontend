@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Profile as ProfileType } from '@store/types/profile.type';
+import { Profile as ProfileType } from '@/store/types/profile.type';
 import { ProfileProps } from './Profile.props';
-import ProfileService from '@services/Profile.service';
-import { useTypedSelector } from '@store/hooks';
-import { setCoverImage } from '@utils/setCoverImage';
-import FollowButton from '@components/ToggleButtons/FollowButton/FollowButton';
+import ProfileService from '@/services/Profile.service';
+import { useTypedSelector } from '@/store/hooks';
+import { setCoverImage } from '@/utils/setCoverImage';
+import FollowButton from '@/components/ToggleButtons/FollowButton/FollowButton';
 import styles from './Profile.module.scss';
 import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';

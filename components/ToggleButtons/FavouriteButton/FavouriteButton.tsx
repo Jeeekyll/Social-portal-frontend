@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { FavouriteButtonProps } from '@components/ToggleButtons/FavouriteButton/FavouriteButton.props';
-import styles from '@components/ToggleButtons/FavouriteButton/FavouriteButton.module.scss';
+import { FavouriteButtonProps } from '@/components/ToggleButtons/FavouriteButton/FavouriteButton.props';
+import styles from '@/components/ToggleButtons/FavouriteButton/FavouriteButton.module.scss';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import ArticleService from '@services/Article.service';
+import ArticleService from '@/services/Article.service';
 
 const FavouriteButton: FC<FavouriteButtonProps> = ({ article, onChange }) => {
   const onLikeClick = async () => {

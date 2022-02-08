@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useTypedSelector } from 'store/hooks';
-import { RoomSingle } from 'store/types/room.type';
+import { useTypedSelector } from '@/store/hooks';
+import { RoomSingle } from '@/store/types/room.type';
 import { socket } from 'context/socket';
-import { RoomService } from '@services/Room.service';
+import { RoomService } from '@/services/Room.service';
 import { Button, TextField, Typography } from '@mui/material';
 import cn from 'classnames';
 import styles from './Room.module.scss';

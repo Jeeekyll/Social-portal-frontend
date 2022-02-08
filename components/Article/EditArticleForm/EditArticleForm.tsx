@@ -6,11 +6,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Article, UpdateArticleDto } from 'store/types/article.type';
+import { Article, UpdateArticleDto } from '@/store/types/article.type';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { UpdateArticleSchema } from 'utils/validation';
-import ArticleService from 'services/Article.service';
+import { UpdateArticleSchema } from '@/utils/validation';
+import ArticleService from '@/services/Article.service';
 import {
   Button,
   IconButton,
@@ -26,7 +26,7 @@ import { PhotoCamera } from '@mui/icons-material';
 import { Fade } from 'react-awesome-reveal';
 import { useRouter } from 'next/router';
 import { formatDistanceToNow } from 'date-fns';
-import { Category } from 'store/types/category.type';
+import { Category } from '@/store/types/category.type';
 import { EditArticleFormProps } from './EditArticleForm.props';
 import styles from '../CreateArticleForm/CreateArticleForm.module.scss';
 

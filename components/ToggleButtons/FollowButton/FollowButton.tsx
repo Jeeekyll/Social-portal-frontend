@@ -1,9 +1,9 @@
 import React, { FC, memo } from 'react';
-import { FollowButtonProps } from '@components/ToggleButtons/FollowButton/FollowButton.props';
+import { FollowButtonProps } from '@/components/ToggleButtons/FollowButton/FollowButton.props';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import styles from './FollowButton.module.scss';
-import ProfileService from '@services/Profile.service';
+import ProfileService from '@/services/Profile.service';
 
 const FollowButton: FC<FollowButtonProps> = ({ profile, onChange }) => {
   const handleFollow = async () => {

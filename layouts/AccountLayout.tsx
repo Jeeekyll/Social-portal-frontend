@@ -30,7 +30,7 @@ const AccountLayout: FC<AccountLayoutProps> = ({
             </Typography>
             {children}
           </Grid>
-          <Grid item xs={1} md={1}></Grid>
+          <Grid item xs={1} md={1} />
           <Grid item xs={3} md={3}>
             <AccountSidebar />
           </Grid>

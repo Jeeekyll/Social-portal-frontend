@@ -20,7 +20,7 @@ import { queryLimit } from 'store/slices/article';
 import NewsItem from '../NewsItem/NewsItem';
 import styles from './NewsFeed.module.scss';
 import { Article } from 'store/types/article.type';
-import ArticleService from '@services/Article.service';
+import ArticleService from '@/services/Article.service';
 import SearchIcon from '@mui/icons-material/Search';
 import PublicIcon from '@mui/icons-material/Public';
 import PersonIcon from '@mui/icons-material/Person';

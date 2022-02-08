@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTypedSelector } from 'store/hooks';
+import { useTypedSelector } from '@/store/hooks';
 import { Divider, Grid } from '@mui/material';
 import { Fade } from 'react-awesome-reveal';
 import styles from './Profile.module.scss';

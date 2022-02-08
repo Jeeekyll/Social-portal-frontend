@@ -1,15 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useTypedDispatch, useTypedSelector } from 'store/hooks';
+import { Fade } from 'react-awesome-reveal';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { UpdateUserDto } from 'store/types/user.type';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Divider, Grid, Input, Snackbar } from '@mui/material';
-import { UpdateUserCredentialsSchema } from 'utils/validation';
-import { Fade } from 'react-awesome-reveal';
-import { updateUser } from 'store/slices/user';
-import EditButton from './EditButton';
+import { UpdateUserCredentialsSchema } from '@/utils/validation';
+import EditButton from '@/components/Account/Settings/EditButton';
+import Avatar from '@/components/Account/Settings/Avatar';
+import { UpdateUserDto } from '@/store/types/user.type';
+import { updateUser } from '@/store/slices/user';
+import { useTypedDispatch, useTypedSelector } from '@/store/hooks';
 import styles from './Settings.module.scss';
-import Avatar from './Avatar';
 
 const Settings = () => {
   const dispatch = useTypedDispatch();

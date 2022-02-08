@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { PopupProps } from '@components/UI/Popup/Popup.props';
-import OverlayingPopup from '@components/UI/OverlayingPopup/OverlayingPopup';
+import { PopupProps } from '@/components/UI/Popup/Popup.props';
+import OverlayingPopup from '@/components/UI/OverlayingPopup/OverlayingPopup';
 import styles from './Popup.module.scss';
 import cn from 'classnames';
 

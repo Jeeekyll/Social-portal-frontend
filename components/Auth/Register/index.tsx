@@ -8,11 +8,11 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { CreateUserDto } from 'store/types/user.type';
+import { CreateUserDto } from '@/store/types/user.type';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RegisterFormSchema } from 'utils/validation';
-import { useTypedDispatch } from 'store/hooks';
-import { register as registerThunk } from 'store/slices/user';
+import { RegisterFormSchema } from '@/utils/validation';
+import { useTypedDispatch } from '@/store/hooks';
+import { register as registerThunk } from '@/store/slices/user';
 import { Box } from '@mui/system';
 import { Fade as FadeEffect } from 'react-awesome-reveal';
 import styles from './Register.module.scss';

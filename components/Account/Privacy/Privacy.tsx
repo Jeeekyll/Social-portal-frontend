@@ -4,9 +4,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ChangePasswordDto } from 'store/types/user.type';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Fade } from 'react-awesome-reveal';
-import { UpdateUserPasswordSchema } from 'utils/validation';
-import AuthService from 'services/Auth.service';
-import styles from './Privacy.module.scss';
+import { UpdateUserPasswordSchema } from '@/utils/validation';
+import AuthService from '@/services/Auth.service';
+import styles from '@/components/Account/Privacy/Privacy.module.scss';
 
 const Privacy: FC = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);

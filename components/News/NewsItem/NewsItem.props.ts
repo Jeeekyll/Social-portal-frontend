@@ -1,4 +1,4 @@
-import { Article } from '@store/types/article.type';
+import { Article } from '@/store/types/article.type';
 import { Dispatch, SetStateAction } from 'react';
 
 export interface NewsItemProps {

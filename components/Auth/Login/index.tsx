@@ -8,10 +8,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { LoginUserDto } from 'store/types/user.type';
-import { LoginFormSchema } from 'utils/validation';
+import { LoginUserDto } from '@/store/types/user.type';
+import { LoginFormSchema } from '@/utils/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { login } from 'store/slices/user';
+import { login } from '@/store/slices/user';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/system';
 import { Fade as FadeEffect } from 'react-awesome-reveal';

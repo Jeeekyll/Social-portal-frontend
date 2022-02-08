@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
-import styles from '@components/Friends/Friends.module.scss';
-import { setCoverImage } from '@utils/setCoverImage';
+import styles from '@/components/Friends/Friends.module.scss';
+import { setCoverImage } from '@/utils/setCoverImage';
 import { IconButton, Typography } from '@mui/material';
 import Link from 'next/link';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SendIcon from '@mui/icons-material/Send';
-import { FriendProps } from '@components/Friends/Friend/Friend.props';
-import { useTypedSelector } from '../../../store/hooks';
-import { RoomService } from '@services/Room.service';
+import { FriendProps } from '@/components/Friends/Friend/Friend.props';
+import { useTypedSelector } from '@/store/hooks';
+import { RoomService } from '@/services/Room.service';
 
 const Friend: FC<FriendProps> = ({ user }) => {
   const { user: currentUser } = useTypedSelector((state) => state.user);

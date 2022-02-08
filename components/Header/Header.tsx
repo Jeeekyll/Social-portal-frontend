@@ -19,14 +19,14 @@ import {
   CloseIcon,
 } from '@icons/material';
 import Link from 'next/link';
-import { useTypedSelector } from 'store/hooks';
-import { checkAuth, logout } from 'store/slices/user';
+import { useTypedSelector } from '@/store/hooks';
+import { checkAuth, logout } from '@/store/slices/user';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/system';
 import cn from 'classnames';
 import { Fade as FadeEffect } from 'react-awesome-reveal';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import Register from '../Auth/Register';
+import Register from '@/components/Auth/Register';
 import HeaderSidebar from './HeaderSidebar/HeaderSidebar';
 import Login from 'components/Auth/Login';
 import styles from './Header.module.scss';

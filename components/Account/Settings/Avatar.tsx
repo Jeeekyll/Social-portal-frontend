@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useRef } from 'react';
-import { useTypedDispatch, useTypedSelector } from 'store/hooks';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { Button } from '@mui/material';
-import { deleteAvatar, uploadAvatar } from 'store/slices/user';
+import { deleteAvatar, uploadAvatar } from '@/store/slices/user';
 import styles from './Avatar.module.scss';
+import { useTypedDispatch, useTypedSelector } from '@/store/hooks';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 

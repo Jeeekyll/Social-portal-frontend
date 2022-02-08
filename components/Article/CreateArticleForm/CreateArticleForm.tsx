@@ -1,31 +1,31 @@
 import React, { FC, useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Button, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Article, CreateArticleDto } from 'store/types/article.type';
+import { Article, CreateArticleDto } from '@/store/types/article.type';
 import { Fade } from 'react-awesome-reveal';
-import { CreateArticleSchema } from 'utils/validation';
-import ArticleService from 'services/Article.service';
-import Link from 'next/link';
-import { Category } from 'store/types/category.type';
+import { CreateArticleSchema } from '@/utils/validation';
+import ArticleService from '@/services/Article.service';
+import { Category } from '@/store/types/category.type';
+import CategoryService from '@/services/Category.service';
 import styles from './CreateArticleForm.module.scss';
-import CategoryService from '@services/Category.service';
 
 const CreateArticleForm: FC = () => {
   const [isArticleCreated, setIsArticleCreated] = useState<boolean>(false);
   const [article, setArticle] = useState<Article | null>(null);
   const [categories, setCategories] = useState<Category[] | null>(null);
 
-  const fetchCategories = async () => {
-    try {
-      const categories = await CategoryService.findAll();
-      setCategories(categories);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categories = await CategoryService.findAll();
+        setCategories(categories);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchCategories();
   }, []);
 
@@ -50,8 +50,6 @@ const CreateArticleForm: FC = () => {
       console.log(error);
     }
   };
-
-  console.log(categories);
 
   return (
     <div className={styles.create}>

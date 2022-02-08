@@ -1,21 +1,21 @@
 import React, { FC, useEffect } from 'react';
 import { Button, Typography } from '@mui/material';
-import { useTypedDispatch, useTypedSelector } from 'store/hooks';
+import { useTypedDispatch, useTypedSelector } from '@/store/hooks';
 import {
   dislikeSelectedArticle,
   getArticle,
   likeSelectedArticle,
-} from 'store/slices/article';
+} from '@/store/slices/article';
 import { formatDistanceToNow } from 'date-fns';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Link from 'next/link';
 import CreateIcon from '@mui/icons-material/Create';
-import Comments from './Comments/Comments';
-import styles from './Article.module.scss';
+import Comments from '@/components/Article/Comments/Comments';
 import { ArticleProps } from './Article.props';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import styles from './Article.module.scss';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
