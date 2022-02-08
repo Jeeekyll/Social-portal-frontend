@@ -4,7 +4,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CreateCommentDto } from 'store/types/comment.type';
-import { CreateArticleComment } from 'utils/validation';
+import { CreateCommentSchema } from 'utils/validation';
 import { useTypedDispatch, useTypedSelector } from 'store/hooks';
 import { createComment, removeComment } from 'store/slices/article';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -24,7 +24,7 @@ const Comments: FC<CommentsProps> = ({ comments, articleId }) => {
     formState: { errors },
     reset,
   } = useForm<CreateCommentDto>({
-    resolver: yupResolver(CreateArticleComment),
+    resolver: yupResolver(CreateCommentSchema),
     mode: 'onChange',
   });
 

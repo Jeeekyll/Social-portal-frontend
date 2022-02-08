@@ -1,10 +1,10 @@
 import { User } from './user.type';
 import { ArticleComment } from './comment.type';
 import { Category } from './category.type';
+import { Profile } from '@store/types/profile.type';
 
 export interface Article {
   id: number;
-  articlesCount: number;
   title: string;
   description: string;
   body: string;
@@ -14,10 +14,11 @@ export interface Article {
   createdAt: Date | string;
   slug: string;
   tagList: [];
-  author: User;
+  author: Profile;
   comments: ArticleComment[];
   category: Category;
   isFavourite: boolean;
+  articlesCount: number;
 }
 
 export interface ArticleState {

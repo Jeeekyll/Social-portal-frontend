@@ -27,7 +27,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Fade } from 'react-awesome-reveal';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';
-import ArticlesLoader from '@components/Preloaders/ArticlesLoader';
 
 const newsFeedTabs = [
   { value: 'global', label: 'Global', icon: <PublicIcon /> },
@@ -173,16 +172,9 @@ const NewsFeed: FC = () => {
             <NewsItem
               key={`${article.id}_${article.title}`}
               article={article}
+              setArticles={setArticles}
             />
           ))}
-
-        {/*{isLoaded && (*/}
-        {/*  <div>*/}
-        {/*    <ArticlesLoader />*/}
-        {/*    <ArticlesLoader />*/}
-        {/*    <ArticlesLoader />*/}
-        {/*  </div>*/}
-        {/*)}*/}
 
         {!articles ||
           (articles.length === 0 && (

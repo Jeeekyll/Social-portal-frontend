@@ -11,29 +11,29 @@ export const LoginFormSchema = yup.object().shape({
   password: yup.string().min(4).required(),
 });
 
-export const ChangeUserCredentials = yup.object().shape({
+export const UpdateUserCredentialsSchema = yup.object().shape({
   email: yup.string().email('Wrong email').required(),
   username: yup.string().min(4).max(20).required(),
   bio: yup.string().max(50).notRequired(),
 });
 
-export const ChangeUserPassword = yup.object().shape({
+export const UpdateUserPasswordSchema = yup.object().shape({
   currentPassword: yup.string().min(4).max(30).required(),
   newPassword: yup.string().min(4).max(30).required(),
 });
 
-export const CreateArticleComment = yup.object().shape({
+export const CreateCommentSchema = yup.object().shape({
   text: yup.string().min(4).max(200).required(),
 });
 
-export const CreateArticle = yup.object().shape({
+export const CreateArticleSchema = yup.object().shape({
   title: yup.string().min(4).max(100).required(),
   description: yup.string().min(4).max(300).required(),
   body: yup.string().min(4).max(2000).required(),
   category: yup.number().required(),
 });
 
-export const UpdateArticle = yup.object().shape({
+export const UpdateArticleSchema = yup.object().shape({
   title: yup.string().min(4).max(100).required(),
   description: yup.string().min(4).max(300).required(),
   body: yup.string().min(4).max(2000).required(),

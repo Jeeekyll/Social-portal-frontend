@@ -44,16 +44,6 @@
 
     &__subscribe {
       margin-left: auto;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      text-transform: capitalize;
-      color: #3766a9;
-      gap: 4px;
-
-      & span:hover {
-        border-bottom: 1px solid #3766a9;
-      }
     }
   }
 

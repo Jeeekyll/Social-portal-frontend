@@ -3,8 +3,16 @@
   padding-top: 100px;
   padding-bottom: 40px;
   max-width: 900px;
+  min-width: 900px;
   margin: 0 auto;
   border-radius: 0 10px 10px;
+
+  &__wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
 
   &__likes {
     display: flex;

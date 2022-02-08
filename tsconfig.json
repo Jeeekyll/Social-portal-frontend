@@ -17,11 +17,11 @@
     "paths": {
       "@components/*": ["./components/*"],
       "@api/*": ["./api/*"],
-      "@hooks/*": ["./hooks/*"],
       "@services/*": ["./services/*"],
       "@public/*": ["./public/*"],
       "@utils/*": ["./utils/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@store/*": ["./store/*"]
     }
   },
   "exclude": ["node_modules"],

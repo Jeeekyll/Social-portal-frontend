@@ -4,26 +4,30 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Article, CreateArticleDto } from 'store/types/article.type';
 import { Fade } from 'react-awesome-reveal';
-import { CreateArticle } from 'utils/validation';
+import { CreateArticleSchema } from 'utils/validation';
 import ArticleService from 'services/Article.service';
 import Link from 'next/link';
 import { Category } from 'store/types/category.type';
 import styles from './CreateArticleForm.module.scss';
+import CategoryService from '@services/Category.service';
 
-interface CreateArticleFormProps {
-  categories: Category[] | null;
-}
-
-const CreateArticleForm: FC<CreateArticleFormProps> = ({
-  categories: serverCategories,
-}) => {
+const CreateArticleForm: FC = () => {
   const [isArticleCreated, setIsArticleCreated] = useState<boolean>(false);
   const [article, setArticle] = useState<Article | null>(null);
   const [categories, setCategories] = useState<Category[] | null>(null);
 
+  const fetchCategories = async () => {
+    try {
+      const categories = await CategoryService.findAll();
+      setCategories(categories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    setCategories(serverCategories);
-  }, [serverCategories]);
+    fetchCategories();
+  }, []);
 
   const {
     handleSubmit,
@@ -31,7 +35,7 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
     control,
     formState: { errors, isDirty },
   } = useForm<CreateArticleDto>({
-    resolver: yupResolver(CreateArticle),
+    resolver: yupResolver(CreateArticleSchema),
     mode: 'onChange',
   });
 
@@ -46,6 +50,8 @@ const CreateArticleForm: FC<CreateArticleFormProps> = ({
       console.log(error);
     }
   };
+
+  console.log(categories);
 
   return (
     <div className={styles.create}>

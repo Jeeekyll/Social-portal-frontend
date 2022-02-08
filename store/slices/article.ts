@@ -20,30 +20,6 @@ export const getArticle = createAsyncThunk(
   }
 );
 
-export const likeArticle = createAsyncThunk(
-  'articles/likeArticle',
-  async (slug: string, { dispatch }) => {
-    try {
-      const article = await ArticleService.like(slug);
-      dispatch(updateArticle(article));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-export const dislikeArticle = createAsyncThunk(
-  'articles/dislikeArticle',
-  async (slug: string, { dispatch }) => {
-    try {
-      const article = await ArticleService.dislike(slug);
-      dispatch(updateArticle(article));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
 export const likeSelectedArticle = createAsyncThunk(
   'article/likeSelectedArticle',
   async (slug: string, { dispatch }) => {
@@ -103,12 +79,6 @@ const articleSlice = createSlice({
     setArticle(state, { payload }: PayloadAction<Article>) {
       state.article = payload;
     },
-    updateArticle(state, { payload }: PayloadAction<Article>) {
-      state.article = payload;
-    },
-    updateSelectedArticle(state, { payload }: PayloadAction<Article>) {
-      state.article = payload;
-    },
     setFavourites(state, { payload }: PayloadAction<Article>) {
       state.article.favouritesCount = payload.favouritesCount;
       state.article.isFavourite = payload.isFavourite;
@@ -126,9 +96,7 @@ const articleSlice = createSlice({
 
 export const {
   setArticle,
-  updateArticle,
   setFavourites,
-  updateSelectedArticle,
   addArticleComment,
   deleteArticleComment,
 } = articleSlice.actions;

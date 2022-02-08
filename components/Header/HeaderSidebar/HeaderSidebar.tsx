@@ -11,7 +11,7 @@ import { HomeIcon, ChatIcon, RssIcon } from '@icons/material';
 import styles from '../Header.module.scss';
 import { HeaderSidebarProps } from './HeaderSidebar.props';
 import PersonIcon from '@mui/icons-material/Person';
-import { useTypedSelector } from '../../../store/hooks';
+import { useTypedSelector } from '@store/hooks';
 
 const HeaderSidebar: FC<HeaderSidebarProps> = ({
   isSidebarOpen,

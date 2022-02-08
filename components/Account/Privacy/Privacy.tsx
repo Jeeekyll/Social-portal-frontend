@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ChangePasswordDto } from 'store/types/user.type';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Fade } from 'react-awesome-reveal';
-import { ChangeUserPassword } from 'utils/validation';
+import { UpdateUserPasswordSchema } from 'utils/validation';
 import AuthService from 'services/Auth.service';
 import styles from './Privacy.module.scss';
 
@@ -18,7 +18,7 @@ const Privacy: FC = () => {
     register,
     formState: { errors, isDirty },
   } = useForm<ChangePasswordDto>({
-    resolver: yupResolver(ChangeUserPassword),
+    resolver: yupResolver(UpdateUserPasswordSchema),
     mode: 'onChange',
   });
 
