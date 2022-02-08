@@ -1,13 +1,10 @@
-import React, { FC, ReactElement } from 'react';
-import AccountLayout from 'layouts/AccountLayout';
+import React, { ReactElement } from 'react';
 import Settings from 'components/Account/Settings/Settings';
+import { withAccountLayout } from 'layouts/AccountLayout';
+import { NextPage } from 'next';
 
-const SettingsPage: FC = (): ReactElement => {
-  return (
-    <AccountLayout title='General settings'>
-      <Settings />
-    </AccountLayout>
-  );
+const SettingsPage: NextPage = (): ReactElement => {
+  return <Settings />;
 };
 
-export default SettingsPage;
+export default withAccountLayout(SettingsPage, 'Settings');

@@ -7,7 +7,7 @@ import Head from 'next/head';
 import '../styles/stylesheets/style.scss';
 import { socket, SocketContext } from 'context/socket';
 
-const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
+const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
@@ -39,4 +39,4 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
     </>
   );
 };
-export default MyApp;
+export default App;

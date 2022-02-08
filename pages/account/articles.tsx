@@ -1,14 +1,9 @@
-import React from 'react';
 import { NextPage } from 'next';
-import AccountLayout from 'layouts/AccountLayout';
 import Articles from 'components/Account/Articles/Articles';
+import { withAccountLayout } from 'layouts/AccountLayout';
 
 const ArticlesPage: NextPage = () => {
-  return (
-    <AccountLayout title='Your articles'>
-      <Articles />
-    </AccountLayout>
-  );
+  return <Articles />;
 };
 
-export default ArticlesPage;
+export default withAccountLayout(ArticlesPage, 'Your articles');

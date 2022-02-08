@@ -40,4 +40,17 @@ const AccountLayout: FC<AccountLayoutProps> = ({
   );
 };
 
+export const withAccountLayout = <T extends Record<string, unknown>>(
+  Component: FC<T>,
+  title: string
+) => {
+  return function withLayoutComponent(props: T) {
+    return (
+      <AccountLayout title={title}>
+        <Component {...props} />
+      </AccountLayout>
+    );
+  };
+};
+
 export default AccountLayout;

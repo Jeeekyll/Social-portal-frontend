@@ -1,13 +1,10 @@
-import React, { FC, ReactElement } from 'react';
-import AccountLayout from 'layouts/AccountLayout';
-import Profile from '../../components/Account/Profile/Profile';
+import React, { ReactElement } from 'react';
+import Profile from 'components/Account/Profile/Profile';
+import { withAccountLayout } from 'layouts/AccountLayout';
+import { NextPage } from 'next';
 
-const ProfilePage: FC = (): ReactElement => {
-  return (
-    <AccountLayout title='Profile'>
-      <Profile />
-    </AccountLayout>
-  );
+const ProfilePage: NextPage = (): ReactElement => {
+  return <Profile />;
 };
 
-export default ProfilePage;
+export default withAccountLayout(ProfilePage, 'Profile');

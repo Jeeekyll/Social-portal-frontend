@@ -1,13 +1,10 @@
-import React, { FC } from 'react';
-import AccountLayout from 'layouts/AccountLayout';
+import React from 'react';
 import Privacy from 'components/Account/Privacy/Privacy';
+import { withAccountLayout } from 'layouts/AccountLayout';
+import { NextPage } from 'next';
 
-const PrivacyPage: FC = () => {
-  return (
-    <AccountLayout title='Privacy'>
-      <Privacy />
-    </AccountLayout>
-  );
+const PrivacyPage: NextPage = () => {
+  return <Privacy />;
 };
 
-export default PrivacyPage;
+export default withAccountLayout(PrivacyPage, 'Privacy');
