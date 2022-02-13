@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import { useRouter } from 'next/router';
 import { useTypedSelector } from '@/store/hooks';
 import { RoomSingle } from '@/store/types/room.type';

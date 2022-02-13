@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix",
-    "lint-fix": "eslint --fix"
+    "lint-fix": "eslint --fix",
+    "format": "prettier-eslint --write \"{,!(node_modules)/**/}*.{js,jsx,ts,tsx}\"",
+    "prettier:fix": "prettier --write \"{,!(node_modules)/**/}*.{ts,tsx}\""
   },
   "dependencies": {
     "@emotion/react": "^11.5.0",
@@ -58,6 +60,7 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.4.1",
+    "prettier-eslint": "^13.0.0",
     "typescript": "^4.4.4"
   }
 }

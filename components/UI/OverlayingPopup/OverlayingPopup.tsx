@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Portal from '@/components/UI/Portal';
 import styles from './OverlayingPopup.module.scss';
+import Room from '@/components/Chat/Room/Room';
 
 interface OverlayingPopupProps {
   onClose: () => void;
@@ -25,6 +26,7 @@ const OverlayingPopup: FC<OverlayingPopupProps> = ({
           tabIndex={0}
           onClick={onClose}
         />
+        <Room />
         {children}
       </div>
     </Portal>
