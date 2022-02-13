@@ -19,6 +19,7 @@
       "@/api/*": ["./api/*"],
       "@/services/*": ["./services/*"],
       "@/public/*": ["./public/*"],
+      "@/layouts/*": ["./layouts/*"],
       "@/common/*": ["./common/*"],
       "@/utils/*": ["./utils/*"],
       "@/assets/*": ["./src/assets/*"],

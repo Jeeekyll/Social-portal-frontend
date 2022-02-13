@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import Profile from 'components/Account/Profile/Profile';
-import { withAccountLayout } from 'layouts/AccountLayout';
+import Profile from '@/components/Account/Profile/Profile';
+import { withAccountLayout } from '@/layouts/AccountLayout';
 import { NextPage } from 'next';
 
 const ProfilePage: NextPage = (): ReactElement => {

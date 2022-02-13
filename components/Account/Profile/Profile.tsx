@@ -9,8 +9,9 @@ const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 const Profile = () => {
   const { user } = useTypedSelector((state) => state.user);
 
-  const userImage = (): string =>
-    user.image ? `${api}/${user.image}` : '/account/profile-empty.png';
+  const userImage = user.image
+    ? `${api}/${user.image}`
+    : '/account/profile-empty.png';
 
   return (
     <>
@@ -23,7 +24,7 @@ const Profile = () => {
             <div className={styles.profile__item}>
               <div className={styles.profile__avatar}>
                 <img
-                  src={userImage()}
+                  src={userImage}
                   className={styles.profile__avatar}
                   alt='avatar'
                 />

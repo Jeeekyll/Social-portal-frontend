@@ -3,6 +3,7 @@ import { IconButton } from '@mui/material';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import ModeEdit from '@mui/icons-material/ModeEdit';
 import styles from './Settings.module.scss';
+import cn from 'classnames';
 
 interface EditButtonProps {
   isActive: boolean;
@@ -15,23 +16,23 @@ const EditButton: FC<EditButtonProps> = ({
   activateField,
   discardFiled,
 }) => (
-  <>
+  <div className={cn(styles.edit__wrapper)}>
     {isActive ? (
-      <div className={styles.settings__item__edit} onClick={discardFiled}>
-        <IconButton color='primary' size='small' style={{ marginLeft: 'auto' }}>
+      <div className={styles.edit} onClick={discardFiled}>
+        <IconButton color='primary' size='small'>
           <EditOffIcon />
         </IconButton>
-        <span>Discard</span>
+        <div>Save</div>
       </div>
     ) : (
-      <div className={styles.settings__item__edit} onClick={activateField}>
-        <IconButton color='primary' size='small' style={{ marginLeft: 'auto' }}>
+      <div className={styles.edit} onClick={activateField}>
+        <IconButton color='primary' size='small'>
           <ModeEdit />
         </IconButton>
-        <span>Change</span>
+        <div>Change</div>
       </div>
     )}
-  </>
+  </div>
 );
 
 export default EditButton;

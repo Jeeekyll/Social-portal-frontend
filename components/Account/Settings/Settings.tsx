@@ -1,25 +1,27 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Divider, Grid, Input, Snackbar } from '@mui/material';
+import { Button, Divider, Snackbar } from '@mui/material';
 import { UpdateUserCredentialsSchema } from '@/utils/validation';
-import EditButton from '@/components/Account/Settings/EditButton';
 import Avatar from '@/components/Account/Settings/Avatar';
 import { UpdateUserDto } from '@/store/types/user.type';
 import { updateUser } from '@/store/slices/user';
 import { useTypedDispatch, useTypedSelector } from '@/store/hooks';
-import styles from './Settings.module.scss';
+import styles from '@/components/Account/Settings/Settings.module.scss';
+import ProfileField from '@/components/Account/ProfileField';
 
 const Settings = () => {
   const dispatch = useTypedDispatch();
-  const { user, isAuth } = useTypedSelector((state) => state.user);
+  const { user } = useTypedSelector((state) => state.user);
+
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const {
     handleSubmit,
     reset,
-    register,
     getValues,
+    control,
     formState: { errors },
   } = useForm<UpdateUserDto>({
     resolver: yupResolver(UpdateUserCredentialsSchema),
@@ -27,174 +29,72 @@ const Settings = () => {
     mode: 'onChange',
   });
 
-  const [isUsernameActive, setIsUsernameActive] = useState<boolean>(false);
-
-  const handleActiveUsernameChange = (): void => {
-    setIsUsernameActive(true);
-  };
-
-  const handleDiscardUsernameChange = (): void => {
-    reset({ ...getValues(), username: user.username });
-    setIsUsernameActive(false);
-  };
-
-  const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
-
-  const handleActiveEmailChange = (): void => {
-    setIsEmailActive(true);
-  };
-
-  const handleDiscardEmailChange = (): void => {
-    reset({ ...getValues(), email: user.email });
-    setIsEmailActive(false);
-  };
-
-  const [isBioActive, setIsBioActive] = useState<boolean>(false);
-  const handleActiveBioChange = (): void => {
-    setIsBioActive(true);
-  };
-
-  const handleDiscardBioChange = (): void => {
-    reset({ ...getValues(), bio: user.bio });
-    setIsBioActive(false);
-  };
-
-  const resetFormState = () => {
-    setIsBioActive(false);
-    setIsEmailActive(false);
-    setIsUsernameActive(false);
-  };
+  const getFieldValue = useCallback(
+    (name: any): string => {
+      return getValues(name);
+    },
+    [control]
+  );
 
   useEffect(() => {
-    if (!user) return;
+    const { username, email, bio } = user;
+    reset({ username, email, bio });
+  }, []);
 
-    reset({
-      username: user.username,
-      email: user.email,
-      bio: user.bio,
-    });
-  }, [user]);
-
-  const onSubmit: SubmitHandler<UpdateUserDto> = async (
+  const onSubmit: SubmitHandler<UpdateUserDto> = (
     updateUserDto: UpdateUserDto
   ) => {
-    await dispatch(updateUser(updateUserDto));
-    await resetFormState();
+    dispatch(updateUser(updateUserDto));
     setIsFormSubmitted(true);
   };
 
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-
   return (
     <>
-      {isAuth && (
-        <Fade>
-          <Divider textAlign='left'>Avatar</Divider>
-          <Avatar />
+      <Fade>
+        <Divider textAlign='left'>Avatar</Divider>
+        <Avatar />
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Divider textAlign='left'>General</Divider>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Divider textAlign='left'>General</Divider>
 
-            <div className={styles.settings__item}>
-              <Grid container spacing={2} alignItems='center'>
-                <Grid item xs={3} md={3}>
-                  <div className={styles.settings__item__title}>Username</div>
-                </Grid>
-                <Grid item xs={4} md={4}>
-                  {isUsernameActive ? (
-                    <Input
-                      fullWidth
-                      placeholder='Username'
-                      error={errors.username && true}
-                      {...register('username')}
-                    />
-                  ) : (
-                    <div className={styles.settings__item__value}>
-                      {user.username}
-                    </div>
-                  )}
-                </Grid>
-                <Grid item xs={5} md={5}>
-                  <EditButton
-                    isActive={isUsernameActive}
-                    activateField={handleActiveUsernameChange}
-                    discardFiled={handleDiscardUsernameChange}
-                  />
-                </Grid>
-              </Grid>
-            </div>
-            <Divider />
+          <ProfileField
+            control={control}
+            error={errors.username && true}
+            name={'username'}
+            placeholder={'Username'}
+            getFieldValue={getFieldValue}
+            isReset={isFormSubmitted}
+          />
 
-            <div className={styles.settings__item}>
-              <Grid container spacing={2} alignItems='center'>
-                <Grid item xs={3} md={3}>
-                  <div className={styles.settings__item__title}>Email</div>
-                </Grid>
-                <Grid item xs={4} md={4}>
-                  {isEmailActive ? (
-                    <Input
-                      fullWidth
-                      placeholder='Email'
-                      error={errors.email && true}
-                      {...register('email')}
-                    />
-                  ) : (
-                    <div className={styles.settings__item__value}>
-                      {user.email}
-                    </div>
-                  )}
-                </Grid>
-                <Grid item xs={5} md={5}>
-                  <EditButton
-                    isActive={isEmailActive}
-                    activateField={handleActiveEmailChange}
-                    discardFiled={handleDiscardEmailChange}
-                  />
-                </Grid>
-              </Grid>
-            </div>
+          <ProfileField
+            control={control}
+            error={errors.username && true}
+            name={'email'}
+            placeholder={'Email'}
+            getFieldValue={getFieldValue}
+            isReset={isFormSubmitted}
+          />
 
-            <Divider textAlign='left'>Advanced</Divider>
+          <Divider textAlign='left'>Advanced</Divider>
 
-            <div className={styles.settings__item}>
-              <Grid container spacing={2} alignItems='center'>
-                <Grid item xs={3} md={3}>
-                  <div className={styles.settings__item__title}>Bio</div>
-                </Grid>
-                <Grid item xs={4} md={4}>
-                  {isBioActive ? (
-                    <Input
-                      fullWidth
-                      placeholder='Bio'
-                      error={errors.bio && true}
-                      {...register('bio')}
-                    />
-                  ) : (
-                    <div className={styles.settings__item__value}>
-                      {user.bio || 'Data not specified'}
-                    </div>
-                  )}
-                </Grid>
-                <Grid item xs={5} md={5}>
-                  <EditButton
-                    isActive={isBioActive}
-                    activateField={handleActiveBioChange}
-                    discardFiled={handleDiscardBioChange}
-                  />
-                </Grid>
-              </Grid>
-            </div>
+          <ProfileField
+            control={control}
+            error={errors.username && true}
+            name={'bio'}
+            placeholder={'Bio'}
+            getFieldValue={getFieldValue}
+            isReset={isFormSubmitted}
+          />
 
-            <Button
-              type='submit'
-              variant='contained'
-              className={styles.settings__submit}
-            >
-              Save
-            </Button>
-          </form>
-        </Fade>
-      )}
+          <Button
+            type='submit'
+            variant='contained'
+            className={styles.settings__submit}
+          >
+            Save
+          </Button>
+        </form>
+      </Fade>
 
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

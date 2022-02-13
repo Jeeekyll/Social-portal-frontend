@@ -2,6 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import AccountSidebar from 'components/Account/AccountSidebar/AccountSidebar';
 import Redirect from 'common/Redirect';
+import { useTypedSelector } from '@/store/hooks';
 
 interface AccountLayoutProps {
   title: string;
@@ -11,8 +12,14 @@ const AccountLayout: FC<AccountLayoutProps> = ({
   title,
   children,
 }): ReactElement => {
+  const { user } = useTypedSelector((state) => state.user);
+
   if (typeof window !== 'undefined' && !localStorage.getItem('token')) {
     return <Redirect to='/' />;
+  }
+
+  if (!user) {
+    return null;
   }
 
   return (
