@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { CreateRoomDto } from 'store/types/room.type';
+import { CreateRoomDto } from 'types/room.type';
 import cn from 'classnames';
 import styles from './CreateRoomForm.module.scss';
 import { yupResolver } from '@hookform/resolvers/yup';

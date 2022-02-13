@@ -4,7 +4,7 @@ import { useTypedSelector } from '@/store/hooks';
 import { Typography } from '@mui/material';
 import Friend from '@/components/Friends/Friend/Friend';
 import styles from './Friends.module.scss';
-import { User } from '@/store/types/user.type';
+import { User } from '@/types/user.type';
 
 const Friends = () => {
   const { isAuth } = useTypedSelector((state) => state.user);

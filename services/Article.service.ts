@@ -5,7 +5,7 @@ import {
   ArticlesResponse,
   CreateArticleDto,
   UpdateArticleDto,
-} from 'store/types/article.type';
+} from 'types/article.type';
 import $api from './index';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;

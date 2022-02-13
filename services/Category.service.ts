@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Category, CategoryResponse } from 'store/types/category.type';
+import { Category, CategoryResponse } from 'types/category.type';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 

@@ -1,4 +1,4 @@
-import { ArticleComment } from 'store/types/comment.type';
+import { ArticleComment } from 'types/comment.type';
 
 export interface CommentsProps {
   comments: ArticleComment[];

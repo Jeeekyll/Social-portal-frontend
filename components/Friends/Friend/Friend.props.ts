@@ -1,4 +1,4 @@
-import { User } from '../../../store/types/user.type';
+import { User } from '../../../types/user.type';
 
 export interface FriendProps {
   user: User;

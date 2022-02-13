@@ -1,4 +1,4 @@
-import { UpdateUserDto } from '@/store/types/user.type';
+import { UpdateUserDto } from '@/types/user.type';
 import { Control } from 'react-hook-form';
 
 export interface ProfileFieldProps {

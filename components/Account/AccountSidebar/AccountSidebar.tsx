@@ -20,7 +20,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import { useRouter } from 'next/router';
 import { Box } from '@mui/system';
 import { useTypedDispatch } from '@/store/hooks';
-import { logout } from '@/store/slices/user';
+import { logout } from '@/store/actions/user';
 import styles from '@/components/Header/Header.module.scss';
 
 const AccountSidebar = () => {

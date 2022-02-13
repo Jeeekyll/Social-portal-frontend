@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { GetServerSideProps } from 'next';
 import EditArticleForm from 'components/Article/EditArticleForm/EditArticleForm';
 import ArticleService from 'services/Article.service';
-import { Article } from 'store/types/article.type';
-import { Category } from 'store/types/category.type';
+import { Article } from 'types/article.type';
+import { Category } from 'types/category.type';
 import CategoryService from 'services/Category.service';
 
 interface EditPageProps {

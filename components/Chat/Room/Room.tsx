@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { useRouter } from 'next/router';
 import { useTypedSelector } from '@/store/hooks';
-import { RoomSingle } from '@/store/types/room.type';
+import { RoomSingle } from '@/types/room.type';
 import { socket } from 'context/socket';
 import { RoomService } from '@/services/Room.service';
 import { Button, TextField, Typography } from '@mui/material';

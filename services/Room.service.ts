@@ -6,7 +6,7 @@ import {
   RoomResponse,
   RoomSingle,
   RoomsResponse,
-} from 'store/types/room.type';
+} from 'types/room.type';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 

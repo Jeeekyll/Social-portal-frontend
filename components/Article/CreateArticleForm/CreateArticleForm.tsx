@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { Button, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Article, CreateArticleDto } from '@/store/types/article.type';
+import { Article, CreateArticleDto } from '@/types/article.type';
 import { Fade } from 'react-awesome-reveal';
 import { CreateArticleSchema } from '@/utils/validation';
 import ArticleService from '@/services/Article.service';
-import { Category } from '@/store/types/category.type';
+import { Category } from '@/types/category.type';
 import CategoryService from '@/services/Category.service';
 import styles from './CreateArticleForm.module.scss';
 

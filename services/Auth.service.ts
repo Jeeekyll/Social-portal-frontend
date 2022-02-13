@@ -7,8 +7,8 @@ import {
   ResponseUser,
   UpdateUserDto,
   UserResponse,
-} from '@/store/types/user.type';
-import { Article, UserArticlesResponse } from '@/store/types/article.type';
+} from '@/types/user.type';
+import { Article, UserArticlesResponse } from '@/types/article.type';
 import $api from './index';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;

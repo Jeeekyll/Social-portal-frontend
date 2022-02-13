@@ -1,15 +1,20 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import AuthService from 'services/Auth.service';
-import {
-  CreateUserDto,
-  LoginUserDto,
-  ResponseUser,
-  UpdateUserDto,
-  UserState,
-} from 'store/types/user.type';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import AuthService from '@/services/Auth.service';
+import { CreateUserDto, LoginUserDto, UpdateUserDto } from '@/types/user.type';
+import { removeUserData, setUserData } from '@/store/reducers/user';
+
+const UserActions = {
+  CHECK_AUTH: 'user/CheckAuth',
+  LOGIN: 'user/Login',
+  REGISTER: 'user/Register',
+  LOGOUT: 'user/Logout',
+  UPDATE: 'user/Update',
+  UPDATE_AVATAR: 'user/UpdateAvatar',
+  DELETE_AVATAR: 'user/DeleteAvatar',
+};
 
 export const checkAuth = createAsyncThunk(
-  'user/checkUserAuth',
+  UserActions.CHECK_AUTH,
   async (_, { dispatch }) => {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -23,7 +28,7 @@ export const checkAuth = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  'user/Login',
+  UserActions.LOGIN,
   async (loginUserDto: LoginUserDto, { dispatch }) => {
     try {
       const data = await AuthService.login(loginUserDto);
@@ -36,7 +41,7 @@ export const login = createAsyncThunk(
 );
 
 export const register = createAsyncThunk(
-  'user/Register',
+  UserActions.REGISTER,
   async (createUserDto: CreateUserDto, { dispatch }) => {
     try {
       const data = await AuthService.register(createUserDto);
@@ -49,7 +54,7 @@ export const register = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk(
-  'user/Logout',
+  UserActions.LOGOUT,
   async (_, { dispatch }) => {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -60,7 +65,7 @@ export const logout = createAsyncThunk(
 );
 
 export const updateUser = createAsyncThunk(
-  'user/update',
+  UserActions.UPDATE_AVATAR,
   async (updateUserDto: UpdateUserDto, { dispatch }) => {
     try {
       const user = await AuthService.update(updateUserDto);
@@ -72,7 +77,7 @@ export const updateUser = createAsyncThunk(
 );
 
 export const uploadAvatar = createAsyncThunk(
-  'user/updateAvatar',
+  UserActions.UPDATE_AVATAR,
   async (avatar: FormData, { dispatch }) => {
     try {
       const user = await AuthService.uploadAvatar(avatar);
@@ -84,7 +89,7 @@ export const uploadAvatar = createAsyncThunk(
 );
 
 export const deleteAvatar = createAsyncThunk(
-  'user/deleteAvatar',
+  UserActions.DELETE_AVATAR,
   async (_, { dispatch }) => {
     try {
       const user = await AuthService.deleteAvatar();
@@ -94,27 +99,3 @@ export const deleteAvatar = createAsyncThunk(
     }
   }
 );
-
-const initialState: UserState = {
-  user: null,
-  isAuth: false,
-};
-
-const userSlice = createSlice({
-  name: 'user',
-  initialState,
-
-  reducers: {
-    setUserData(state, { payload }: PayloadAction<ResponseUser>) {
-      state.user = payload;
-      state.isAuth = true;
-    },
-    removeUserData(state) {
-      state.user = null;
-      state.isAuth = false;
-    },
-  },
-});
-
-export const { setUserData, removeUserData } = userSlice.actions;
-export default userSlice.reducer;

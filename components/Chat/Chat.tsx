@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Room } from '@/store/types/room.type';
+import { Room } from '@/types/room.type';
 import { RoomService } from '@/services/Room.service';
 import Link from 'next/link';
 import { IconButton, Typography } from '@mui/material';

@@ -2,9 +2,9 @@ import {
   FollowersResponse,
   Profile,
   ProfileResponse,
-} from '../store/types/profile.type';
+} from '../types/profile.type';
 import $api from './index';
-import { User } from '../store/types/user.type';
+import { User } from '../types/user.type';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 

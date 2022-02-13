@@ -1,4 +1,4 @@
-import { ArticleComment, CreateCommentDto } from 'store/types/comment.type';
+import { ArticleComment, CreateCommentDto } from 'types/comment.type';
 import $api from './index';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;

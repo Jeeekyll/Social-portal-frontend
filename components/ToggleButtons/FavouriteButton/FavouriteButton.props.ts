@@ -1,4 +1,4 @@
-import { Article } from '@/store/types/article.type';
+import { Article } from '@/types/article.type';
 
 export interface FavouriteButtonProps {
   article: Article;

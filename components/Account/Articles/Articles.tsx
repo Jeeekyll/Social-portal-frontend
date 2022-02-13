@@ -3,7 +3,7 @@ import { IconButton, List, ListItemButton, ListItemText } from '@mui/material';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link';
-import { Article } from '@/store/types/article.type';
+import { Article } from '@/types/article.type';
 import AuthService from '@/services/Auth.service';
 
 const Articles: FC = () => {

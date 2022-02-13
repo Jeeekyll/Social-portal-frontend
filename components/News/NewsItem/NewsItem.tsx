@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Article } from 'store/types/article.type';
+import { Article } from 'types/article.type';
 import { Grid, Typography } from '@mui/material';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import { formatDistanceToNow } from 'date-fns';
@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Fade } from 'react-awesome-reveal';
 import styles from './NewsItem.module.scss';
 import FollowButton from '@/components/ToggleButtons/FollowButton/FollowButton';
-import { Profile } from '@/store/types/profile.type';
+import { Profile } from '@/types/profile.type';
 import { useTypedSelector } from '@/store/hooks';
 import FavouriteButton from '@/components/ToggleButtons/FavouriteButton/FavouriteButton';
 import { NewsItemProps } from './NewsItem.props';

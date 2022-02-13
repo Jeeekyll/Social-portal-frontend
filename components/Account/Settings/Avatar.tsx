@@ -2,7 +2,7 @@ import React, { ChangeEvent, useRef } from 'react';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { Button } from '@mui/material';
-import { deleteAvatar, uploadAvatar } from '@/store/slices/user';
+import { deleteAvatar, uploadAvatar } from '@/store/actions/user';
 import styles from './Avatar.module.scss';
 import { useTypedDispatch, useTypedSelector } from '@/store/hooks';
 

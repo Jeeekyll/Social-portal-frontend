@@ -1,12 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import userSlice from './slices/user';
-import articleSlice from './slices/article';
+import user from '@/store/reducers/user';
+import article from '@/store/reducers/article';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      user: userSlice,
-      articles: articleSlice,
+      user,
+      article,
     },
   });
 };

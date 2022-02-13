@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["es6", "dom", "dom.iterable", "esnext"],
+    "lib": [
+      "es6",
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -15,17 +20,45 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["./components/*"],
-      "@/api/*": ["./api/*"],
-      "@/services/*": ["./services/*"],
-      "@/public/*": ["./public/*"],
-      "@/layouts/*": ["./layouts/*"],
-      "@/common/*": ["./common/*"],
-      "@/utils/*": ["./utils/*"],
-      "@/assets/*": ["./src/assets/*"],
-      "@/store/*": ["./store/*"]
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/types/*": [
+        "./types/*"
+      ],
+      "@/services/*": [
+        "./services/*"
+      ],
+      "@/public/*": [
+        "./public/*"
+      ],
+      "@/layouts/*": [
+        "./layouts/*"
+      ],
+      "@/common/*": [
+        "./common/*"
+      ],
+      "@/utils/*": [
+        "./utils/*"
+      ],
+      "@/assets/*": [
+        "./src/assets/*"
+      ],
+      "@/store/*": [
+        "./store/*"
+      ],
+      "@/context/*": [
+        "./context/*"
+      ]
     }
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts",
+    "next.config.js"
+  ]
 }

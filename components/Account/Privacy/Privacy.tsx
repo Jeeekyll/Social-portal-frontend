@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Button, Divider, Grid, Input, Snackbar } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ChangePasswordDto } from 'store/types/user.type';
+import { ChangePasswordDto } from 'types/user.type';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Fade } from 'react-awesome-reveal';
 import { UpdateUserPasswordSchema } from '@/utils/validation';

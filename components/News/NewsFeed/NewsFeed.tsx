@@ -16,10 +16,10 @@ import {
   Typography,
 } from '@mui/material';
 import { useObserver } from 'store/hooks';
-import { queryLimit } from 'store/slices/article';
+import { queryLimit } from '@/store/reducers/article';
 import NewsItem from '../NewsItem/NewsItem';
 import styles from './NewsFeed.module.scss';
-import { Article } from 'store/types/article.type';
+import { Article } from 'types/article.type';
 import ArticleService from '@/services/Article.service';
 import SearchIcon from '@mui/icons-material/Search';
 import PublicIcon from '@mui/icons-material/Public';

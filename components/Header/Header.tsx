@@ -20,7 +20,7 @@ import {
 } from '@icons/material';
 import Link from 'next/link';
 import { useTypedSelector } from '@/store/hooks';
-import { checkAuth, logout } from '@/store/slices/user';
+import { checkAuth, logout } from '@/store/actions/user';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/system';
 import cn from 'classnames';

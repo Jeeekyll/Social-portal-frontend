@@ -5,11 +5,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Divider, Snackbar } from '@mui/material';
 import { UpdateUserCredentialsSchema } from '@/utils/validation';
 import Avatar from '@/components/Account/Settings/Avatar';
-import { UpdateUserDto } from '@/store/types/user.type';
-import { updateUser } from '@/store/slices/user';
+import { UpdateUserDto } from '@/types/user.type';
+import { updateUser } from '@/store/actions/user';
 import { useTypedDispatch, useTypedSelector } from '@/store/hooks';
 import styles from '@/components/Account/Settings/Settings.module.scss';
-import ProfileField from '@/components/Account/ProfileField';
+import ProfileField from '@/components/Account/ProfileField/ProfileField';
 
 const Settings = () => {
   const dispatch = useTypedDispatch();

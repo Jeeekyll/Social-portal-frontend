@@ -5,7 +5,7 @@ import { Controller } from 'react-hook-form';
 import { ProfileFieldProps } from '@/components/Account/ProfileField/ProfileField.props';
 import styles from '@/components/Account/ProfileField/ProfileField.module.scss';
 
-const Index: FC<ProfileFieldProps> = ({
+const ProfileField: FC<ProfileFieldProps> = ({
   control,
   error,
   name,
@@ -24,9 +24,7 @@ const Index: FC<ProfileFieldProps> = ({
   };
 
   useEffect(() => {
-    if (isReset) {
-      discardField();
-    }
+    if (isReset) discardField();
   }, [isReset]);
 
   return (
@@ -69,4 +67,4 @@ const Index: FC<ProfileFieldProps> = ({
   );
 };
 
-export default Index;
+export default ProfileField;

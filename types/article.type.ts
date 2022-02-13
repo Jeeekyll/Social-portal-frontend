@@ -1,7 +1,7 @@
 import { User } from './user.type';
 import { ArticleComment } from './comment.type';
 import { Category } from './category.type';
-import { Profile } from '@/store/types/profile.type';
+import { Profile } from './profile.type';
 
 export interface Article {
   id: number;

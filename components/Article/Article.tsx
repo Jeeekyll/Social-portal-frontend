@@ -2,10 +2,10 @@ import React, { FC, useEffect } from 'react';
 import { Button, Typography } from '@mui/material';
 import { useTypedDispatch, useTypedSelector } from '@/store/hooks';
 import {
-  dislikeSelectedArticle,
+  dislikeArticle,
   getArticle,
-  likeSelectedArticle,
-} from '@/store/slices/article';
+  likeArticle,
+} from '@/store/actions/article';
 import { formatDistanceToNow } from 'date-fns';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
@@ -20,7 +20,7 @@ import styles from './Article.module.scss';
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
 const Article: FC<ArticleProps> = ({ slug }) => {
-  const { article } = useTypedSelector((state) => state.articles);
+  const { article } = useTypedSelector((state) => state.article);
   const { user, isAuth } = useTypedSelector((state) => state.user);
   const dispatch = useTypedDispatch();
 
@@ -29,11 +29,11 @@ const Article: FC<ArticleProps> = ({ slug }) => {
   }, [slug]);
 
   const handleLikeClick = () => {
-    dispatch(likeSelectedArticle(article.slug));
+    dispatch(likeArticle(article.slug));
   };
 
   const handleDislikeClick = () => {
-    dispatch(dislikeSelectedArticle(article.slug));
+    dispatch(dislikeArticle(article.slug));
   };
 
   return (
