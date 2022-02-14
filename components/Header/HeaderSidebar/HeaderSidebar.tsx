@@ -8,16 +8,14 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import { HomeIcon, ChatIcon, RssIcon } from '@icons/material';
-import { HeaderSidebarProps } from './HeaderSidebar.props';
 import PersonIcon from '@mui/icons-material/Person';
-import { useTypedSelector } from '@/store/hooks';
 import styles from '@/components/Header/Header.module.scss';
+import { HeaderSidebarProps } from '@/components/Header/HeaderSidebar/HeaderSidebar.props';
 
 const HeaderSidebar: FC<HeaderSidebarProps> = ({
   isSidebarOpen,
+  isAuth,
 }): ReactElement => {
-  const { isAuth } = useTypedSelector((state) => state.user);
-
   return (
     <Drawer
       variant='persistent'

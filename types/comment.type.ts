@@ -1,4 +1,4 @@
-import { User } from './user.type';
+import { User } from '@/types/user.type';
 
 export interface Comment {
   id: number;

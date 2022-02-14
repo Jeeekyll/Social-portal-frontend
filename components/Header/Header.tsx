@@ -20,7 +20,7 @@ import {
 } from '@icons/material';
 import Link from 'next/link';
 import { useTypedSelector } from '@/store/hooks';
-import { checkAuth, logout } from '@/store/actions/user';
+import { logout } from '@/store/actions/user';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/system';
 import cn from 'classnames';
@@ -31,6 +31,7 @@ import HeaderSidebar from './HeaderSidebar/HeaderSidebar';
 import Login from 'components/Auth/Login';
 import styles from './Header.module.scss';
 import { useRouter } from 'next/router';
+import { getUser } from '@/store/selectors/user';
 
 const api = process.env.NEXT_PUBLIC_DOMAIN_API;
 
@@ -38,7 +39,7 @@ const Header: FC = (): ReactElement => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { user, isAuth } = useTypedSelector((state) => state.user);
+  const { user, isAuth } = useTypedSelector(getUser);
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const toggleMenuOpen = (): void => {

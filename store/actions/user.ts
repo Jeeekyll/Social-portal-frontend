@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import AuthService from '@/services/Auth.service';
 import { CreateUserDto, LoginUserDto, UpdateUserDto } from '@/types/user.type';
-import { removeUserData, setUserData } from '@/store/reducers/user';
+import { removeUser, setUser } from '@/store/reducers/user';
 
 const UserActions = {
   CHECK_AUTH: 'user/CheckAuth',
@@ -20,7 +20,7 @@ export const checkAuth = createAsyncThunk(
     if (!token) return;
     try {
       const data = await AuthService.checkAuth();
-      dispatch(setUserData(data));
+      dispatch(setUser(data));
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +32,7 @@ export const login = createAsyncThunk(
   async (loginUserDto: LoginUserDto, { dispatch }) => {
     try {
       const data = await AuthService.login(loginUserDto);
-      dispatch(setUserData(data));
+      dispatch(setUser(data));
       localStorage.setItem('token', data.token);
     } catch (error) {
       console.log(error);
@@ -45,7 +45,7 @@ export const register = createAsyncThunk(
   async (createUserDto: CreateUserDto, { dispatch }) => {
     try {
       const data = await AuthService.register(createUserDto);
-      dispatch(setUserData(data));
+      dispatch(setUser(data));
       localStorage.setItem('token', data.token);
     } catch (error) {
       console.log(error);
@@ -59,7 +59,7 @@ export const logout = createAsyncThunk(
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    dispatch(removeUserData());
+    dispatch(removeUser());
     localStorage.removeItem('token');
   }
 );
@@ -69,7 +69,7 @@ export const updateUser = createAsyncThunk(
   async (updateUserDto: UpdateUserDto, { dispatch }) => {
     try {
       const user = await AuthService.update(updateUserDto);
-      dispatch(setUserData(user));
+      dispatch(setUser(user));
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +81,7 @@ export const uploadAvatar = createAsyncThunk(
   async (avatar: FormData, { dispatch }) => {
     try {
       const user = await AuthService.uploadAvatar(avatar);
-      dispatch(setUserData(user));
+      dispatch(setUser(user));
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +93,7 @@ export const deleteAvatar = createAsyncThunk(
   async (_, { dispatch }) => {
     try {
       const user = await AuthService.deleteAvatar();
-      dispatch(setUserData(user));
+      dispatch(setUser(user));
     } catch (error) {
       console.log(error);
     }

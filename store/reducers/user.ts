@@ -11,16 +11,16 @@ const user = createSlice({
   initialState,
 
   reducers: {
-    setUserData(state, { payload }: PayloadAction<ResponseUser>) {
+    setUser(state, { payload }: PayloadAction<ResponseUser>) {
       state.user = payload;
       state.isAuth = true;
     },
-    removeUserData(state) {
+    removeUser(state) {
       state.user = null;
       state.isAuth = false;
     },
   },
 });
 
-export const { setUserData, removeUserData } = user.actions;
+export const { setUser, removeUser } = user.actions;
 export default user.reducer;
